@@ -1,5 +1,4 @@
-package neuron_net;
-
+import neuron_net.*;
 /**
  * Created by IntelliJ IDEA.
  * User: Admin
