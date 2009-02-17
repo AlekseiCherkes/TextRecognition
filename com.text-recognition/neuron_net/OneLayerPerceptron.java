@@ -14,9 +14,9 @@ public class OneLayerPerceptron implements Net{
     private ActiveFunc activation_func;
     //private Double threshold;
 
-    // находит взвешенную сумму для каждого нейрона в слое
-    // и применяет к ней пороговую активационную функцию
-    // возвращает результат для всего слоя
+    // РЅР°С…РѕРґРёС‚ РІР·РІРµС€РµРЅРЅСѓСЋ СЃСѓРјРјСѓ РґР»СЏ РєР°Р¶РґРѕРіРѕ РЅРµР№СЂРѕРЅР° РІ СЃР»РѕРµ
+    // Рё РїСЂРёРјРµРЅСЏРµС‚ Рє РЅРµР№ РїРѕСЂРѕРіРѕРІСѓСЋ Р°РєС‚РёРІР°С†РёРѕРЅРЅСѓСЋ С„СѓРЅРєС†РёСЋ
+    // РІРѕР·РІСЂР°С‰Р°РµС‚ СЂРµР·СѓР»СЊС‚Р°С‚ РґР»СЏ РІСЃРµРіРѕ СЃР»РѕСЏ
     private Matrix activateLayer(Matrix x, Matrix w){
         Matrix out = x.times(w);
         out = activation_func.activate( out );
