@@ -10,10 +10,18 @@ package neuron_net;
 
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.lang.Exception;
 
-public interface Net extends Serializable {
-    void train( String learning_sample );
-	void save( String storage );
-	void load( String storage );
-	Matrix recognize( Matrix x );
+abstract public class Net implements Serializable {
+    protected String type;
+    abstract Net copy();
+    abstract void print( int precision );
+    abstract void randomInit( double max_val );
+    abstract void train( String learning_sample, double precise ) throws Exception;
+    /** Get net's type.
+        @return      String that consist net's type.
+     */
+    public  String getType(){
+        return type;
+    }
 }

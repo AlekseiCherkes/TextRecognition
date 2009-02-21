@@ -18,15 +18,19 @@ public class ThresholdFunc implements ActiveFunc{
     public void setThreshold( double threshold ){
         this.threshold = threshold;
     }
-    public Matrix activate(Matrix input){
-        Matrix output = input.copy();
-        for( int i = 0; i < output.getRowDimension(); i++ )
-            for( int j = 0; j < output.getColumnDimension(); j++ ){
-                if (output.get( i, j ) >= threshold )
-                    output.set( i, j, 1. );
-                else
-                    output.set( i, j, 0. );
-            }
-        return output;
+    public double activate( double input ){
+        if ( input >= threshold )
+            return 1.;
+        else
+            return 0.;
+//        Matrix output = input.copy();
+//        for( int i = 0; i < output.getRowDimension(); i++ )
+//            for( int j = 0; j < output.getColumnDimension(); j++ ){
+//                if (output.get( i, j ) >= threshold )
+//                    output.set( i, j, 1. );
+//                else
+//                    output.set( i, j, 0. );
+//            }
+//        return output;
     }
 }

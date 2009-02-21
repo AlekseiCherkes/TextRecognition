@@ -8,5 +8,5 @@ package neuron_net;
  * To change this template use File | Settings | File Templates.
  */
 public interface ActiveFunc {
-    public Matrix activate(Matrix input);
+    public double activate( double input );
 }
