@@ -17,7 +17,11 @@ abstract public class Net implements Serializable {
     abstract Net copy();
     abstract void print( int precision );
     abstract void randomInit( double max_val );
+    abstract int getInputSize();
+    abstract int getOutputSize();
+    abstract int getLayersCount();
     abstract void train( String learning_sample, double precise ) throws Exception;
+
     /** Get net's type.
         @return      String that consist net's type.
      */

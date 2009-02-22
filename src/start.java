@@ -1,7 +1,9 @@
 import neuron_net.*;
 
 import java.util.ArrayList;
-import java.io.File;
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.io.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,30 +22,18 @@ public class start {
             // out 26
             ArrayList<Layer> list = new ArrayList<Layer>();
             Sigmoid s = new Sigmoid();
-            Matrix w = new Matrix( 144, 85, 0. );
+            Matrix w = new Matrix( 3, 3, 0. );
             Layer layer = new Layer( w, s);
             list.add( layer.copy() );
-            w = new Matrix( 85, 26, 1. );
+            w = new Matrix( 4, 4, 1. );
             layer = new Layer( w, s);
             list.add( layer.copy() );
-            TwoLayerPerceptron net = new TwoLayerPerceptron( list );
+            TwoLayerPerceptron net = new TwoLayerPerceptron( list, 0.5 );
             net.randomInit( 1. );
             Recognizer rec = new Recognizer( net, 12, 12 );
 
             //rec.printNet( 4 );
 
-            String path =  "D:\\Study(8 sem)\\ИТиРОД\\text-recognition\\trunk\\src";
-            String list2[] = new File( path ).list();
-            for( int i = 0; i < list2.length; i++ ){
-                System.out.println(list2[i]);
-                File f = new File( path + "\\" + list2[i] );
-                String list3[] = f.list();
-                if (list3 == null)
-                    continue;
-                for(int j = 0; j < list3.length; j++){
-                    System.out.printf("\t%s\n", list3[j]);
-                }
-            }
 
 
     }

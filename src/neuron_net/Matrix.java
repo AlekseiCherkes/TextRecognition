@@ -239,6 +239,21 @@ public class Matrix implements Cloneable, java.io.Serializable {
       return f;
    }
 
+    /**Max norm.
+     * @return      Absolute value of max element.
+     */
+    public double maxNomr () {
+        double max = Math.abs( A[0][0] );
+        for ( int i = 0; i < m; i++ ){
+            for ( int j = 0; j < n; j++ ){
+                if ( Math.abs( A[i][j] ) > Math.abs(max) ){
+                    max = Math.abs( A[i][j] );    
+                }
+            }
+        }
+        return max;
+    }
+
    /** Infinity norm
    @return    maximum row sum.
    */
@@ -408,7 +423,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
    @exception  IllegalArgumentException Matrix inner dimensions must agree.
    */
 
-   public Matrix times (Matrix B) {
+   public Matrix times (Matrix B)
+            throws IllegalArgumentException{
       if (B.m != n) {
          throw new IllegalArgumentException("Matrix inner dimensions must agree.");
       }

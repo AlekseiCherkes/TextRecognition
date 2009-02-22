@@ -22,7 +22,7 @@ public class Layer {
     @param w        Data for initialization weight matrix.
     @param f        Activation function.
     */
-    public Layer( Matrix w, ActiveFunc f){         
+    public Layer( Matrix w, ActiveFunc f){
         this.w = w.copy();
         activation_func = f;
     }
@@ -34,6 +34,7 @@ public class Layer {
     */
     public Layer( int height, int width, ActiveFunc f ){
         this.w = new Matrix( height, width, 0.);
+        // TODO How realize copy() or clone() for class consists only methods?
         activation_func = f;
     }
 
@@ -41,20 +42,29 @@ public class Layer {
      * @return      The number of neurons in layer.
      * */
     public int size(){
-            return w.getColumnDimension();
+        return w.getColumnDimension();
+    }
+
+    /**
+     * @return      The function of activation.
+     */
+    public ActiveFunc getActiveFunc(){
+        return activation_func;
     }
 
     /**Get input signals, calculate input signal for each neuron and output theirs reactions.
-       @param input     Input signals.
-       @return          Output signals.
+       @param x          Input signals.
+       @return           Output signals.
      */
-    public Matrix activateLayer( Matrix input ){
-        Matrix out = input.transpose().times(w);
-        for ( int i = 0; i < out.getColumnDimension(); i++ ){
-            double reaction =  activation_func.activate( out.get( 0, i ) );
-            out.set( 0, i, reaction );
+    public Matrix activateLayer( Matrix x )
+            throws IllegalArgumentException{
+        Matrix input = x.transpose().times(w);
+        input.transpose();
+        for ( int i = 0; i < input.getRowDimension(); i++ ){
+            double reaction =  activation_func.activate( input.get( i, 0 ) );
+            input.set( i, 0, reaction );
         }
-        return out;
+        return input;
     }
 
     /** Make independent copy of itself.
@@ -82,5 +92,30 @@ public class Layer {
                 w.set( i, j, val );
             }
         }
+    }
+
+    /**W = W + dw
+     * @param dw    Adding matrix.
+     */
+    public void addW( Matrix dw ){
+        w = w.plus( dw );
+    }
+
+   /** Get a single weight.
+   @param i    Row index.
+   @param j    Column index.
+   @return     w(i,j)
+   */
+    public double getW( int i, int j ){
+        return w.get( i, j );
+    }
+
+   /** Set a single weight.
+   @param i    Row index.
+   @param j    Column index.
+   @param val  Setting value. 
+   */
+    public void setW( int i, int j, double val ){
+        w.set( i, j, val );
     }
 }

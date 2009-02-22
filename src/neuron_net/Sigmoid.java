@@ -10,12 +10,9 @@ import java.lang.Math;
 public class Sigmoid implements ActiveFunc{
     public double activate(double  input){
         return 1. / ( 1. + Math.pow( Math.E, -input ) );
-//        Matrix output = input.copy();
-//        for( int i = 0; i < output.getRowDimension(); i++ )
-//            for( int j = 0; j < output.getColumnDimension(); j++ ){
-//                double f = 1. / ( 1. + Math.pow( Math.E, -output.get( i, j )));
-//                output.set( i, j, f);
-//            }
-//        return output;
+    }
+
+    public double getDerivative( double point ){
+        return point / ( 1 - point );
     }
 }

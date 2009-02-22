@@ -7,7 +7,9 @@ package neuron_net;
  * Time: 8:59:10
  * To change this template use File | Settings | File Templates.
  */
-public class ThresholdFunc implements ActiveFunc{
+
+// TODO Think how find derivative.
+public class ThresholdFunc /*implements ActiveFunc*/{
     private double threshold;
     public ThresholdFunc( double threshold ){
         setThreshold( threshold );
@@ -23,14 +25,5 @@ public class ThresholdFunc implements ActiveFunc{
             return 1.;
         else
             return 0.;
-//        Matrix output = input.copy();
-//        for( int i = 0; i < output.getRowDimension(); i++ )
-//            for( int j = 0; j < output.getColumnDimension(); j++ ){
-//                if (output.get( i, j ) >= threshold )
-//                    output.set( i, j, 1. );
-//                else
-//                    output.set( i, j, 0. );
-//            }
-//        return output;
     }
 }
