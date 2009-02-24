@@ -3,7 +3,7 @@ package jblas.vectors;
 /**
  * @author M-NPO
  */
-public class RowView implements IVector
+public abstract class RowView implements IVector
 {
   public int getLength()
   {

@@ -1,9 +1,6 @@
-import neuron_net.*;
+import neuro.*;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.LinkedList;
-import java.io.*;
 
 /**
  * Created by IntelliJ IDEA.
