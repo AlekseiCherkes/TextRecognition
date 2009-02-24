@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Time: 16:46:15
  * To change this template use File | Settings | File Templates.
  */
-public class start {
+public class TestProject {
         public static void main(String[] args){
 
             // two layer perceptron:
@@ -21,23 +21,27 @@ public class start {
             Sigmoid s = new Sigmoid();
             //Matrix w = new Matrix( 144, 85, 0. );
 
-            Matrix w = new Matrix( 4, 3, 0. );
+            Matrix w = new Matrix( 9, 6, 0. );
 
             Layer layer = new Layer( w, s);
             list.add( layer.copy() );
             //w = new Matrix( 85, 26, 0. );
-            w = new Matrix( 3, 2, 0. );
+            w = new Matrix( 6, 2, 0. );
             layer = new Layer( w, s);
             list.add( layer.copy() );
-            TwoLayerPerceptron net = new TwoLayerPerceptron( list, 0.5 );
+            TwoLayerPerceptron net = new TwoLayerPerceptron( list, 0.7 );
             net.randomInit( 1. );
             
             //Recognizer rec = new Recognizer( net, 12, 12 );
-            Recognizer rec = new Recognizer( net, 2, 2 );
+            Recognizer rec0 = new Recognizer( net, 3, 3 );
+
 
             try{
-                rec.train("D:\\Study(8 sem)\\ИТиРОД\\text-recognition\\trunk\\tests",
-                    "D:\\Study(8 sem)\\ИТиРОД\\text-recognition\\trunk\\tests\\log.txt", 0.01 );
+                //rec0.save( "data\\3x3_net" );
+                Recognizer rec = new Recognizer( null, 3, 3 );
+                rec.load( "data\\3x3_net" );
+                rec.train( "tests", "tests\\log.txt", 0.01 );
+                rec.save( "data\\trained_3x3_net" );
             }
             catch( Exception e ){
                 System.out.println( e.getMessage() );

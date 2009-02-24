@@ -90,7 +90,7 @@ public class Recognizer {
             net = ( Net )input_stream.readObject();
         }
         catch( Exception e){
-            throw new Exception( "Error --Recognizer.save()-- " + e.getMessage() );
+            throw new Exception( "Error --Recognizer.load()-- " + e.getMessage() );
         }
         finally{
             if ( input_stream != null ){

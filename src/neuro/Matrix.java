@@ -537,7 +537,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    */
 
    public void print (PrintWriter output, NumberFormat format, int width) {
-      output.println();  // start on new line.
+      output.println();  // TestProject on new line.
       for (int i = 0; i < m; i++) {
          for (int j = 0; j < n; j++) {
             String s = format.format(A[i][j]); // format the number

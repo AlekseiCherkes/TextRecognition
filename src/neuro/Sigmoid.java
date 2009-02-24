@@ -13,6 +13,6 @@ public class Sigmoid implements ActiveFunc{
     }
 
     public double getDerivative( double point ){
-        return point / ( 1 - point );
+        return point * ( 1. - point );
     }
 }

@@ -30,24 +30,42 @@ public class TwoLayerPerceptron extends Net{
      * @return              True if network recognize test image correctly and false otherwise.
      */
     private boolean teachTransaction( String test_path, PrintWriter log, int reaction, double precision )
-            throws IOException {
+            throws Exception {
         // Read input from file.
-        Scanner test = new Scanner( new File(test_path) );
-        Matrix input_x = new Matrix( input_size, 1 );
-        for ( int i = 0; i < input_size; i++ ){
-            double d =  test.nextDouble();
-            input_x.set( i, 0, d );
+        Matrix input_x = null;
+        Scanner test = null;
+        try{
+            test = new Scanner( new File(test_path) );
+            input_x = new Matrix( input_size, 1 );
+            for ( int i = 0; i < input_size; i++ ){
+                double d =  test.nextDouble();
+                input_x.set( i, 0, d );
+            }
         }
+        catch( Exception e){
+            throw e;
+        }
+        finally{
+            if(  test != null ){
+                try{
+                    test.close();
+                }
+                catch( Exception e ){
+                    throw e;
+                }
+            }
+        }
+
         // Run test through the net.
         ArrayList< Matrix > recognition_trace =  traceRecognize( input_x );
         Matrix y = recognition_trace.get( recognition_trace.size() - 1 );
         Matrix target = new Matrix( output_size, 1);
         target.set( reaction, 0, 1. );
         Matrix E = target.minus( y );
-        for ( int i = 0; i < layers.size(); i++ ){
-            log.printf("w_%d =\n", i);
-            layers.get( i ).print( log, 4 );
-        }
+//        for ( int i = 0; i < layers.size(); i++ ){
+//            log.printf("w_%d =\n", i);
+//            layers.get( i ).print( log, 4 );
+//        }
         log.print("Output:\n");
         y.transpose().print( log, 2, 4 );
         log.print("Target:\n");
@@ -61,7 +79,7 @@ public class TwoLayerPerceptron extends Net{
         }
         // Correct weights.
         else{
-            log.print("Correct...\n");
+            log.print("Correct...\n\n");
             // Corrections weigths for all layers.
             LinkedList< Matrix > layers_dw = new LinkedList< Matrix >();
             // Calculate corrections weights of output layer.
@@ -73,6 +91,7 @@ public class TwoLayerPerceptron extends Net{
             Matrix delta = dF.arrayTimes( E );
             Matrix F = recognition_trace.get( recognition_trace.size() - 2 );
             Matrix dw = F.times( delta.transpose() );
+
             dw = dw.times( teaching_speed );
             layers_dw.addFirst( dw );
 
@@ -196,7 +215,8 @@ public class TwoLayerPerceptron extends Net{
                 if ( file.charAt( 0 ) != '.' && test.isFile() ){
                     tests_count++;
                     // Check file's size.
-//                    if ( test.length() != getInputSize() * 8 ){
+//                    long len = test.length();
+//                    if ( test.length() != getInputSize() * 2 + 1 ){
 //                        throw new Exception("Error --TwoLayerPerceptron.train()-- Invalid size of training file.");
 //                    }
                 }
@@ -229,6 +249,11 @@ public class TwoLayerPerceptron extends Net{
                         }
                         if ( file.charAt( 0 ) != '.' && test.isFile() ){
                             log.printf( "test \"%s\":\n", file );
+
+                             if ( iteration == 5){
+                                iteration = iteration;        
+                            }
+
                             if ( teachTransaction( file_name, log, output_types.get( classes.get( i ) ) , precision ) ){
                                 positive_result++;
                             }
