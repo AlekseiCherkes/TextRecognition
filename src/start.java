@@ -22,19 +22,28 @@ public class start {
             // out 26
             ArrayList<Layer> list = new ArrayList<Layer>();
             Sigmoid s = new Sigmoid();
-            Matrix w = new Matrix( 3, 3, 0. );
+            //Matrix w = new Matrix( 144, 85, 0. );
+
+            Matrix w = new Matrix( 4, 3, 0. );
+
             Layer layer = new Layer( w, s);
             list.add( layer.copy() );
-            w = new Matrix( 4, 4, 1. );
+            //w = new Matrix( 85, 26, 0. );
+            w = new Matrix( 3, 2, 0. );
             layer = new Layer( w, s);
             list.add( layer.copy() );
             TwoLayerPerceptron net = new TwoLayerPerceptron( list, 0.5 );
             net.randomInit( 1. );
-            Recognizer rec = new Recognizer( net, 12, 12 );
+            
+            //Recognizer rec = new Recognizer( net, 12, 12 );
+            Recognizer rec = new Recognizer( net, 2, 2 );
 
-            //rec.printNet( 4 );
-
-
-
+            try{
+                rec.train("D:\\Study(8 sem)\\ИТиРОД\\text-recognition\\trunk\\tests",
+                    "D:\\Study(8 sem)\\ИТиРОД\\text-recognition\\trunk\\tests\\log.txt", 0.01 );
+            }
+            catch( Exception e ){
+                System.out.println( e.getMessage() );
+            }
     }
 }

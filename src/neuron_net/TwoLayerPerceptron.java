@@ -1,10 +1,7 @@
 package neuron_net;
 
 import java.util.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,30 +24,44 @@ public class TwoLayerPerceptron extends Net{
      * but you need use this function several times for steady result.
      * @param test_path     Absolute path to file with test image.
      * @param reaction      Number of output that is assosiated with test image.
+     * @param log           Log stream for teaching history.
      * @param precision     Size of max accepable difference between input and output
      *                          when output is considered right.
      * @return              True if network recognize test image correctly and false otherwise.
      */
-    private boolean teachTransaction( String test_path, int reaction, double precision )
+    private boolean teachTransaction( String test_path, PrintWriter log, int reaction, double precision )
             throws IOException {
         // Read input from file.
         Scanner test = new Scanner( new File(test_path) );
         Matrix input_x = new Matrix( input_size, 1 );
         for ( int i = 0; i < input_size; i++ ){
-            input_x.set( 1, i, test.nextDouble() );
+            double d =  test.nextDouble();
+            input_x.set( i, 0, d );
         }
         // Run test through the net.
-        ArrayList< Matrix > recognition_trace =  traceRecognize( input_x.transpose() );
+        ArrayList< Matrix > recognition_trace =  traceRecognize( input_x );
         Matrix y = recognition_trace.get( recognition_trace.size() - 1 );
-        Matrix E = new Matrix( output_size, 1);
-        E.set( reaction, 0, 1. );
-        E = E.minus( y );
+        Matrix target = new Matrix( output_size, 1);
+        target.set( reaction, 0, 1. );
+        Matrix E = target.minus( y );
+        for ( int i = 0; i < layers.size(); i++ ){
+            log.printf("w_%d =\n", i);
+            layers.get( i ).print( log, 4 );
+        }
+        log.print("Output:\n");
+        y.transpose().print( log, 2, 4 );
+        log.print("Target:\n");
+        target.transpose().print( log, 2, 4 );
+        log.print("E:\n");
+        E.transpose().print( log, 2, 4 );
+
         if ( E.maxNomr() <= precision ){
+            log.print("OK\n");
             return true;
         }
         // Correct weights.
         else{
-
+            log.print("Correct...\n");
             // Corrections weigths for all layers.
             LinkedList< Matrix > layers_dw = new LinkedList< Matrix >();
             // Calculate corrections weights of output layer.
@@ -60,28 +71,30 @@ public class TwoLayerPerceptron extends Net{
                 dF.set( i, 0, out_layer.getActiveFunc().getDerivative( y.get( i, 0 ) ) );
             }
             Matrix delta = dF.arrayTimes( E );
-            Matrix dw = delta.arrayTimes( y );
+            Matrix F = recognition_trace.get( recognition_trace.size() - 2 );
+            Matrix dw = F.times( delta.transpose() );
             dw = dw.times( teaching_speed );
             layers_dw.addFirst( dw );
 
             // Calculate corrections weights of inner layers.
-            for ( int i = 1; i < recognition_trace.size() ; i++ ){
+            for ( int i = 1; i < layers.size() ; i++ ){
                 Layer senior_layer = layers.get( getLayersCount() - i );
                 Layer junior_layer = layers.get( getLayersCount() - i - 1 );
-                Matrix x = recognition_trace.get( recognition_trace.size() - i - 1 );
-                Matrix F = junior_layer.activateLayer( x );
+                F = recognition_trace.get( recognition_trace.size() - i - 1 );
                 dF = new Matrix( junior_layer.size(), 1 );
                 for ( int j = 0; j < junior_layer.size(); j++ ){
                     dF.set( j, 0, junior_layer.getActiveFunc().getDerivative( F.get( j, 0 ) ) );
                 }
+                Matrix inner_delta = new Matrix( junior_layer.size(), 1 );
                 for ( int j = 0; j < junior_layer.size(); j++ ){
                     double sum = 0.;
                     for ( int k = 0; k < layers.get( getLayersCount() - i ).size(); k++ ){
                         sum += delta.get( k, 0 ) * senior_layer.getW( j, k );
                     }
-                    delta.set( j, 0, sum * dF.get( j, 0 ));
+                    inner_delta.set( j, 0, sum * dF.get( j, 0 ));
                 }
-                dw = delta.arrayTimes( F );
+                F = recognition_trace.get( recognition_trace.size() - i - 2 );
+                dw = F.times( inner_delta.transpose() );
                 dw = dw.times( teaching_speed );
                 layers_dw.addFirst( dw );
             }
@@ -101,7 +114,7 @@ public class TwoLayerPerceptron extends Net{
             this.layers.add( layers.get( i ).copy() );
         }
         type = "TwoLayerPerceptron";
-        input_size = layers.get( 0 ).size();
+        input_size = layers.get( 0 ).prevSize();
         output_size = layers.get( layers.size() - 1 ).size();
         output_types = new TreeMap< String, Integer >();
         this.teaching_speed = teaching_speed;
@@ -134,76 +147,140 @@ public class TwoLayerPerceptron extends Net{
      *      On this path must be subdirectory for each class of recognition objects.
      *      This subdirectory contain all objects belong certain class.
      *      The name of subdirectory identify the name of class.
+     * @param log_file            Log file for teaching history.
      * @param precision           Size of max accepable difference between input and output
      *      when output is considered right.
      */
-    public void train( String learning_path, double precision )
-            throws Exception{
-        // get names of all classes
-        String[] classes = new File( learning_path ).list();
+    public void train( String learning_path, String log_file, double precision )
+            throws Exception{       
+        // Get names of all classes..
+        // Ignore directories begin with '.'.
+        String[] all_dir = new File( learning_path ).list();
+        if ( all_dir == null ){
+             throw new Exception( "Error --TwoLayerPerceptron.train()-- Wrong learning directory or I/O error occurs." );
+        }
+        ArrayList< String > classes = new ArrayList< String >();
+        for ( String dir: all_dir ){
+            String class_name = learning_path + "\\" + dir;
+            File class_file = new File( class_name );
+            if ( dir.charAt( 0 ) != '.' && class_file.isDirectory() ){
+                classes.add( dir );
+            }
+        }
+        if ( classes.size() > getOutputSize() ){
+            throw new Exception("Error --TwoLayerPerceptron.train()-- Learning directory consist " +
+                    Integer.toString( classes.size() ) + " classes, but net can recognize only " +
+                    Integer.toString( getOutputSize() ) + ". Reduce number of classes or rebild net." );
+        }
 
         // Check correctness of learning test structure.
         // Associate classes with outputs that correspond them.
-        // Count number of all tests.
-        int tests_count = 0;
-        if ( classes == null){
-            throw new Exception( "Wrong learning directory." );
+        if ( classes.size() == 0 ){
+            throw new Exception( "Error --TwoLayerPerceptron.train()-- Learning directory doesn't contain classes subdirectories." );
         }
-        for ( int i = 0; i < classes.length; i++ ){
+        int tests_count = 0;
+        for ( int i = 0; i < classes.size(); i++ ){
             // Associate.
-            output_types.put( classes[i], i );
-            String class_name = learning_path + "\\" + classes[i];
+            output_types.put( classes.get( i ), i );
+            String full_class_name = learning_path + "\\" + classes.get( i );
             // get all tests for each class
-            String[] tests = new File( class_name ).list();
-            tests_count += tests.length;
-            if ( tests == null ){
-                throw new Exception("Learning directory consist strange files.");
+            String[] all_files = new File( full_class_name ).list();
+            if ( all_files == null ){
+                //throw new Exception("I/O error occurs.");
+                continue;
             }
-            if ( tests.length > getOutputSize() ){
-                throw new Exception("Learning directory consist " +
-                        Integer.toString( tests.length ) + " classes, but network can recognize only " +
-                        Integer.toString( getOutputSize() ) + ". Reduce number of classes." );
-            }
-            for ( int j = 0; j < classes.length; j++ ){
-                // Size of double is 8 bytes.
-                if ( new File( tests[j] ).length() != getInputSize() * 8 ){
-                    throw new Exception("Invalid size of training file.");
+            ArrayList< String > tests = new ArrayList< String >();
+            for ( String file: all_files ){
+                String file_name = learning_path + "\\" + classes.get( i ) + "\\" + file;
+                File test = new File( file_name );
+                if ( file.charAt( 0 ) != '.' && test.isFile() ){
+                    tests_count++;
+                    // Check file's size.
+//                    if ( test.length() != getInputSize() * 8 ){
+//                        throw new Exception("Error --TwoLayerPerceptron.train()-- Invalid size of training file.");
+//                    }
                 }
             }
         }
 
-        // Use tests for teaching one by one in cycle until net recognize all of it.
-        while( true ){
-            // Count tests from all training set that were correctly recognized by net.
-            int positive_result = 0;
-            for ( int i = 0; i < classes.length; i++ ){
-                // get all tests for each class;
-                String class_name = learning_path + "\\" + classes[i];
-                String[] tests = new File( class_name ).list();
-                for ( int j = 0; j < tests.length; j++ ){
-                    String test_name = class_name + "\\" + tests[i];
-                    if ( teachTransaction( test_name, output_types.get( tests[i] ) , precision ) ){
-                        positive_result++;
+        PrintWriter log = null;
+        try{
+            // Open log file.
+            log = new PrintWriter( log_file );
+            int iteration = 1;
+            // Use tests for teaching one by one in cycle until net recognize all of it.
+            while( true ){
+                log.printf( "===iteration №%d:===\n", iteration );
+                // Count tests from all training set that were correctly recognized by net.
+                int positive_result = 0;
+                for ( int i = 0; i < classes.size(); i++ ){
+                    // get all tests for each class;
+                    String full_class_name = learning_path + "\\" + classes.get( i );
+                    String[] all_files = new File( full_class_name ).list();
+                    if ( all_files == null ){
+                        //throw new Exception("I/O error occurs.");
+                        continue;
+                    }
+                    for ( String file: all_files ){
+                        String file_name = learning_path + "\\" + classes.get( i ) + "\\" + file;
+                        File test = new File( file_name );
+                        if ( test == null ){
+                            throw new Exception("Error --TwoLayerPerceptron.train()-- I/O error occurs.");
+                        }
+                        if ( file.charAt( 0 ) != '.' && test.isFile() ){
+                            log.printf( "test \"%s\":\n", file );
+                            if ( teachTransaction( file_name, log, output_types.get( classes.get( i ) ) , precision ) ){
+                                positive_result++;
+                            }
+                        }
                     }
                 }
+                // Teaching is finished when all tests are correct.
+                if ( positive_result == tests_count ){
+                    break;
+                }
+                else{
+                    iteration++;
+                }
             }
-            // Teaching is finished when all tests are correct.
-            if ( positive_result == tests_count ){
-                break;
-            }
+        }
+        catch( FileNotFoundException e){
+            throw e;
+        }
+        finally{
+             if ( log != null ){
+                    try{
+                        log.close();
+                    }
+                    catch( Exception e ){
+                        e.getMessage();
+                    }
+                }
         }
     }
 
+    /**Recognize input image.
+     * @param x     Input image.
+     * @return      Output result.
+     */
     public Matrix recognize( Matrix x ){
-        return null;
+        for ( int i = 0; i < layers.size(); i++ ){
+            x = layers.get( i ).activateLayer( x );
+        }
+        return x;
     }
 
     /**Recognize input image. Get trace with each layer reconition.
      * @param x     Input image.
-     * @return      Trace with each layer reconition.
+     * @return      Trace with output of each layer. Begin with input and end with output.
      */
     public ArrayList< Matrix > traceRecognize( Matrix x ){
         ArrayList< Matrix > trace = new ArrayList< Matrix >();
+        trace.add( x );
+        for ( int i = 0; i < layers.size(); i++ ){
+            x = layers.get( i ).activateLayer( x );
+            trace.add( x );
+        }
         return trace;
     }
 

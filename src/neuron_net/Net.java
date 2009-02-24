@@ -10,6 +10,9 @@ package neuron_net;
 
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.lang.Exception;
 
 abstract public class Net implements Serializable {
@@ -20,7 +23,7 @@ abstract public class Net implements Serializable {
     abstract int getInputSize();
     abstract int getOutputSize();
     abstract int getLayersCount();
-    abstract void train( String learning_sample, double precise ) throws Exception;
+    abstract void train( String learning_sample, String log_file, double precise ) throws Exception;
 
     /** Get net's type.
         @return      String that consist net's type.

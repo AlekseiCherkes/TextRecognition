@@ -1,5 +1,7 @@
 package neuron_net;
 
+import java.io.Serializable;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Admin
@@ -7,7 +9,7 @@ package neuron_net;
  * Time: 8:56:23
  * To change this template use File | Settings | File Templates.
  */
-public interface ActiveFunc extends Cloneable {
+public interface ActiveFunc extends Cloneable, Serializable {
     public double activate( double input );
 
     /**Get value of derivative of function.

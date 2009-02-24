@@ -1,6 +1,8 @@
 package neuron_net;
 
 import java.util.Random;
+import java.io.PrintWriter;
+import java.io.Serializable;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,7 +14,7 @@ import java.util.Random;
 // @author Vadim Shpakovsky.
 
 // Describe layer of neurons in neuron  network.
-public class Layer {
+public class Layer implements Serializable {
     // Matrix of sinapse's weights.
     private Matrix w;
     // Activation function for each neuron in layer.
@@ -46,6 +48,13 @@ public class Layer {
     }
 
     /**
+     * @return      The size of previous layer.
+     * */
+    public int prevSize(){
+        return w.getRowDimension();
+    }
+
+    /**
      * @return      The function of activation.
      */
     public ActiveFunc getActiveFunc(){
@@ -59,7 +68,7 @@ public class Layer {
     public Matrix activateLayer( Matrix x )
             throws IllegalArgumentException{
         Matrix input = x.transpose().times(w);
-        input.transpose();
+        input = input.transpose();
         for ( int i = 0; i < input.getRowDimension(); i++ ){
             double reaction =  activation_func.activate( input.get( i, 0 ) );
             input.set( i, 0, reaction );
@@ -79,6 +88,13 @@ public class Layer {
      */
     public void print( int precision ){
         w.print( 2, precision );
+    }
+
+     /** Print the weight matrix to stdout.
+     * @param precision     Number of digits after the decimal.
+     */
+    public void print( PrintWriter out, int precision ){
+        w.print( out, 2, precision );
     }
 
     /** Initialize weight matrix with random numbers.

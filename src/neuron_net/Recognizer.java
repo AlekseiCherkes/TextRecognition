@@ -1,6 +1,6 @@
 package neuron_net;
 
-import java.io.File;
+import java.io.*;
 import java.util.TreeMap;
 
 /**
@@ -25,7 +25,12 @@ public class Recognizer {
     @param height     Height of input image.
     */
     public Recognizer( Net net, int height, int width ){
-        this.net = net.copy();
+        if ( net != null ){
+            this.net = net.copy();
+        }
+        else{
+            net = null;
+        }
         this.width = width;
         this.height = height;
         //output_types = new TreeMap< String, Integer >();
@@ -41,16 +46,63 @@ public class Recognizer {
      *      On this path must be subdirectory for each class of recognition objects.
      *      This subdirectory contain all objects belong certain class.
      *      The name of subdirectory identify the name of class.
-     * @param precision           Size of max accepable difference between input and output
+     * @param log_file            Log file for teaching history. 
+     * @param precision           Size of max accepable difference between input and output.
      *      when output is considered right.
      */
-    public void train( String learning_path, double precision )
+    public void train( String learning_path, String log_file, double precision )
             throws Exception{
-        net.train( learning_path, precision );           
+        net.train( learning_path, log_file, precision );
     }
 
-    public void save( String storage ){}
-	public void load( String storage ){}
+    /** Save net in file.
+     * @param storage       File for saving.
+     * @throws Exception    
+     */
+    public void save( String storage ) throws Exception{
+        ObjectOutputStream outstream = null;
+        try{
+            outstream = new ObjectOutputStream( new FileOutputStream( storage ) );
+            outstream.writeObject( net );
+        }
+        catch( Exception e){
+            throw new Exception( "Error --Recognizer.save()-- " + e.getMessage() );
+        }
+        finally{
+            if ( outstream != null ){
+                    try{
+                        outstream.close();
+                    }
+                    catch( Exception e ){
+                        e.getMessage();
+                    }
+                }
+        }
+    }
+    /** Load net from file.
+     * @param storage       File for loading.
+     * @throws Exception
+     */
+	public void load( String storage ) throws Exception{
+        ObjectInputStream input_stream = null;
+        try{
+            input_stream = new ObjectInputStream( new FileInputStream( storage ) );
+            net = ( Net )input_stream.readObject();
+        }
+        catch( Exception e){
+            throw new Exception( "Error --Recognizer.save()-- " + e.getMessage() );
+        }
+        finally{
+            if ( input_stream != null ){
+                    try{
+                        input_stream.close();
+                    }
+                    catch( Exception e ){
+                        e.getMessage();
+                    }
+                }
+        }
+    }
 	public Matrix recognize( Matrix x ){
         return null;
     }
