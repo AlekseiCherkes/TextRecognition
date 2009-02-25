@@ -1,13 +1,12 @@
-import processing.Greyscale;
-import processing.FlipHorizontal;
-import processing.FlipVertical;
-import processing.Binarization;
-
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
-import java.awt.*;
+
+import processing.Greyscale;
+import processing.FlipHorizontal;
+import processing.FlipVertical;
+import processing.Binarization;
 
 public class TestProcessing
 {
