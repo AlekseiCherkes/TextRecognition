@@ -13,38 +13,40 @@ import java.io.File;
  */
 public class TestProject {
         public static void main(String[] args){
-
+            int m = 6;
+            int n = 4;
+            int input = m * n;
+            int output = 2;
+            int inner_layer = ( input + output ) / 2;
+            double teaching_speed = 0.7;
 
             // two layer perceptron:
-            // input 12x12
-            // first layer 144x85
-            // second layer 85x26
-            // out 26
+            // input        (m x n)
+            // first layer  (input x inner_layer)
+            // second layer (inner_layer x output)
+            // out          output
             ArrayList<Layer> list = new ArrayList<Layer>();
             Sigmoid s = new Sigmoid();
-            //Matrix w = new Matrix( 144, 85, 0. );
 
-            Matrix w = new Matrix( 24, 13, 0. );
-
+            Matrix w = new Matrix( input, inner_layer );
             Layer layer = new Layer( w, s);
             list.add( layer.copy() );
-            //w = new Matrix( 85, 26, 0. );
-            w = new Matrix( 13, 2, 0. );
+            w = new Matrix( inner_layer, output  );
             layer = new Layer( w, s);
             list.add( layer.copy() );
-            TwoLayerPerceptron net = new TwoLayerPerceptron( list, 0.7 );
+            TwoLayerPerceptron net = new TwoLayerPerceptron( list, teaching_speed );
             net.randomInit( 1. );
 
-            //Recognizer rec = new Recognizer( net, 12, 12 );
-            Recognizer rec0 = new Recognizer( net, 6, 4 );
+            Recognizer rec0 = new Recognizer( net, m, n );
 
             try{
-                TestGenerator test_generator = new TestGenerator( 6, 4 );
+                // Generate test images.
+                TestGenerator test_generator = new TestGenerator( m, n );
                 //test_generator.clearDir( "tests\\training\\not_A" );
-                //test_generator.generate( "tests\\tests_images", "tests\\tests_images", 500 );
+                //test_generator.generate( "tests\\tests_images", 500 );
 
                 //rec0.save( "data\\6x4_net" );
-                Recognizer rec = new Recognizer( null, 6, 4 );
+                Recognizer rec = new Recognizer( null, m, n );
                 rec.load( "data\\trained_6x4_net" );
                 runTests( rec, "tests\\tests_images", "tests\\test_result.txt" );
                 //rec.train( "tests\\training", "tests\\training\\log.txt", 0.1 );
