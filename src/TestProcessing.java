@@ -1,6 +1,7 @@
 import processing.Greyscale;
 import processing.FlipHorizontal;
 import processing.FlipVertical;
+import processing.Binarization;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -27,7 +28,7 @@ public class TestProcessing
         File fin = new File(args[0]);
         File fout = new File(args[1]);
         BufferedImage iin = ImageIO.read(fin);
-        BufferedImage iout = Greyscale.work(iin);
+        BufferedImage iout = Binarization.work(iin);
         ImageIO.write(iout, "jpg", fout);
     }
 }

@@ -14,7 +14,6 @@ public class Greyscale
 
         BufferedImage out = in.getSubimage(0, 0, w, h);
 
-        int sum = 0;
         for(int i = 0; i < w; ++i) {
             for(int j = 0; j < h; ++j) {
                 int rgb = in.getRGB(i, j);
