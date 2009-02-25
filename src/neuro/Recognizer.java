@@ -2,6 +2,7 @@ package neuro;
 
 import java.io.*;
 import java.util.TreeMap;
+import java.util.Scanner;
 
 /**
  * Created by IntelliJ IDEA.
@@ -103,8 +104,47 @@ public class Recognizer {
                 }
         }
     }
-	public Matrix recognize( Matrix x ){
-        return null;
+
+    /**Recognize class for input image.
+     * @param x     Input image.
+     * @return      Class of image. If net coudn't classificate image return 'null'.
+     */
+	public RecognizeType recognize( Matrix x ){
+        return net.recognizeClass( x );
+    }
+
+    /**Recognize class for input image.
+     * @param path      File which consists image.
+     * @return          Class of image. If net coudn't classificate image return 'null'.
+     */
+	public RecognizeType recognize( String path ) throws Exception{
+        // Read input from file.
+        Matrix input_x = null;
+        Scanner scanner = null;
+        try{
+            scanner = new Scanner( new File( path ) );
+            input_x = new Matrix( width * height , 1 );
+            for ( int i = 0; i < width * height; i++ ){
+                double d =  scanner.nextDouble();
+                input_x.set( i, 0, d );
+            }
+        }
+        catch( Exception e){
+           throw new Exception( "Error. --Recognizer.recognize( String )-- Problem with reading image from file." +
+                    e.getMessage() );
+        }
+        finally{
+            if(  scanner != null ){
+                try{
+                    scanner.close();
+                }
+                catch( Exception e ){
+                    throw e;
+                }
+            }
+        }
+
+        return net.recognizeClass( input_x );
     }
 
     /** Initialize all wights of net by random numbers.

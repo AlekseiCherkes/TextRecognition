@@ -283,8 +283,9 @@ public class Matrix implements Cloneable, java.io.Serializable {
             }
    }
 
-    /** Normalize oneself. Sum all elements == 1.
-   */
+    /** Find row of max elem.
+   * @return   Number of row with max elem
+    */
    public int max_row (){
        double max = this.get( 0, 0 );
        int row = 0;

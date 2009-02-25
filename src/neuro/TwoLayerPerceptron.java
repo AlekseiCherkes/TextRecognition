@@ -13,11 +13,10 @@ import java.io.*;
 public class TwoLayerPerceptron extends Net{
     private ArrayList< Layer > layers;
     private double teaching_speed;
-    private int input_size;
-    private int output_size;
     // Contains all classes that this network can recognize.
     // Position's number in this collection indicate number of output for it class in network.
-    private TreeMap< String, Integer > output_types;
+    //private TreeMap< Integer, String > output_types;
+    private ArrayList< String > output_types;
 
     /**Pass test image from network. If result is wrong correct weights.
      * IMPORTANT! This correction bring closer network's reaction to right answer on THIS test image,
@@ -28,6 +27,7 @@ public class TwoLayerPerceptron extends Net{
      * @param precision     Size of max accepable difference between input and output
      *                          when output is considered right.
      * @return              True if network recognize test image correctly and false otherwise.
+     * @throws Exception
      */
     private boolean teachTransaction( String test_path, PrintWriter log, int reaction, double precision )
             throws Exception {
@@ -43,7 +43,8 @@ public class TwoLayerPerceptron extends Net{
             }
         }
         catch( Exception e){
-            throw e;
+            throw new Exception( "Error. --TwoLayerPerceptron.teachTransaction()-- Problem with reading image from file." +
+                    e.getMessage() );
         }
         finally{
             if(  test != null ){
@@ -66,20 +67,26 @@ public class TwoLayerPerceptron extends Net{
 //            log.printf("w_%d =\n", i);
 //            layers.get( i ).print( log, 4 );
 //        }
-        log.print("Output:\n");
-        y.transpose().print( log, 2, 4 );
-        log.print("Target:\n");
-        target.transpose().print( log, 2, 4 );
-        log.print("E:\n");
-        E.transpose().print( log, 2, 4 );
+       if ( log != null ){
+            log.print("Output:\n");
+            y.transpose().print( log, 2, 4 );
+            log.print("Target:\n");
+            target.transpose().print( log, 2, 4 );
+            log.print("E:\n");
+            E.transpose().print( log, 2, 4 );
+       }
 
         if ( E.maxNomr() <= precision ){
-            log.print("OK\n");
+            if ( log != null ){
+                log.print("OK\n\n");
+            }
             return true;
         }
         // Correct weights.
         else{
-            log.print("Correct...\n\n");
+            if ( log != null ){      
+                log.print("Correct...\n\n");
+            }
             // Corrections weigths for all layers.
             LinkedList< Matrix > layers_dw = new LinkedList< Matrix >();
             // Calculate corrections weights of output layer.
@@ -135,23 +142,11 @@ public class TwoLayerPerceptron extends Net{
         type = "TwoLayerPerceptron";
         input_size = layers.get( 0 ).prevSize();
         output_size = layers.get( layers.size() - 1 ).size();
-        output_types = new TreeMap< String, Integer >();
+        //output_types = new TreeMap< Integer, String >();
+        output_types = new ArrayList< String >();
         this.teaching_speed = teaching_speed;
     }
 
-    /**
-     * @return      Number of neurons in input layer.
-     */
-    public int getInputSize(){
-        return input_size;
-    }
-
-    /**
-     * @return      Number of neurons in output layer.
-     */
-    public int getOutputSize(){
-        return output_size;
-    }
 
     /**
      * @return      Count of layers in net.
@@ -171,7 +166,7 @@ public class TwoLayerPerceptron extends Net{
      *      when output is considered right.
      */
     public void train( String learning_path, String log_file, double precision )
-            throws Exception{       
+            throws Exception{
         // Get names of all classes..
         // Ignore directories begin with '.'.
         String[] all_dir = new File( learning_path ).list();
@@ -200,7 +195,22 @@ public class TwoLayerPerceptron extends Net{
         int tests_count = 0;
         for ( int i = 0; i < classes.size(); i++ ){
             // Associate.
-            output_types.put( classes.get( i ), i );
+            //output_types.put( i, classes.get( i ) );
+
+            boolean isInList = false;
+            // TODO DELETE
+            String name = classes.get( i );
+            String type_was = "none";
+            for ( String type: output_types ){
+                if ( type.equals( classes.get( i ) ) ){
+                    isInList = true;
+                    break;
+                }
+            }
+            if ( !isInList ){
+                output_types.add( classes.get( i ) );
+            }
+            
             String full_class_name = learning_path + "\\" + classes.get( i );
             // get all tests for each class
             String[] all_files = new File( full_class_name ).list();
@@ -226,11 +236,17 @@ public class TwoLayerPerceptron extends Net{
         PrintWriter log = null;
         try{
             // Open log file.
-            log = new PrintWriter( log_file );
+            if ( log_file != null ){
+                log = new PrintWriter( log_file );
+            }
             int iteration = 1;
             // Use tests for teaching one by one in cycle until net recognize all of it.
             while( true ){
-                log.printf( "===iteration №%d:===\n", iteration );
+                if ( log_file != null ){
+                    log.printf( "=====================================\n", iteration );
+                    log.printf( "==========iteration №%d:==========\n", iteration );
+                    log.printf( "=====================================\n", iteration );
+                }
                 // Count tests from all training set that were correctly recognized by net.
                 int positive_result = 0;
                 for ( int i = 0; i < classes.size(); i++ ){
@@ -248,13 +264,19 @@ public class TwoLayerPerceptron extends Net{
                             throw new Exception("Error --TwoLayerPerceptron.train()-- I/O error occurs.");
                         }
                         if ( file.charAt( 0 ) != '.' && test.isFile() ){
-                            log.printf( "test \"%s\":\n", file );
+                            if ( log_file != null ){
+                                log.printf( "-------------------------\n", file );
+                                log.printf( "-----test \"%s\"-----\n", file );
+                                log.printf( "-------------------------\n", file );
+                            }
 
                              if ( iteration == 5){
                                 iteration = iteration;        
                             }
-
-                            if ( teachTransaction( file_name, log, output_types.get( classes.get( i ) ) , precision ) ){
+//                            if ( teachTransaction( file_name, log, output_types.get( classes.get( i ) ) , precision ) ){
+//                                positive_result++;
+//                            }
+                            if ( teachTransaction( file_name, log, i , precision ) ){
                                 positive_result++;
                             }
                         }
@@ -307,6 +329,30 @@ public class TwoLayerPerceptron extends Net{
             trace.add( x );
         }
         return trace;
+    }
+
+    /**Recognize class for input image.
+     * @param x     Input image.
+     * @return      Class of image. If net coudn't classificate image return 'null'.
+     */
+    public RecognizeType recognizeClass( Matrix x ){
+        Matrix y = this.recognize( x );
+        // Get number of max output. It identificate image's class.
+        int output_num = 0;
+        double max = y.get( 0, 0 );
+        for ( int i = 0; i < y.getRowDimension(); i++ ){
+            if ( y.get( i, 0 ) > max ){
+                max = y.get( i, 0 );
+                output_num = i;
+            }
+        }
+        if ( output_num >= output_types.size() ){
+            return null;
+        }
+        else{
+            double prob_sum = y.norm1();            
+            return  new RecognizeType( output_types.get( output_num ), max / prob_sum );
+        }
     }
 
     /** Print all layers in network to stdout..
