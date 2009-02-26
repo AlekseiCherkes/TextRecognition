@@ -2,52 +2,8 @@
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/BinaryDecomposer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing/FlipVertical.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/TestGenerator.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tests" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing/TestProcessingBatch.java" />
-      <change type="DELETED" beforePath="C:\Documents and Settings\npohodenko\My Documents\SRC\trunk\build.xml" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/Matrix.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/ImageAnalysis.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/ImageClassification.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing/TestProcessing.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/RecognizeType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/Recognizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/module_imageclassification.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing/FlipHorizontal.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing/Greyscale.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/IBinaryImage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/deploy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/ThresholdFunc.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/test" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/ActiveFunc.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/UnionFind_Structure.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing/Binarization.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/TestProject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/Sigmoid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/Layer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/Net.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/module_imageprocessing.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/project.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/TwoLayerPerceptron.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src/processing" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/module_imageanalysis.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/ImageProcessing.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/progect.iws" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageProcessing/src" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.iws" afterPath="$PROJECT_DIR$/project.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.ipr" afterPath="$PROJECT_DIR$/project.ipr" />
     </list>
     <ignored path="project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,7 +73,7 @@
       <file leaf-file-name="project.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="54" selection-start="1884" selection-end="1884" vertical-scroll-proportion="0.69512194">
+            <state line="44" column="48" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.36341465">
               <folding />
             </state>
           </provider>
@@ -196,10 +152,10 @@
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -374,7 +330,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -422,7 +378,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="54" selection-start="1884" selection-end="1884" vertical-scroll-proportion="0.69512194">
+        <state line="44" column="48" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.36341465">
           <folding />
         </state>
       </provider>
