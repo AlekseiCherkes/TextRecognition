@@ -11,7 +11,7 @@
     <setting name="buildJar" value="true" />
     <setting name="mainClass" value="" />
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../deploy/production/ImageAnalysis" />
     <output-test url="file://$MODULE_DIR$/../../deploy/test/ImageAnalysis" />
     <exclude-output />

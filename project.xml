@@ -2,7 +2,7 @@
 <project name="project" default="all">
   
   
-  <property file="project.properties"/>
+ 
   <!-- Uncomment the following property if no tests compilation is needed -->
   <!-- 
   <property name="skip.tests" value="true"/>
