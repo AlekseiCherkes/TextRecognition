@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jblas" default="compile.module.jblas">
+  <dirname property="module.jblas.basedir" file="${ant.file.module_jblas}"/>
+  
+  
+  <property name="compiler.args.jblas" value="${compiler.args}"/>
+  
+  <property name="jblas.output.dir" value="${module.jblas.basedir}/../../deploy/production/JBlas"/>
+  <property name="jblas.testoutput.dir" value="${module.jblas.basedir}/../../deploy/test/JBlas"/>
+  
+  <path id="jblas.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jblas.module.classpath"/>
+  
+  <path id="jblas.runtime.module.classpath">
+    <pathelement location="${jblas.output.dir}"/>
+    <pathelement location="${jblas.testoutput.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jblas">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jblas">
+    <patternset refid="excluded.from.module.jblas"/>
+  </patternset>
+  
+  <path id="jblas.module.sourcepath">
+    <dirset dir="${module.jblas.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="jblas.module.test.sourcepath">
+    <dirset dir="${module.jblas.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jblas" depends="compile.module.jblas.production,compile.module.jblas.tests" description="Compile module JBlas"/>
+  
+  <target name="compile.module.jblas.production" description="Compile module JBlas; production classes">
+    <mkdir dir="${jblas.output.dir}"/>
+    <javac destdir="${jblas.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.jblas}"/>
+      <bootclasspath refid="jblas.module.bootclasspath"/>
+      <classpath refid="jblas.module.classpath"/>
+      <src refid="jblas.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jblas"/>
+    </javac>
+    
+    <copy todir="${jblas.output.dir}">
+      <fileset dir="${module.jblas.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jblas.tests" depends="compile.module.jblas.production" description="compile module JBlas; test classes" unless="skip.tests">
+    <mkdir dir="${jblas.testoutput.dir}"/>
+    <javac destdir="${jblas.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.jblas}"/>
+      <classpath refid="jblas.module.classpath"/>
+      <classpath location="${jblas.output.dir}"/>
+      <src refid="jblas.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jblas"/>
+    </javac>
+    
+    <copy todir="${jblas.testoutput.dir}">
+      <fileset dir="${module.jblas.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.jblas" description="cleanup module">
+    <delete dir="${jblas.output.dir}"/>
+    <delete dir="${jblas.testoutput.dir}"/>
+  </target>
+</project>
