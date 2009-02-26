@@ -111,7 +111,7 @@ public class BinaryDecomposer {
         int h = img_m.getHeight();
 
         while (y_m < h_m){
-			///....
+
         }
 
     }

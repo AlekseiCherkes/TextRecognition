@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_imageclassification" default="compile.module.imageclassification">
+  <dirname property="module.imageclassification.basedir" file="${ant.file.module_imageclassification}"/>
+  
+  
+  <property name="compiler.args.imageclassification" value="${compiler.args}"/>
+  
+  <property name="imageclassification.output.dir" value="${module.imageclassification.basedir}/../../deploy/production/ImageClassification"/>
+  <property name="imageclassification.testoutput.dir" value="${module.imageclassification.basedir}/../../deploy/test/ImageClassification"/>
+  
+  <path id="imageclassification.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="imageclassification.module.classpath"/>
+  
+  <path id="imageclassification.runtime.module.classpath">
+    <pathelement location="${imageclassification.output.dir}"/>
+    <pathelement location="${imageclassification.testoutput.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.imageclassification">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.imageclassification">
+    <patternset refid="excluded.from.module.imageclassification"/>
+  </patternset>
+  
+  <path id="imageclassification.module.sourcepath">
+    <dirset dir="${module.imageclassification.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="imageclassification.module.test.sourcepath">
+    <dirset dir="${module.imageclassification.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.imageclassification" depends="compile.module.imageclassification.production,compile.module.imageclassification.tests" description="Compile module ImageClassification"/>
+  
+  <target name="compile.module.imageclassification.production" description="Compile module ImageClassification; production classes">
+    <mkdir dir="${imageclassification.output.dir}"/>
+    <javac destdir="${imageclassification.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.imageclassification}"/>
+      <bootclasspath refid="imageclassification.module.bootclasspath"/>
+      <classpath refid="imageclassification.module.classpath"/>
+      <src refid="imageclassification.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.imageclassification"/>
+    </javac>
+    
+    <copy todir="${imageclassification.output.dir}">
+      <fileset dir="${module.imageclassification.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.imageclassification.tests" depends="compile.module.imageclassification.production" description="compile module ImageClassification; test classes" unless="skip.tests">
+    <mkdir dir="${imageclassification.testoutput.dir}"/>
+    <javac destdir="${imageclassification.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.imageclassification}"/>
+      <classpath refid="imageclassification.module.classpath"/>
+      <classpath location="${imageclassification.output.dir}"/>
+      <src refid="imageclassification.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.imageclassification"/>
+    </javac>
+    
+    <copy todir="${imageclassification.testoutput.dir}">
+      <fileset dir="${module.imageclassification.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.imageclassification" description="cleanup module">
+    <delete dir="${imageclassification.output.dir}"/>
+    <delete dir="${imageclassification.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,3 +1,5 @@
+package processing;
+
 import processing.Binarization;
 
 import javax.imageio.ImageIO;

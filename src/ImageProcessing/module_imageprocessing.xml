@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_imageprocessing" default="compile.module.imageprocessing">
+  <dirname property="module.imageprocessing.basedir" file="${ant.file.module_imageprocessing}"/>
+  
+  
+  <property name="compiler.args.imageprocessing" value="${compiler.args}"/>
+  
+  <property name="imageprocessing.output.dir" value="${module.imageprocessing.basedir}/../../deploy/production/ImageProcessing"/>
+  <property name="imageprocessing.testoutput.dir" value="${module.imageprocessing.basedir}/../../deploy/test/ImageProcessing"/>
+  
+  <path id="imageprocessing.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="imageprocessing.module.classpath"/>
+  
+  <path id="imageprocessing.runtime.module.classpath">
+    <pathelement location="${imageprocessing.output.dir}"/>
+    <pathelement location="${imageprocessing.testoutput.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.imageprocessing">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.imageprocessing">
+    <patternset refid="excluded.from.module.imageprocessing"/>
+  </patternset>
+  
+  <path id="imageprocessing.module.sourcepath">
+    <dirset dir="${module.imageprocessing.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="imageprocessing.module.test.sourcepath">
+    <dirset dir="${module.imageprocessing.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.imageprocessing" depends="compile.module.imageprocessing.production,compile.module.imageprocessing.tests" description="Compile module ImageProcessing"/>
+  
+  <target name="compile.module.imageprocessing.production" description="Compile module ImageProcessing; production classes">
+    <mkdir dir="${imageprocessing.output.dir}"/>
+    <javac destdir="${imageprocessing.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.imageprocessing}"/>
+      <bootclasspath refid="imageprocessing.module.bootclasspath"/>
+      <classpath refid="imageprocessing.module.classpath"/>
+      <src refid="imageprocessing.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.imageprocessing"/>
+    </javac>
+    
+    <copy todir="${imageprocessing.output.dir}">
+      <fileset dir="${module.imageprocessing.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.imageprocessing.tests" depends="compile.module.imageprocessing.production" description="compile module ImageProcessing; test classes" unless="skip.tests">
+    <mkdir dir="${imageprocessing.testoutput.dir}"/>
+    <javac destdir="${imageprocessing.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.imageprocessing}"/>
+      <classpath refid="imageprocessing.module.classpath"/>
+      <classpath location="${imageprocessing.output.dir}"/>
+      <src refid="imageprocessing.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.imageprocessing"/>
+    </javac>
+    
+    <copy todir="${imageprocessing.testoutput.dir}">
+      <fileset dir="${module.imageprocessing.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.imageprocessing" description="cleanup module">
+    <delete dir="${imageprocessing.output.dir}"/>
+    <delete dir="${imageprocessing.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_imageanalysis" default="compile.module.imageanalysis">
+  <dirname property="module.imageanalysis.basedir" file="${ant.file.module_imageanalysis}"/>
+  
+  
+  <property name="compiler.args.imageanalysis" value="${compiler.args}"/>
+  
+  <property name="imageanalysis.output.dir" value="${module.imageanalysis.basedir}/../../deploy/production/ImageAnalysis"/>
+  <property name="imageanalysis.testoutput.dir" value="${module.imageanalysis.basedir}/../../deploy/test/ImageAnalysis"/>
+  
+  <path id="imageanalysis.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="imageanalysis.module.classpath"/>
+  
+  <path id="imageanalysis.runtime.module.classpath">
+    <pathelement location="${imageanalysis.output.dir}"/>
+    <pathelement location="${imageanalysis.testoutput.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.imageanalysis">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.imageanalysis">
+    <patternset refid="excluded.from.module.imageanalysis"/>
+  </patternset>
+  
+  <path id="imageanalysis.module.sourcepath">
+    <dirset dir="${module.imageanalysis.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  <path id="imageanalysis.module.test.sourcepath">
+    <dirset dir="${module.imageanalysis.basedir}">
+      <include name="test"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.imageanalysis" depends="compile.module.imageanalysis.production,compile.module.imageanalysis.tests" description="Compile module ImageAnalysis"/>
+  
+  <target name="compile.module.imageanalysis.production" description="Compile module ImageAnalysis; production classes">
+    <mkdir dir="${imageanalysis.output.dir}"/>
+    <javac destdir="${imageanalysis.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.imageanalysis}"/>
+      <bootclasspath refid="imageanalysis.module.bootclasspath"/>
+      <classpath refid="imageanalysis.module.classpath"/>
+      <src refid="imageanalysis.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.imageanalysis"/>
+    </javac>
+    
+    <copy todir="${imageanalysis.output.dir}">
+      <fileset dir="${module.imageanalysis.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.imageanalysis.tests" depends="compile.module.imageanalysis.production" description="compile module ImageAnalysis; test classes" unless="skip.tests">
+    <mkdir dir="${imageanalysis.testoutput.dir}"/>
+    <javac destdir="${imageanalysis.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.imageanalysis}"/>
+      <classpath refid="imageanalysis.module.classpath"/>
+      <classpath location="${imageanalysis.output.dir}"/>
+      <src refid="imageanalysis.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.imageanalysis"/>
+    </javac>
+    
+    <copy todir="${imageanalysis.testoutput.dir}">
+      <fileset dir="${module.imageanalysis.basedir}/test">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.imageanalysis" description="cleanup module">
+    <delete dir="${imageanalysis.output.dir}"/>
+    <delete dir="${imageanalysis.testoutput.dir}"/>
+  </target>
+</project>
