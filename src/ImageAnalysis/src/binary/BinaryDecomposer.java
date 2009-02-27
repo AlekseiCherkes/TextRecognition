@@ -14,11 +14,6 @@ public class BinaryDecomposer {
     private PacksRegistry registry_m;
 
     private IBinaryImage img_m;
-    private int x_m;
-    private int y_m;
-    private int h_m;
-    private int w_m;
-
 
 
     private class PixelPack {
@@ -105,40 +100,46 @@ public class BinaryDecomposer {
                 tree_m.unite(cnn.key,  pack.key);
             }
         }
+
+        
     }
 
     public void firstPhase(){
         int h = img_m.getHeight();
+        int w = img_m.getWidth();
 
-        while (y_m < h_m){
+        int x;
+        int y;
 
+        y = 0;
+        while (y < h){
+            x = 0;
+
+            while (x < w && !img_m.get(x, y)) ++x;
+
+            if (x < w){
+                PixelPack pack = new PixelPack();
+                pack.x_min = x;
+                pack.y     = y;
+
+                while (x < w && img_m.get(x, y)) ++x;
+
+                pack.x_max = x - 1;
+                registry_m.registerPack(pack);
+            }
+
+            registry_m.switchToNextLine();
         }
+    }
+
+
+    public void secondPhase(){
 
     }
 
 
 
 
-    private void collectBlackPixels_1(){
-        PixelPack pack = new PixelPack();
-        pack.x_min = x_m;
-        pack.y     = y_m;
-
-        while (x_m < w_m && img_m.get(x_m, y_m)){
-            ++x_m;
-        }
-
-        pack.x_max = x_m - 1;
-
-        registry_m.registerPack(pack);
-
-    }
-
-    private void  skipWhitePixels(){
-        while (x_m < w_m && !img_m.get(x_m, y_m)){
-            ++x_m;
-        }
-    }
 
 
     
