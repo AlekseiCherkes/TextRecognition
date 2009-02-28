@@ -2,9 +2,9 @@
 <project relativePaths="true" version="4">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
-    <buildFile url="file://$PROJECT_DIR$/project.xml">
+    <buildFile url="file://$PROJECT_DIR$/ant_handwritten.xml">
       <additionalClassPath />
-      <antReference projectDefault="true" />
+      <antReference bundledAnt="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
       <maximumStackSize value="32" />

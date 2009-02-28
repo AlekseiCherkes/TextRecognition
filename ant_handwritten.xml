@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="deploy" default="jars">
+
+
+
+  <import file="${basedir}/project.xml"/>
+
+  <property name="jar.output.dir" value="${basedir}/deploy/lib"/>
+
+
+
+  <target name="выполнить binary.Main.main()" >
+      <java
+           classname="binary.Main"
+           fork="true"
+           spawn="false"
+           failonerror="false"
+           maxmemory="128m"
+           >
+         <arg value="Hello from forked JVM!"/>
+         <classpath>
+           <pathelement location="${imageanalysis.output.dir}"/>
+         </classpath>
+       </java>
+  </target>
+
+    
+
+  <target name="jars" depends="all" description="build jars">
+
+    <jar destfile="${jar.output.dir}/jblas.jar">
+        <fileset dir="${jblas.output.dir}" excludes="**/Test.class"/>
+    </jar>
+
+    <jar destfile="${jar.output.dir}/image_processing.jar">
+        <fileset dir="${imageprocessing.output.dir}" excludes="**/Test.class"/>
+    </jar>
+
+    <jar destfile="${jar.output.dir}/image_analysis.jar">
+        <fileset dir="${imageanalysis.output.dir}" excludes="**/Test.class"/>
+    </jar>
+
+    <jar destfile="${jar.output.dir}/image_classification.jar">
+        <fileset dir="${imageclassification.output.dir}" excludes="**/Test.class"/>
+    </jar>
+
+  </target>
+</project>
