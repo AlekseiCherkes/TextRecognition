@@ -1,22 +1,23 @@
 package neuro;
 
-import neuro.net.IStaticNet;
+import neuro.net.ITrainingNet;
 import neuro.net.RecognizeType;
 
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/** @author    Vadim Shpakovsky. */
+/**
+ * @author Vadim Shpakovsky.
+ */
 
-// Incapsulate work with net.
-public class Recognizer{
-    private IStaticNet net;
+public class Tutor {
+    private ITrainingNet net;
 
     /**Construct recognizer with net.
-    @param net        Static neuron net.
+    @param net        Training neuron net.
     */
-    public Recognizer( IStaticNet net )
+    public Tutor( ITrainingNet net )
         throws Exception{
         if ( net != null ){
             this.net = net.copy();
@@ -30,11 +31,19 @@ public class Recognizer{
      * @param storage       File for initializing.
      * @throws Exception
      */
-	public void initNet( String storage ) throws Exception{
+    public void initNet( String storage ) throws Exception{
         if ( net == null ){
-            throw new Exception( "Error. --Recognizer.initNet( String )-- net == null." );
+            throw new Exception( "Error. --Tutor.initNet( String )-- net == null." );
         }
         net.init( storage );
+    }
+
+    /** Save net in file.
+     * @param storage       File for saving.
+     * @throws Exception
+     */
+    public void save( String storage ) throws Exception{
+        net.save( storage );
     }
 
     /**Recognize class for input image.
@@ -99,5 +108,27 @@ public class Recognizer{
      */
     public ArrayList< String > getRecognizingTypes(){
         return net.getRecognizingTypes();
+    }
+
+    /**
+     * Learn the net.
+     * @param  learning_path      Absolute path where are all learning tests.
+     *      On this path must be subdirectory for each class of recognition objects.
+     *      This subdirectory contain all objects belong certain class.
+     *      The name of subdirectory identify the name of class.
+     * @param log_file            Log file for teaching history.
+     * @param precision           Size of max accepable difference between input and output.
+     *      when output is considered right.
+     */
+    public void train( String learning_path, String log_file, double precision )
+            throws Exception{
+        net.train( learning_path, log_file, precision );
+    }
+
+    /** Initialize all wights of net by random numbers.
+        @param max_val     Random numbers will be generate in range (0, max_val).
+     */
+    public void resetNet( double max_val ){
+        net.randomInit( max_val );
     }
 }

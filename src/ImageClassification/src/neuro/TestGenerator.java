@@ -5,13 +5,7 @@ import java.util.Calendar;
 import java.io.PrintWriter;
 import java.io.File;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Admin
- * Date: 24.02.2009
- * Time: 17:04:16
- * To change this template use File | Settings | File Templates.
- */
+/** @author    Vadim Shpakovsky. */
 
  /**Is used for generate testing images.
  */
@@ -32,6 +26,7 @@ public class TestGenerator {
     public void generate( String path, int copy_number )
             throws Exception{
          for ( int i = 0; i < copy_number; i++ ){
+             String image_path = path;
              int ones_count = 0;
              Matrix image = new Matrix( height, weight );
              Random rand = new Random();
@@ -48,12 +43,12 @@ public class TestGenerator {
              Calendar cal = Calendar.getInstance();
              String image_name = Long.toString( cal.getTimeInMillis() );
              image_name += "_" + Integer.toString( i );             
-             path = path + "\\" + image_name;
+             image_path = path + "\\" + image_name;
 
              PrintWriter pw = null;
              try{
-                pw = new PrintWriter( new File( path)  );
-                image.print( pw, 2, 0 );
+                pw = new PrintWriter( new File( image_path)  );
+                image.print( pw, 0, 0 );
              }
              catch( Exception e ){
                  throw new Exception( "Error. --TestGenerator.generate()-- Problem with printing in file." +
@@ -78,7 +73,11 @@ public class TestGenerator {
     */
     public void clearDir( String dir ) throws Exception{
         try{
-            String[] del_files = new File( dir ).list();
+            File file = new File( dir );
+            if ( !file.exists() ){
+                return;
+            }                          
+            String[] del_files = file.list();
             for ( String file_name: del_files ){
                 file_name = dir + "\\" + file_name;
                 File deleting_file = new File( file_name );

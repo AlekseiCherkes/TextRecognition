@@ -1,14 +1,9 @@
-package neuro;
+package neuro.layer;
 
 import java.io.Serializable;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Admin
- * Date: 13.02.2009
- * Time: 8:56:23
- * To change this template use File | Settings | File Templates.
- */
+/** @author    Vadim Shpakovsky. */
+
 public interface ActiveFunc extends Cloneable, Serializable {
     public double activate( double input );
 

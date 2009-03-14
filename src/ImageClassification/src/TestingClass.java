@@ -1,4 +1,9 @@
 import neuro.*;
+import neuro.layer.ActiveLayer;
+import neuro.layer.Sigmoid;
+import neuro.net.RecognizeType;
+import neuro.net.StaticTwoLayerPerceptron;
+import neuro.net.TrainingTwoLayerPerceptron;
 
 import java.util.ArrayList;
 import java.io.PrintWriter;
@@ -11,12 +16,12 @@ import java.io.File;
  * Time: 16:46:15
  * To change this template use File | Settings | File Templates.
  */
-public class TestProject {
+public class TestingClass {
         public static void main(String[] args){
-            int m = 6;
-            int n = 4;
+            int m = 32;
+            int n = 32;
             int input = m * n;
-            int output = 2;
+            int output = 26;
             int inner_layer = ( input + output ) / 2;
             double teaching_speed = 0.7;
 
@@ -25,33 +30,34 @@ public class TestProject {
             // first layer  (input x inner_layer)
             // second layer (inner_layer x output)
             // out          output
-            ArrayList<Layer> list = new ArrayList<Layer>();
+            ArrayList<ActiveLayer> list = new ArrayList<ActiveLayer>();
             Sigmoid s = new Sigmoid();
 
             Matrix w = new Matrix( input, inner_layer );
-            Layer layer = new Layer( w, s);
+            ActiveLayer layer = new ActiveLayer( w, s);
             list.add( layer.copy() );
             w = new Matrix( inner_layer, output  );
-            layer = new Layer( w, s);
+            layer = new ActiveLayer( w, s);
             list.add( layer.copy() );
-            TwoLayerPerceptron net = new TwoLayerPerceptron( list, teaching_speed );
-            net.randomInit( 1. );
-
-            Recognizer rec0 = new Recognizer( net, m, n );
 
             try{
-                // Generate test images.
-                TestGenerator test_generator = new TestGenerator( m, n );
-                //test_generator.clearDir( "tests\\training\\not_A" );
-                //test_generator.generate( "tests\\tests_images", 500 );
+                //TestGenerator generator = new TestGenerator( m, n );
+                //generator.clearDir("data\\testing_set");
+                //generator.generate( "data\\testing_set", 100 );
+                TrainingTwoLayerPerceptron training_net = new TrainingTwoLayerPerceptron( list, m, n, teaching_speed );
 
-                //rec0.save( "data\\6x4_net" );
-                Recognizer rec = new Recognizer( null, m, n );
-                rec.load( "data\\trained_6x4_net" );
-                runTests( rec, "tests\\tests_images", "tests\\test_result.txt" );
-                //rec.train( "tests\\training", "tests\\training\\log.txt", 0.1 );
-                //rec.train( "tests\\training", null, 0.1 );
-                //rec.save( "data\\trained_6x4_net" );
+                training_net.randomInit( 1. );
+
+                Tutor teacher = new Tutor( training_net );
+
+//                teacher.train("data\\teaching_set", "data\\log.txt", 0.1 );
+//                teacher.save( "data\\nets\\64x64_english_letters_net");
+//
+//                StaticTwoLayerPerceptron static_net = new StaticTwoLayerPerceptron( list, m, n );
+//                Recognizer recognizer = new Recognizer( static_net );
+//                recognizer.initNet( "data\\nets\\64x64_english_letters_net" );
+//
+//                runTests( recognizer, "tests\\tests_images", "tests\\test_result.txt" );
             }
             catch( Exception e ){
                 System.out.println( e.getMessage() );
@@ -59,7 +65,7 @@ public class TestProject {
     }
 
     /**Recognize test images by net.
-     * @param recognizer    Interface for work with teaching net.
+     * @param recognizer    Interface for work with net.
      * @param tests_path    Place where are found test images.
      * @param output_path   File with testing results.
      */
@@ -67,7 +73,7 @@ public class TestProject {
             throws Exception{
             String[] all_files = new File( tests_path ).list();
             if ( all_files == null ){
-                 throw new Exception( "Error --TestProject.runTests()-- Wrong testing directory or I/O error occurs." );
+                 throw new Exception( "Error --TestingClass.runTests()-- Wrong testing directory or I/O error occurs." );
             }
             ArrayList< String > tests = new ArrayList< String >();
             for ( String file: all_files ){
@@ -90,7 +96,7 @@ public class TestProject {
             }
         }
         catch( Exception e ){
-            throw new Exception( "Error. --TestProject.runTests()--" + e.getMessage() );
+            throw new Exception( "Error. --TestingClass.runTests()--" + e.getMessage() );
         }
         finally{
             if ( log != null ){
@@ -98,7 +104,7 @@ public class TestProject {
                     log.close();
                 }
                 catch( Exception e ){
-                    throw new Exception( "Error. --TestProject.runTests()--" + e.getMessage() );
+                    throw new Exception( "Error. --TestingClass.runTests()--" + e.getMessage() );
                 }
             }
         }

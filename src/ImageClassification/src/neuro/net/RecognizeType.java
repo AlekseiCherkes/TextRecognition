@@ -1,12 +1,6 @@
-package neuro;
+package neuro.net;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Admin
- * Date: 25.02.2009
- * Time: 2:33:14
- * To change this template use File | Settings | File Templates.
- */
+/** @author    Vadim Shpakovsky. */
 
 // Store information about recognize type.
 public class RecognizeType {

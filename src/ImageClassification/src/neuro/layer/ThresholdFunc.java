@@ -1,12 +1,6 @@
-package neuro;
+package neuro.layer;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Admin
- * Date: 13.02.2009
- * Time: 8:59:10
- * To change this template use File | Settings | File Templates.
- */
+/** @author    Vadim Shpakovsky. */
 
 // TODO Think how find derivative.
 public class ThresholdFunc /*implements ActiveFunc*/{
