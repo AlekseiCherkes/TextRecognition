@@ -1,4 +1,4 @@
-#-*- encoding:utf-8 -*-
+﻿#-*- encoding:utf-8 -*-
 import Image
 import ImageDraw
 import ImageFont
@@ -8,10 +8,11 @@ import shutil
 import os
 from random import uniform, choice
 
-font_size = 300
-size = (400, 400)
-N = 10
-chars = "ABC" # chars = string.ascii_uppercase
+dir = "teaching_set"
+font_size = 30
+size = (32, 32)
+N = 1
+chars = "A" # chars = string.ascii_uppercase
 
 angle   = (-15., 15) # (min, max)
 scale_x = (0.9, 1.1) 
@@ -24,10 +25,10 @@ fgcolor = "rgb(0, 0, 0)"
 
 font = ImageFont.truetype("arial.ttf", font_size )
 
-shutil.rmtree("./out", ignore_errors = True);
-os.mkdir('out')
+shutil.rmtree("./dir", ignore_errors = True);
+os.mkdir(dir)
 for c in chars:
-    os.mkdir('out/' + c)
+    os.mkdir(dir + '/' + c)
     for n in range(N):
         im = Image.new("RGBA", size, color = bgcolor)
         draw = ImageDraw.Draw(im)
@@ -49,4 +50,4 @@ for c in chars:
         im_out = Image.new("RGBA", size, color = bgcolor)
         im_out.paste(im, None, im) # обрезаем черные углы от вращения
         im_out = im_out.filter(choice(filters))
-        im_out.save("out/" + c + "/" + str(n) + ".png")
+        im_out.save(dir + '/' + c + "/" + str(n) + ".png")

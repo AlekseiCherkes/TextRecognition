@@ -4,20 +4,20 @@ import neuro.layer.Sigmoid;
 import neuro.net.RecognizeType;
 import neuro.net.StaticTwoLayerPerceptron;
 import neuro.net.TrainingTwoLayerPerceptron;
+import processing.*;
+
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.io.PrintWriter;
 import java.io.File;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Admin
- * Date: 11.02.2009
- * Time: 16:46:15
- * To change this template use File | Settings | File Templates.
- */
+/** @author    Vadim Shpakovsky. */
+
 public class TestingClass {
         public static void main(String[] args){
+
+            String teaching_path = "data\\teaching_set";
             int m = 32;
             int n = 32;
             int input = m * n;
@@ -25,26 +25,32 @@ public class TestingClass {
             int inner_layer = ( input + output ) / 2;
             double teaching_speed = 0.7;
 
-            // two layer perceptron:
+            // Create two layer perceptron:
             // input        (m x n)
             // first layer  (input x inner_layer)
             // second layer (inner_layer x output)
             // out          output
-            ArrayList<ActiveLayer> list = new ArrayList<ActiveLayer>();
+            ArrayList<ActiveLayer> layers_list = new ArrayList<ActiveLayer>();
             Sigmoid s = new Sigmoid();
 
             Matrix w = new Matrix( input, inner_layer );
             ActiveLayer layer = new ActiveLayer( w, s);
-            list.add( layer.copy() );
+            layers_list.add( layer.copy() );
             w = new Matrix( inner_layer, output  );
             layer = new ActiveLayer( w, s);
-            list.add( layer.copy() );
+            layers_list.add( layer.copy() );
 
             try{
+
+                // Transform all teaching images to binary form.
+
+                Binarization.work( teaching_path, "jpg" );
+
+
                 //TestGenerator generator = new TestGenerator( m, n );
                 //generator.clearDir("data\\testing_set");
                 //generator.generate( "data\\testing_set", 100 );
-                TrainingTwoLayerPerceptron training_net = new TrainingTwoLayerPerceptron( list, m, n, teaching_speed );
+                TrainingTwoLayerPerceptron training_net = new TrainingTwoLayerPerceptron( layers_list, m, n, teaching_speed );
 
                 training_net.randomInit( 1. );
 

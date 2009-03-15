@@ -19,7 +19,7 @@ public class TestProcessing
             System.out.printf("%s ", args[i]);
         }
         System.out.printf("\n");
-        
+
         if(2 != args.length) {
             System.out.printf("Arguments error.\n");
             System.out.printf("Usage: TestProcessing <input image> <output image>\n");
@@ -28,6 +28,8 @@ public class TestProcessing
 
         File fin = new File(args[0]);
         File fout = new File(args[1]);
+//        File fin = new File("data\\teaching_set\\A\\0.png");
+//        File fout = new File("data\\teaching_set\\A\\res.png");
         BufferedImage iin = ImageIO.read(fin);
         BufferedImage iout = Binarization.work(iin);
         ImageIO.write(iout, "jpg", fout);
