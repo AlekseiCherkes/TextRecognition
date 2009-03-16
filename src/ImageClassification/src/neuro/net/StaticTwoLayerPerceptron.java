@@ -178,7 +178,8 @@ public class StaticTwoLayerPerceptron implements IStaticNet{
             input_stream = new ObjectInputStream( new FileInputStream( storage ) );
             input_height = ( Integer )input_stream.readObject();
             input_width = ( Integer )input_stream.readObject();
-            if ( type != ( String )input_stream.readObject() ){
+            String read_type = ( String )input_stream.readObject();
+            if ( !type.equals( read_type ) ){
                 throw new Exception( "Error --StaticTwoLayerPerceptron.init( String )-- " +
                         "Mismatch of net's types. " );
             }

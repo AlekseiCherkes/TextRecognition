@@ -4,10 +4,11 @@ import neuro.Matrix;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
 
+import javax.imageio.ImageIO;
 import java.io.*;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.awt.image.BufferedImage;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -23,35 +24,12 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
      * @param precision     Size of max accepable difference between input and output
      *                          when output is considered right.
      * @return              True if network recognize test image correctly and false otherwise.
-     * @throws Exception
+     * @throws Exception    When are problems with convert image to input data.
      */
     private boolean teachTransaction( String test_path, PrintWriter log, int reaction, double precision )
             throws Exception {
         // Read input from file.
-        Matrix input_x = null;
-        Scanner test = null;
-        try{
-            test = new Scanner( new File(test_path) );
-            input_x = new Matrix( getInputSize(), 1 );
-            for ( int i = 0; i < getInputSize(); i++ ){
-                double d =  test.nextDouble();
-                input_x.set( i, 0, d );
-            }
-        }
-        catch( Exception e){
-            throw new Exception( "Error. --TwoLayerPerceptron.teachTransaction()-- " +
-                    "Problem with reading image from file." + e.getMessage() );
-        }
-        finally{
-            if(  test != null ){
-                try{
-                    test.close();
-                }
-                catch( Exception e ){
-                    throw e;
-                }
-            }
-        }
+        Matrix input_x = readImage( test_path );
 
         // Run test through the net.
         ArrayList< Matrix > recognition_trace =  traceRecognize( input_x );
@@ -63,26 +41,28 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
 //            log.printf("w_%d =\n", i);
 //            layers.get( i ).print( log, 4 );
 //        }
-       if ( log != null ){
-            log.print("Output:\n");
-            y.transpose().print( log, 2, 4 );
-            log.print("Target:\n");
-            target.transpose().print( log, 2, 4 );
-            log.print("E:\n");
-            E.transpose().print( log, 2, 4 );
-       }
+//        if ( log != null ){
+//            log.print("Input:\n");
+//            input_x.transpose().print( log, 2, 4 );
+//            log.print("Output:\n");
+//            y.transpose().print( log, 2, 4 );
+//            log.print("Target:\n");
+//            target.transpose().print( log, 2, 4 );
+//            log.print("E:\n");
+//            E.transpose().print( log, 2, 4 );
+//       }
 
         if ( E.maxNomr() <= precision ){
-            if ( log != null ){
-                log.print("OK\n\n");
-            }
+//            if ( log != null ){
+//                log.print("OK\n\n");
+//            }
             return true;
         }
         // Correct weights.
         else{
-            if ( log != null ){
-                log.print("Correct...\n\n");
-            }
+//            if ( log != null ){
+//                log.print("Correct...\n\n");
+//            }
             // Corrections weigths for all layers.
             LinkedList< Matrix > layers_dw = new LinkedList< Matrix >();
             // Calculate corrections weights of output layer.
@@ -132,7 +112,10 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
 
     /**Construct training two layer perceptron.
      * @param layers            Layers of net.
+     * @param height            Height of input image.
+     * @param width             Width of input image.
      * @param teaching_speed    Coefficient for speed of teaching.
+     * @throws Exception        When real size of image mismatch with wanted.
      */
     public TrainingTwoLayerPerceptron( ArrayList<ActiveLayer> layers, int height, int width,
                                        double teaching_speed ) throws Exception{
@@ -196,21 +179,21 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
         int tests_count = 0;
 
         // b) Associate classes with outputs that correspond them.
-        for ( int i = 0; i < classes.size(); i++ ){
+        for ( String class_name : classes ){
             boolean isInList = false;
             for ( String type: output_types ){
-                if ( type.equals( classes.get( i ) ) ){
+                if ( type.equals( class_name ) ){
                     isInList = true;
                     break;
                 }
             }
             if ( !isInList ){
-                output_types.add( classes.get( i ) );
+                output_types.add( class_name );
             }
 
             // c) Count number of tests for this class.
 
-            String full_class_name = learning_path + "\\" + classes.get( i );
+            String full_class_name = learning_path + "\\" + class_name;
             // get all tests for each class
             String[] all_files = new File( full_class_name ).list();
             if ( all_files == null ){
@@ -218,7 +201,7 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
             }
             //ArrayList< String > tests = new ArrayList< String >();
             for ( String file: all_files ){
-                String file_name = learning_path + "\\" + classes.get( i ) + "\\" + file;
+                String file_name = learning_path + "\\" + class_name + "\\" + file;
                 File test = new File( file_name );
                 if ( file.charAt( 0 ) != '.' && test.isFile() ){
                     tests_count++;
@@ -237,9 +220,9 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
             int iteration = 1;
             // Use tests for teaching one by one in cycle until net recognize all of it.
             while( true ){
-                if ( log_file != null ){
-                    log.printf( "==========iteration №%d:==========\n", iteration );
-                }
+//                if ( log_file != null ){
+//                    log.printf( "==========iteration №%d:==========\n", iteration );
+//                }
                 // Count tests from all training set that were correctly recognized by net.
                 int positive_result = 0;
                 // Go over all classes.
@@ -258,9 +241,9 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
                             throw new Exception("Error --TwoLayerPerceptron.train()-- I/O error occurs.");
                         }
                         if ( file.charAt( 0 ) != '.' && test.isFile() ){
-                            if ( log_file != null ){
-                                log.printf( "-----test \"%s\"-----\n", file );
-                            }
+//                            if ( log_file != null ){
+//                                log.printf( "-----test \"%s\"-----\n", file );
+//                            }
                             if ( teachTransaction( file_name, log, i , precision ) ){
                                 positive_result++;
                             }
@@ -269,6 +252,11 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
                 }
                 // Teaching is finished when all tests are correct.
                 if ( positive_result == tests_count ){
+                    if ( log_file != null ){
+                        log.printf( "Number of teaching tests: %d\n", tests_count );
+                        log.printf( "Count of teaching iteration: %d\n", iteration );
+                        log.printf( "Precision: %f\n", precision );
+                    }
                     break;
                 }
                 else{
@@ -277,7 +265,7 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
             }
         }
         catch( FileNotFoundException e){
-            throw e;
+            throw new Exception("Error --TwoLayerPerceptron.train()-- File not exist." );
         }
         finally{
              if ( log != null ){
@@ -325,6 +313,43 @@ public class TrainingTwoLayerPerceptron extends StaticTwoLayerPerceptron impleme
                         e.getMessage();
                     }
                 }
+        }
+    }
+
+    /**Convert image to input data for net.
+     * @param image_path        Absolute path of image.
+     * @return                  Input matrix for net.
+     */
+    public Matrix readImage( String image_path )
+        throws Exception{
+        Matrix input_x = new Matrix( input_height * input_width, 1 );
+        File image_file = new File( image_path );
+        try{
+            BufferedImage image = ImageIO.read( image_file );
+            int h = image.getHeight();
+            int w = image.getWidth();
+            if ( h * w != input_height * input_width ){
+                throw new Exception( "Error --TrainingTwoLayerPerceptron.readImage( String )-- " +
+                        "Pixel's number in picture != input size of net." );
+            }
+            // If color not 'black' then he is considered 'white'.
+            for( int j = 0; j < h; ++j ){
+                for( int i = 0; i < w; ++i ){
+                    int rgb = image.getRGB( i, j ) & 0xffffff;
+                    int threshold = 0xffffff / 2;
+                    if ( rgb >= threshold){
+                        input_x.set( i + j * h, 0, 0 );
+                    }
+                    else{
+                        input_x.set( i + j * h, 0, 1 );
+                    }
+
+                }
+            }
+            return input_x;
+        }
+        catch( Exception e ){
+            throw new Exception( "Error --TrainingTwoLayerPerceptron.readImage( String )-- " + e.getMessage() );
         }
     }
 }

@@ -9,8 +9,8 @@ public class Greyscale
 {
     public static BufferedImage work(BufferedImage in)
     {
-        int w = in.getHeight();
-        int h = in.getWidth();
+        int h = in.getHeight();
+        int w = in.getWidth();
 
         BufferedImage out = in.getSubimage(0, 0, w, h);
 

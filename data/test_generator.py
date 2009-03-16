@@ -11,8 +11,8 @@ from random import uniform, choice
 dir = "teaching_set"
 font_size = 30
 size = (32, 32)
-N = 1
-chars = "A" # chars = string.ascii_uppercase
+N = 10
+chars = "ABC" # chars = string.ascii_uppercase
 
 angle   = (-15., 15) # (min, max)
 scale_x = (0.9, 1.1) 
@@ -25,7 +25,7 @@ fgcolor = "rgb(0, 0, 0)"
 
 font = ImageFont.truetype("arial.ttf", font_size )
 
-shutil.rmtree("./dir", ignore_errors = True);
+shutil.rmtree( dir, ignore_errors = True);
 os.mkdir(dir)
 for c in chars:
     os.mkdir(dir + '/' + c)

@@ -8,8 +8,8 @@ public class Binarization
 {
     public static BufferedImage work(BufferedImage in)
     {
-        int w = in.getHeight();
-        int h = in.getWidth();
+        int h = in.getHeight();
+        int w = in.getWidth();
 
         BufferedImage out = Greyscale.work(in);
 
@@ -22,7 +22,7 @@ public class Binarization
 
         int threshold = sum / (w * h);
         for(int i = 0; i < w; ++i) {
-            for(int j = 0; j < w; ++j) {
+            for(int j = 0; j < h; ++j) {
                 int c = out.getRGB(i, j) & 0xff;
                 if(c > threshold)
                     out.setRGB(i, j, -1);

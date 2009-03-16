@@ -44,24 +44,26 @@ public class TestingClass {
 
                 // Transform all teaching images to binary form.
 
-                Binarization.work( teaching_path, "jpg" );
+                //Binarization.work( teaching_path, "jpg" );
 
 
                 //TestGenerator generator = new TestGenerator( m, n );
                 //generator.clearDir("data\\testing_set");
                 //generator.generate( "data\\testing_set", 100 );
+
+
                 TrainingTwoLayerPerceptron training_net = new TrainingTwoLayerPerceptron( layers_list, m, n, teaching_speed );
 
                 training_net.randomInit( 1. );
 
                 Tutor teacher = new Tutor( training_net );
 
-//                teacher.train("data\\teaching_set", "data\\log.txt", 0.1 );
-//                teacher.save( "data\\nets\\64x64_english_letters_net");
+                teacher.train("data\\teaching_set", "data\\log.txt", 0.1 );
+                teacher.save( "data\\nets\\64x64_english_letters_net");
 //
-//                StaticTwoLayerPerceptron static_net = new StaticTwoLayerPerceptron( list, m, n );
-//                Recognizer recognizer = new Recognizer( static_net );
-//                recognizer.initNet( "data\\nets\\64x64_english_letters_net" );
+                StaticTwoLayerPerceptron static_net = new StaticTwoLayerPerceptron( layers_list, m, n );
+                Recognizer recognizer = new Recognizer( static_net );
+                recognizer.initNet( "data\\nets\\64x64_english_letters_net" );
 //
 //                runTests( recognizer, "tests\\tests_images", "tests\\test_result.txt" );
             }
@@ -74,6 +76,7 @@ public class TestingClass {
      * @param recognizer    Interface for work with net.
      * @param tests_path    Place where are found test images.
      * @param output_path   File with testing results.
+     * @throws Exception    When are problems with directory location.
      */
      public static void runTests( Recognizer recognizer, String tests_path, String output_path )
             throws Exception{
