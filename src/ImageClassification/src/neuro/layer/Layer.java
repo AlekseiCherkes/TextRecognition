@@ -63,6 +63,13 @@ abstract public class Layer implements Serializable {
         w = w.plus( dw );
     }
 
+     /** Get a weight matrix.
+   @return     w.
+   */
+    public Matrix getW(  ){
+        return w.copy();
+    }
+
    /** Get a single weight.
    @param i    Row index.
    @param j    Column index.

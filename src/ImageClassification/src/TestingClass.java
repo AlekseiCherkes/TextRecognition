@@ -2,13 +2,11 @@ import neuro.*;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Sigmoid;
 import neuro.net.RecognizeType;
-import neuro.net.StaticTwoLayerPerceptron;
-import neuro.net.TrainingTwoLayerPerceptron;
-import processing.*;
+import neuro.net.StaticPerceptron;
+import neuro.net.TrainingPerceptron;
 
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.io.PrintWriter;
 import java.io.File;
 
@@ -18,12 +16,14 @@ public class TestingClass {
         public static void main(String[] args){
 
             String teaching_path = "data\\teaching_set";
-            int m = 32;
-            int n = 32;
+            int m = 20;
+            int n = 20;
             int input = m * n;
             int output = 26;
             int inner_layer = ( input + output ) / 2;
-            double teaching_speed = 0.7;
+            double teaching_speed = 0.5;
+            double inaccuracy = 0.1;
+            double idle_accuracy = 1e-6;
 
             // Create two layer perceptron:
             // input        (m x n)
@@ -52,20 +52,22 @@ public class TestingClass {
                 //generator.generate( "data\\testing_set", 100 );
 
 
-                TrainingTwoLayerPerceptron training_net = new TrainingTwoLayerPerceptron( layers_list, m, n, teaching_speed );
-
-                training_net.randomInit( 1. );
-
-                Tutor teacher = new Tutor( training_net );
-
-                teacher.train("data\\teaching_set", "data\\log.txt", 0.1 );
-                teacher.save( "data\\nets\\64x64_english_letters_net");
+//                TrainingPerceptron training_net = new TrainingPerceptron( layers_list, m, n, teaching_speed );
 //
-                StaticTwoLayerPerceptron static_net = new StaticTwoLayerPerceptron( layers_list, m, n );
+//                double ceiling = 4. / ( m * n );
+//                training_net.randomInit( ceiling );
+//
+//                Tutor teacher = new Tutor( training_net );
+//
+//                teacher.train("data\\teaching_set", "data\\brief_log.txt",  null,
+//                        inaccuracy, idle_accuracy );
+//                teacher.save( "data\\nets\\64x64_english_letters_net");
+//
+                StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
                 Recognizer recognizer = new Recognizer( static_net );
                 recognizer.initNet( "data\\nets\\64x64_english_letters_net" );
 //
-//                runTests( recognizer, "tests\\tests_images", "tests\\test_result.txt" );
+                runTests( recognizer, "data\\tests", "data\\test_result.txt" );
             }
             catch( Exception e ){
                 System.out.println( e.getMessage() );

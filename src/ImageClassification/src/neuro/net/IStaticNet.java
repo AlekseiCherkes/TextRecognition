@@ -17,8 +17,8 @@ public interface IStaticNet {
     int getOutputSize();
     ArrayList< String > getRecognizingTypes();
 
-    Matrix recognize( Matrix x );
+    Matrix recognize( Matrix x ) throws Exception;
     ArrayList< Matrix > traceRecognize( Matrix x );
-    RecognizeType recognizeClass( Matrix x );
+    RecognizeType recognizeClass( Matrix x ) throws Exception;
     void init( String storage )  throws Exception;
 }

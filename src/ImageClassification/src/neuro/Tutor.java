@@ -15,7 +15,8 @@ public class Tutor {
     private ITrainingNet net;
 
     /**Construct recognizer with net.
-    @param net        Training neuron net.
+    *@param net         Training neuron net.
+    *@throws Exception   When are problems with net copy.
     */
     public Tutor( ITrainingNet net )
         throws Exception{
@@ -29,7 +30,7 @@ public class Tutor {
 
     /** Initialize net from file.
      * @param storage       File for initializing.
-     * @throws Exception
+     * @throws Exception    If was attempt to initialize absent net.
      */
     public void initNet( String storage ) throws Exception{
         if ( net == null ){
@@ -40,7 +41,7 @@ public class Tutor {
 
     /** Save net in file.
      * @param storage       File for saving.
-     * @throws Exception
+     * @throws Exception    If save error occured.
      */
     public void save( String storage ) throws Exception{
         net.save( storage );
@@ -50,13 +51,15 @@ public class Tutor {
      * @param x     Input image.
      * @return      Class of image. If net coudn't classificate image return 'null'.
      */
-	public RecognizeType recognize( Matrix x ){
+	public RecognizeType recognize( Matrix x )
+        throws Exception{
         return net.recognizeClass( x );
     }
 
     /**Recognize class for input image.
-     * @param path      File which consists image.
-     * @return          Class of image. If net coudn't classificate image return 'null'.
+     * @param path          File which consists image.
+     * @return              Class of image. If net coudn't classificate image return 'null'.
+     * @throws Exception    If problems with reading image from file occured.
      */
 	public RecognizeType recognize( String path ) throws Exception{
         // Read input from file.
@@ -116,13 +119,18 @@ public class Tutor {
      *      On this path must be subdirectory for each class of recognition objects.
      *      This subdirectory contain all objects belong certain class.
      *      The name of subdirectory identify the name of class.
-     * @param log_file            Log file for teaching history.
-     * @param precision           Size of max accepable difference between input and output.
+     * @param brief_log_path        Log file for brief teaching history.
+     * @param detailed_log_path     Log file for brief teaching history. 
+     * @param inaccuracy        Size of max accepable difference between input and output
+     *                              when output is considered right.
+     * @param idle_accuracy    Size of min accepable difference between old output and output of corrected net
+     *                              when is considered that teach iteration was "useful" ( not idle ).
      *      when output is considered right.
      */
-    public void train( String learning_path, String log_file, double precision )
+    public void train( String learning_path, String brief_log_path, String detailed_log_path,
+                       double inaccuracy, double idle_accuracy )
             throws Exception{
-        net.train( learning_path, log_file, precision );
+        net.train( learning_path, brief_log_path, detailed_log_path, inaccuracy, idle_accuracy );
     }
 
     /** Initialize all wights of net by random numbers.
