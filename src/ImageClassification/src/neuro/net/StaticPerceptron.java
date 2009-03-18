@@ -1,7 +1,7 @@
 package neuro.net;
 
 import neuro.layer.ActiveLayer;
-import neuro.Matrix;
+import jblas.matrices.Matrix;
 
 import java.util.ArrayList;
 import java.io.ObjectInputStream;
@@ -31,9 +31,7 @@ public class StaticPerceptron implements IStaticNet{
             throws Exception{
         if ( layers.get( 0 ).prevSize() != height * width )
         {
-            throw new Exception("Error --" +
-                    "StaticPerceptron.StaticPerceptron( ArrayList<ActiveLayer>, int int )-- " +
-                    "Input size != input_width * input_height." );
+            throw new Exception( "Input size != input_width * input_height." );
         }
         this.layers = new ArrayList<ActiveLayer>();
         for ( ActiveLayer layer : layers ){
@@ -43,7 +41,6 @@ public class StaticPerceptron implements IStaticNet{
         input_width = width;
         input_height = height;
         output_size = layers.get( layers.size() - 1 ).size();
-        //output_types = new TreeMap< Integer, String >();
         output_types = new ArrayList< String >();
     }
 
@@ -126,8 +123,7 @@ public class StaticPerceptron implements IStaticNet{
     public Matrix recognize( Matrix x )
         throws Exception{
         if ( x.getRowDimension() != layers.get( 0 ).prevSize() ){
-            throw new Exception( "--StaticPerceptron.recognize( Matrix )-- Dimentions of net's input " +
-                    "and recognizable object are different." );
+            throw new Exception( "Dimentions of net's input and recognizable object are different." );
         }
         for ( ActiveLayer layer : layers ){
             x = layer.activateLayer( x );
@@ -155,27 +151,22 @@ public class StaticPerceptron implements IStaticNet{
      */
     public RecognizeType recognizeClass( Matrix x )
         throws Exception{
-        try{
-            Matrix y = this.recognize( x );
-            // Get number of max output. It identificate image's class.
-            int output_num = 0;
-            double max = y.get( 0, 0 );
-            for ( int i = 0; i < y.getRowDimension(); i++ ){
-                if ( y.get( i, 0 ) > max ){
-                    max = y.get( i, 0 );
-                    output_num = i;
-                }
-            }
-            if ( output_num >= output_types.size() ){
-                return null;
-            }
-            else{
-                double prob_sum = y.norm1();
-                return  new RecognizeType( output_types.get( output_num ), max / prob_sum );
+        Matrix y = this.recognize( x );
+        // Get number of max output. It identificate image's class.
+        int output_num = 0;
+        double max = y.get( 0, 0 );
+        for ( int i = 0; i < y.getRowDimension(); i++ ){
+            if ( y.get( i, 0 ) > max ){
+                max = y.get( i, 0 );
+                output_num = i;
             }
         }
-        catch ( Exception e ){
-            throw new Exception("--StaticPerceptron.recognizeClass( Matrix )-- " + e.getMessage());
+        if ( output_num >= output_types.size() ){
+            return null;
+        }
+        else{
+            double prob_sum = y.norm1();
+            return  new RecognizeType( output_types.get( output_num ), max / prob_sum );
         }
     }
 
@@ -191,25 +182,21 @@ public class StaticPerceptron implements IStaticNet{
             input_width = ( Integer )input_stream.readObject();
             String read_type = ( String )input_stream.readObject();
             if ( !type.equals( read_type ) ){
-                throw new Exception( "Error --StaticPerceptron.init( String )-- " +
-                        "Mismatch of net's types. " );
+                throw new Exception( "Mismatch of net's types. " );
             }
             output_types = ( ArrayList< String > )input_stream.readObject();
             layers = ( ArrayList< ActiveLayer > )input_stream.readObject();
             output_size = layers.get( layers.size() - 1 ).size();
         }
-        catch( Exception e){
-            throw new Exception( "Error --StaticPerceptron.init( String )-- " + e.getMessage() );
-        }
         finally{
             if ( input_stream != null ){
-                    try{
-                        input_stream.close();
-                    }
-                    catch( Exception e ){
-                        e.getMessage();
-                    }
+                try{
+                    input_stream.close();
                 }
+                catch( Exception e ){
+                    e.getMessage();
+                }
+            }
         }
     }
 }

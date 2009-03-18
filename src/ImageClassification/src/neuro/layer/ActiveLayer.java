@@ -1,6 +1,6 @@
 package neuro.layer;
 
-import neuro.Matrix;
+import jblas.matrices.Matrix;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -29,7 +29,6 @@ public class ActiveLayer extends Layer{
         activation_func = f;
     }
 
-
     /**
      * @return      The function of activation.
      */
@@ -41,8 +40,7 @@ public class ActiveLayer extends Layer{
        @param x          Input signals.
        @return           Output signals.
      */
-    public Matrix activateLayer( Matrix x )
-            throws IllegalArgumentException{
+    public Matrix activateLayer( Matrix x ){
         Matrix input = x.transpose().times(w);
         input = input.transpose();
         for ( int i = 0; i < input.getRowDimension(); i++ ){
@@ -51,7 +49,6 @@ public class ActiveLayer extends Layer{
         }
         return input;
     }
-
 
     /** Make independent copy of itself.
        @return          Copy of itself.

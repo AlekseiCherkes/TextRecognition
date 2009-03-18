@@ -1,6 +1,6 @@
 package neuro.layer;
 
-import neuro.Matrix;
+import jblas.matrices.Matrix;
 
 import java.util.Random;
 import java.io.PrintWriter;

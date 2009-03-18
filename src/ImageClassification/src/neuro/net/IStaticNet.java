@@ -1,6 +1,6 @@
 package neuro.net;
 
-import neuro.Matrix;
+import jblas.matrices.Matrix;
 import neuro.net.RecognizeType;
 
 import java.util.ArrayList;

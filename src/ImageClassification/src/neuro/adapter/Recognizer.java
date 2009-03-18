@@ -1,11 +1,10 @@
-package neuro;
+package neuro.adapter;
 
 import neuro.net.IStaticNet;
 import neuro.net.RecognizeType;
 import neuro.net.TrainingPerceptron;
+import jblas.matrices.Matrix;
 
-import java.io.*;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /** @author    Vadim Shpakovsky. */
@@ -33,7 +32,7 @@ public class Recognizer{
      */
 	public void initNet( String storage ) throws Exception{
         if ( net == null ){
-            throw new Exception( "Error. --Recognizer.initNet( String )-- net == null." );
+            throw new Exception( "Net not found." );
         }
         net.init( storage );
     }
@@ -44,12 +43,7 @@ public class Recognizer{
      */
 	public RecognizeType recognize( Matrix x )
         throws Exception{
-        try{
-            return net.recognizeClass( x );
-        }
-        catch( Exception e ){
-            throw new Exception("--Recognizer.recognize( Matrix )-- " + e.getMessage() );
-        }
+        return net.recognizeClass( x );
     }
 
     /**Recognize class for input image.
@@ -57,38 +51,8 @@ public class Recognizer{
      * @return          Class of image. If net coudn't classificate image return 'null'.
      */
 	public RecognizeType recognize( String path ) throws Exception{
-        try{
-            // Read input from file.
-            Matrix input_x = TrainingPerceptron.readImage( path );
-//        Scanner scanner = null;
-//        try{
-//            scanner = new Scanner( new File( path ) );
-//            input_x = new Matrix( net.getInputSize() , 1 );
-//            for ( int i = 0; i < net.getInputSize(); i++ ){
-//                double d =  scanner.nextDouble();
-//                input_x.set( i, 0, d );
-//            }
-//        }
-//        catch( Exception e){
-//           throw new Exception( "Error. --Recognizer.recognize( String )-- Problem with reading image from file." +
-//                    e.getMessage() );
-//        }
-//        finally{
-//            if(  scanner != null ){
-//                try{
-//                    scanner.close();
-//                }
-//                catch( Exception e ){
-//                    throw e;
-//                }
-//            }
-//        }
-
-            return net.recognizeClass( input_x );
-        }
-        catch( Exception e ){
-            throw new Exception("--Recognizer.recognize( String )-- " + e.getMessage() );
-        }
+        Matrix input_x = TrainingPerceptron.readImage( path );
+        return net.recognizeClass( input_x );
     }
 
     /** Print the weights of all layers in net to stdout.

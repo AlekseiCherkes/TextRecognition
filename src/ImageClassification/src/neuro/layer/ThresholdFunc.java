@@ -2,7 +2,6 @@ package neuro.layer;
 
 /** @author    Vadim Shpakovsky. */
 
-// TODO Think how find derivative.
 public class ThresholdFunc /*implements ActiveFunc*/{
     private double threshold;
     public ThresholdFunc( double threshold ){

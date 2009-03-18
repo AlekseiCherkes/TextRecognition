@@ -1,4 +1,4 @@
-package neuro;
+package jblas.matrices;
 
 import java.text.NumberFormat;
 import java.text.DecimalFormat;

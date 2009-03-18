@@ -1,6 +1,6 @@
 package neuro.net;
 
-import neuro.Matrix;
+import jblas.matrices.Matrix;
 import neuro.exception.StopTeachingProgressException;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
@@ -25,8 +25,8 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param log               Log stream for teaching history.
      * @param inaccuracy        Size of max accepable difference between input and output
      *                              when output is considered right.
-     * @param idle_accuracy    Size of min accepable difference between old output and output of corrected net
-     *                              when is considered that teach iteration was "useful" ( not idle ).
+     * @param idle_accuracy    Size of min accepable difference between old and new  outputs when consider,
+     *                              that output didn't be change.
      * @return                  True if network recognize test image correctly and false otherwise.
      * @throws StopTeachingProgressException        When teaching iteration not change output.
      */
@@ -129,7 +129,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                     log.print("New output:\n");
                     new_y.transpose().print( log, 2, 4 );
                 }
-                throw new StopTeachingProgressException("Error in --TrainingPerceptron.teachTransaction()--");
+                throw new StopTeachingProgressException();
             }
             else{
                 if ( log != null ){
@@ -189,7 +189,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         // a) Get names of all classes.
         String[] all_dir = new File( learning_path ).list();
         if ( all_dir == null ){
-             throw new Exception( "Error --TwoLayerPerceptron.train()-- Wrong learning directory or I/O error occurs." );
+             throw new Exception( "Wrong learning directory or I/O error occurs." );
         }
         ArrayList< String > classes = new ArrayList< String >();
         // Ignore directories begin with '.'.
@@ -202,12 +202,12 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
         // Number of classes must be <= number of types, that net can recognize.
         if ( classes.size() > getOutputSize() ){
-            throw new Exception("Error --TwoLayerPerceptron.train()-- Learning directory consist " +
+            throw new Exception("Learning directory consist " +
                     Integer.toString( classes.size() ) + " classes, but net can recognize only " +
                     Integer.toString( getOutputSize() ) + ". Reduce number of classes or rebild net." );
         }
         if ( classes.size() == 0 ){
-            throw new Exception( "Error --TwoLayerPerceptron.train()-- Learning directory doesn't contain classes subdirectories." );
+            throw new Exception( "Learning directory doesn't contain classes subdirectories." );
         }
 
         // Count of tests for all classes.
@@ -229,7 +229,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
             }
 
             // Contain all tests for current class.
-            ArrayList< Matrix > class_inputs = new ArrayList< Matrix >();
+            ArrayList< Matrix > class_inputs = new ArrayList<Matrix>();
 
             // c) Count number of tests for this class.
             // d) Read teaching tests in memory.
@@ -248,8 +248,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                     Matrix input_x = readImage( full_file_name );
                     class_inputs.add( input_x );
                     if ( input_x.getRowDimension() != input_height * input_width ){
-                    throw new Exception( "Error --TrainingPerceptron.train( ... )-- " +
-                        "Count of pixels in picture != input size of net." );
+                    throw new Exception( "Count of pixels in picture != input size of net." );
             }
                     tests_count++;
                 }
@@ -333,9 +332,6 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                 }
             }
         }
-        catch( FileNotFoundException e){
-            throw new Exception("Error --TwoLayerPerceptron.train()-- File not exist." );
-        }
         finally{
             try{
                 if ( brief_log != null ){
@@ -349,6 +345,11 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                 e.getMessage();
             }
         }
+    }
+
+    public void train( String config ){
+
+        //Document doc =  DocumentBuilderFactory.newInstance().newDocumentBuilder().parse( new File( config ) );
     }
 
     /** Initialize all layers with random numbers.
@@ -373,62 +374,19 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
             outstream.writeObject( output_types );
             outstream.writeObject( layers );
         }
-        catch( Exception e){
-            throw new Exception( "Error --Recognizer.save()-- " + e.getMessage() );
-        }
         finally{
             if ( outstream != null ){
-                    try{
-                        outstream.close();
-                    }
-                    catch( Exception e ){
-                        e.getMessage();
-                    }
+                try{
+                    outstream.close();
                 }
+                catch( Exception e ){
+                    e.getMessage();
+                }
+            }
         }
     }
 
-    /**Convert image to input data for net.
-     * @param image_path        Absolute path of image.
-     * @return                  Input matrix for net.
-     */
-//    public Matrix readImage( String image_path )
-//        throws Exception{
-//        Matrix input_x = new Matrix( input_height * input_width, 1 );
-//        File image_file = new File( image_path );
-//        try{
-//            BufferedImage image = ImageIO.read( image_file );
-//            int h = image.getHeight();
-//            int w = image.getWidth();
-//            if ( h * w != input_height * input_width ){
-//                throw new Exception( "Error --TrainingPerceptron.readImage( String )-- " +
-//                        "Pixel's number in picture != input size of net." );
-//            }
-//            // If color not 'black' then he is considered 'white'.
-//            for( int j = 0; j < h; ++j ){
-//                for( int i = 0; i < w; ++i ){
-//                    int rgb = image.getRGB( i, j ) & 0xffffff;
-//                    int threshold = 0xffffff / 2;
-//                    if ( rgb >= threshold){
-//                        input_x.set( i + j * h, 0, 0 );
-//                    }
-//                    else{
-//                        input_x.set( i + j * h, 0, 1 );
-//                    }
-//
-//                }
-//            }
-//            return input_x;
-//        }
-//        catch( Exception e ){
-//            throw new Exception( "Error --TrainingPerceptron.readImage( String )-- " + e.getMessage() );
-//        }
-//    }
-
-
-
-
-    /**Convert image to input data for net.
+     /**Convert image to input data for net.
      * @param image_path        Absolute path of image.
      * @return                  Input matrix for net.
      */
@@ -436,28 +394,23 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         throws Exception{
 
         File image_file = new File( image_path );
-        try{
-            BufferedImage image = ImageIO.read( image_file );
-            int h = image.getHeight();
-            int w = image.getWidth();
-            Matrix x = new Matrix ( h * w, 1 );
-            // If color not 'black' then he is considered 'white'.
-            for( int j = 0; j < h; ++j ){
-                for( int i = 0; i < w; ++i ){
-                    int rgb = image.getRGB( i, j ) & 0xffffff;
-                    int threshold = 0xffffff / 2;
-                    if ( rgb >= threshold){
-                        x.set( i + j * h, 0, 0 );
-                    }
-                    else{
-                        x.set( i + j * h, 0, 1 );
-                    }
+        BufferedImage image = ImageIO.read( image_file );
+        int h = image.getHeight();
+        int w = image.getWidth();
+        Matrix x = new Matrix ( h * w, 1 );
+        // If color not 'black' then he is considered 'white'.
+        for( int j = 0; j < h; ++j ){
+            for( int i = 0; i < w; ++i ){
+                int rgb = image.getRGB( i, j ) & 0xffffff;
+                int threshold = 0xffffff / 2;
+                if ( rgb >= threshold){
+                    x.set( i + j * h, 0, 0 );
+                }
+                else{
+                    x.set( i + j * h, 0, 1 );
                 }
             }
-            return x;
         }
-        catch( Exception e ){
-            throw new Exception( "Error --TrainingPerceptron.readImage( String )-- " + e.getMessage() );
-        }
+        return x;
     }
 }

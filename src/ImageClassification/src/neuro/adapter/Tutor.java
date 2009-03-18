@@ -1,7 +1,8 @@
-package neuro;
+package neuro.adapter;
 
 import neuro.net.ITrainingNet;
 import neuro.net.RecognizeType;
+import jblas.matrices.Matrix;
 
 import java.io.*;
 import java.util.Scanner;
@@ -34,7 +35,7 @@ public class Tutor {
      */
     public void initNet( String storage ) throws Exception{
         if ( net == null ){
-            throw new Exception( "Error. --Tutor.initNet( String )-- net == null." );
+            throw new Exception( "Net not found." );
         }
         net.init( storage );
     }
@@ -74,8 +75,7 @@ public class Tutor {
             }
         }
         catch( Exception e){
-           throw new Exception( "Error. --Recognizer.recognize( String )-- Problem with reading image from file." +
-                    e.getMessage() );
+           throw new Exception( "Problem with reading image from file." + e.getMessage() );
         }
         finally{
             if(  scanner != null ){

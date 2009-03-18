@@ -1,7 +1,5 @@
 package neuro.net;
 
-import neuro.Matrix;
-
 /** @author    Vadim Shpakovsky. */
 
 public interface ITrainingNet extends IStaticNet {
