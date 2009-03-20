@@ -9,12 +9,26 @@ import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.TreeSet;
 import java.awt.image.BufferedImage;
 
 /** @author    Vadim Shpakovsky. */
 
 // Variable multilayer perceptron.
 public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet {
+    // Path where are all teaching tests.
+    private String teaching_path;
+    // Path where are all controlling tests.
+    private String control_path;
+    // Adress of log file for brief teaching history.
+    private String brief_log;
+    // Adress of log file for detailed teaching history.
+    private String detailed_log;
+    // Size of max accepable difference between input and output when they are considered equal.
+    private double output_accuracy;
+    // Size of min accepable difference between old output and output of corrected net when is considered
+    // that teach iteration was "useful" ( not idle ).
+    private double idle_accuracy;
     private double teaching_speed;
 
     /**Pass test image from network. If result is wrong correct weights.
@@ -23,15 +37,11 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param input_x           Matrix of input image.
      * @param reaction          Number of output that is assosiated with test image.
      * @param log               Log stream for teaching history.
-     * @param inaccuracy        Size of max accepable difference between input and output
-     *                              when output is considered right.
-     * @param idle_accuracy    Size of min accepable difference between old and new  outputs when consider,
-     *                              that output didn't be change.
      * @return                  True if network recognize test image correctly and false otherwise.
      * @throws StopTeachingProgressException        When teaching iteration not change output.
      */
-    private boolean teachTransaction( Matrix input_x, PrintWriter log, int reaction, double inaccuracy, double idle_accuracy )
-        throws StopTeachingProgressException, Exception{
+    private boolean             teachTransaction( Matrix input_x, PrintWriter log, int reaction )
+                                    throws StopTeachingProgressException, Exception{
 
         // Run test through the net.
         ArrayList< Matrix > recognition_trace =  this.traceRecognize( input_x );
@@ -41,26 +51,26 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         Matrix E = target.minus( y );
 //        for ( int i = 0; i < layers.size(); i++ ){
 //            log.printf("w_%d =\n", i);
-//            layers.get( i ).print( log, 4 );
+//            layers.get( i ).print( log, print_accuracy );
 //        }
 //        for ( int i = 0; i < layers.size(); i++ ){
 //            log.printf("w_%d * x_%d =\n", i, i);
 //            Matrix x_i = recognition_trace.get( i );
 //            Matrix w_i = layers.get( i ).getW();
-//            x_i.transpose().times( w_i ).print( log, 2, 4 );
+//            x_i.transpose().times( w_i ).print( log, 2, print_accuracy );
 //        }
         if ( log != null ){
-            log.print("Input:\n");
-            input_x.transpose().print( log, 2, 4 );
+//            log.print("Input:\n");
+//            input_x.transpose().print( log, 2, print_accuracy );
             log.print("Output:\n");
-            y.transpose().print( log, 2, 4 );
+            y.transpose().print( log, 2, print_accuracy );
             log.print("Target:\n");
-            target.transpose().print( log, 2, 4 );
+            target.transpose().print( log, 2, print_accuracy );
             log.print("E:\n");
-            E.transpose().print( log, 2, 4 );
+            E.transpose().print( log, 2, print_accuracy );
        }
 
-        if ( E.maxNomr() <= inaccuracy ){
+        if ( E.maxNomr() <= output_accuracy ){
             if ( log != null ){
                 log.print("OK\n\n");
             }
@@ -81,8 +91,10 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
             }
             Matrix delta = dF.arrayTimes( E );
             if ( log != null ){
-                log.print("Delta:\n");
-                delta.transpose().print( log, 2, 4 );
+                log.print("dF:\n");
+                dF.transpose().print( log, 2, print_accuracy );
+                log.print("Output delta:\n");
+                delta.transpose().print( log, 2, print_accuracy );
             }
             Matrix F = recognition_trace.get( recognition_trace.size() - 2 );
             Matrix dw = F.times( delta.transpose() );
@@ -107,6 +119,10 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                     }
                     inner_delta.set( j, 0, sum * dF.get( j, 0 ));
                 }
+//                if ( log != null ){
+//                    log.printf("Delta_%d:\n", i);
+//                    inner_delta.transpose().print( log, 2, 4 );
+//                }
                 F = recognition_trace.get( recognition_trace.size() - i - 2 );
                 dw = F.times( inner_delta.transpose() );
                 dw = dw.times( teaching_speed );
@@ -125,16 +141,16 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
             if ( max < idle_accuracy ){
                 if ( log != null ){
                     log.print("Old output:\n");
-                    y.transpose().print( log, 2, 4 );
+                    y.transpose().print( log, 2, print_accuracy );
                     log.print("New output:\n");
-                    new_y.transpose().print( log, 2, 4 );
+                    new_y.transpose().print( log, 2, print_accuracy );
                 }
                 throw new StopTeachingProgressException();
             }
             else{
                 if ( log != null ){
                     log.print("New output:\n");
-                    new_y.transpose().print( log, 2, 4 );  
+                    new_y.transpose().print( log, 2, print_accuracy );
                 }
             }
         }
@@ -148,197 +164,254 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param teaching_speed    Coefficient for speed of teaching.
      * @throws Exception        When real size of image mismatch with wanted.
      */
-    public TrainingPerceptron( ArrayList<ActiveLayer> layers, int height, int width,
-                                       double teaching_speed ) throws Exception{
+    public                      TrainingPerceptron( ArrayList<ActiveLayer> layers, int height, int width,
+                                                    double teaching_speed ) throws Exception{
         super( layers, height, width );
+        this.teaching_path = null;
+        this.control_path = null;
+        this.brief_log = null;
+        this.detailed_log = null;
+        this.output_accuracy = 0.;
+        this.idle_accuracy = 0.;
+        this.print_accuracy = 0;
         this.teaching_speed = teaching_speed;
     }
 
     /**Make independent copy of itself.
      * @return          Copy of itself.
      */
-    public TrainingPerceptron copy()
+    public TrainingPerceptron   copy()
         throws Exception{
-        return new TrainingPerceptron( layers, input_height, input_width, teaching_speed );
+        TrainingPerceptron copy_net = new TrainingPerceptron( layers, input_height, input_width, teaching_speed );
+        copy_net.setTeachingPath( teaching_path );
+        copy_net.setControlPath( control_path );
+        copy_net.setBriefLog( brief_log );
+        copy_net.setDetailedLog( detailed_log );
+        copy_net.setOutputAccuracy( output_accuracy );
+        copy_net.setIdleAccuracy( idle_accuracy );
+        copy_net.setPrintAccuracy( print_accuracy );
+        return copy_net;
     }
 
     /**
-     * Learn the net.
-     * @param  learning_path      Absolute path where are all learning tests.
-     *      On this path must be subdirectory for each class of recognition objects.
-     *      This subdirectory contain all objects belong certain class.
-     *      The name of subdirectory identify the name of class.
-     * IMPORTANT!!! All files and directories begin with '.' are ignored.
-     * @param brief_log_path        Log file for brief teaching history.
-     * @param detailed_log_path     Log file for brief teaching history. 
-     * @param inaccuracy            Size of max accepable difference between input and output
-     *                                  when output is considered right.
-     * @param idle_accuracy         Size of min accepable difference between old output and output of corrected net
-     *                                  when is considered that teach iteration was "useful" ( not idle ).
+     * @param path          Root directory where are all teaching images.
+     * @param image_size    Count of pixels in image.
+     * @return              Data necessary for net teaching.
      */
-    public void train( String learning_path, String brief_log_path, String detailed_log_path,
-                       double inaccuracy, double idle_accuracy )
-            throws Exception{
+    static public TeachingData  getTeachingData( String path, int image_size, double min_input, double max_input )
+        throws Exception{
+        TeachingData data = new TeachingData();
 
-        // 1) Get input tests for teaching.
-        //      a) Get names of all classes.
-        //      b) Associate each class with one output of net.
-        //      c) Count number of all teaching tests ( for all classes ).
-        //      d) Read all teaching tests in memory.
-
-        // a) Get names of all classes.
-        String[] all_dir = new File( learning_path ).list();
+        // Get names of all types.
+        String[] all_dir = new File( path ).list();
         if ( all_dir == null ){
-             throw new Exception( "Wrong learning directory or I/O error occurs." );
+             return data;
         }
-        ArrayList< String > classes = new ArrayList< String >();
         // Ignore directories begin with '.'.
         for ( String dir: all_dir ){
-            String class_name = learning_path + "\\" + dir;
-            File class_file = new File( class_name );
-            if ( dir.charAt( 0 ) != '.' && class_file.isDirectory() ){
-                classes.add( dir );
+            String type_name = path + "\\" + dir;
+            File type_file = new File( type_name );
+            if ( dir.charAt( 0 ) != '.' && type_file.isDirectory() ){
+                data.addType( dir );
             }
         }
-        // Number of classes must be <= number of types, that net can recognize.
-        if ( classes.size() > getOutputSize() ){
-            throw new Exception("Learning directory consist " +
-                    Integer.toString( classes.size() ) + " classes, but net can recognize only " +
-                    Integer.toString( getOutputSize() ) + ". Reduce number of classes or rebild net." );
-        }
-        if ( classes.size() == 0 ){
-            throw new Exception( "Learning directory doesn't contain classes subdirectories." );
-        }
 
-        // Count of tests for all classes.
-        int tests_count = 0;
-        // Contain all tests.
-        ArrayList< ArrayList< Matrix > > inputs = new  ArrayList< ArrayList< Matrix > >();
-
-        // b) Associate classes with outputs that correspond them.
-        for ( String class_name : classes ){
-            boolean isInList = false;
-            for ( String type: output_types ){
-                if ( type.equals( class_name ) ){
-                    isInList = true;
-                    break;
-                }
-            }
-            if ( !isInList ){
-                output_types.add( class_name );
-            }
-
-            // Contain all tests for current class.
-            ArrayList< Matrix > class_inputs = new ArrayList<Matrix>();
-
-            // c) Count number of tests for this class.
-            // d) Read teaching tests in memory.
-
-            String full_class_name = learning_path + "\\" + class_name;
-            // get all tests for each class
-            String[] all_files = new File( full_class_name ).list();
-            if ( all_files == null ){
+        // Get names of images for each type.
+        TreeSet< String > types = data.getTypes();
+        for ( String type_name : types ){
+            String full_type_name = path + "\\" + type_name;
+            String[] all_images = new File( full_type_name ).list();
+            if ( all_images == null ){
                 continue;
             }
-            for ( String file_name: all_files ){
-                String full_file_name = learning_path + "\\" + class_name + "\\" + file_name;
-                File test = new File( full_file_name );
-                if ( file_name.charAt( 0 ) != '.' && test.isFile() ){
+            for ( String image_name: all_images ){
+                String full_image_name = path + "\\" + type_name + "\\" + image_name;
+                File image = new File( full_image_name );
+                if ( image_name.charAt( 0 ) != '.' && image.isFile() ){
+                    data.addImage( type_name, image_name );
                     // Read input from file.
-                    Matrix input_x = readImage( full_file_name );
-                    class_inputs.add( input_x );
-                    if ( input_x.getRowDimension() != input_height * input_width ){
-                    throw new Exception( "Count of pixels in picture != input size of net." );
-            }
-                    tests_count++;
+                    Matrix input = readImage( full_image_name, min_input, max_input );
+                    if ( input.getRowDimension() != image_size ){
+                        throw new Exception( "Invalid count of pixels in image." );
+                    }
+                    data.addNetInput( type_name, image_name, input );
                 }
             }
-            inputs.add( class_inputs );
+        }
+        return data;
+    }
+
+    /** Learn the net.
+     */
+    public void                 train() throws Exception{
+
+        // 1) Get data for teaching.
+
+        TeachingData teaching_data = getTeachingData( teaching_path, input_height * input_width,
+                this.getMinInput(), this.getMaxInput() );
+        TeachingData control_data = getTeachingData( control_path, input_height * input_width, 
+                this.getMinInput(), this.getMaxInput());
+
+        if ( teaching_data.getImagesCount() == 0 ){
+            throw new Exception( "Teaching set is empty." );
+        }
+        // Number of types in teaching directory must be <= number of types, that net can recognize.
+        if ( teaching_data.getTypes().size() > getOutputSize() ){
+            throw new Exception("Teaching directory consist " +
+                    Integer.toString( teaching_data.getTypes().size() ) + " types, but net can recognize only " +
+                    Integer.toString( getOutputSize() ) + ". Reduce number of types or rebild net." );
+        }
+        // Number of types in control directory must be <= number of types, that contain teaching directory.
+        if ( control_data.getTypes().size() > teaching_data.getTypes().size() ){
+            throw new Exception("Control directory consist " +
+                    Integer.toString( control_data.getTypes().size() ) + " types, but teaching directory contain only " +
+                    Integer.toString( teaching_data.getTypes().size() ) + "." );
+        }
+
+        // Associate each type with one output of net.
+        output_types = new ArrayList< String >();
+        TreeSet< String > types = teaching_data.getTypes();
+        for ( String type : types ){
+            output_types.add( type );
         }
 
         // 2) Teach net.
 
-        PrintWriter brief_log = null;
-        PrintWriter detailed_log = null;
+        PrintWriter brief_writer = null;
+        PrintWriter detailed_writer = null;
         try{
             // Open log files.
-            if ( brief_log_path != null ){
-                brief_log = new PrintWriter( brief_log_path );
+            if ( brief_log != null ){
+                brief_writer = new PrintWriter( brief_log );
             }
-            if ( detailed_log_path != null ){
-                detailed_log = new PrintWriter( detailed_log_path );
+            if ( detailed_log != null ){
+                detailed_writer = new PrintWriter( detailed_log );
             }
-            long begin_time = System.currentTimeMillis();
+            long start_time = System.currentTimeMillis();
             long iteration = 1;
+
             // Use tests for teaching one by one in cycle until net recognize all of it.
+            // Follow strategy: for teaching use one image of each type at one iteration
+            // ( e.g. when for teaching was used image of current type, next teaching image
+            // will find for next type ) .
             while( true ){
-                if ( detailed_log != null ){
-                    detailed_log.printf( "==========iteration №%d:==========\n", iteration );
+                if ( detailed_writer != null ){
+                    detailed_writer.printf( "==========iteration №%d:==========\n\n", iteration );
                 }
                 // Count tests from all training set that were correctly recognized by net.
                 int positive_result = 0;
 
-                for( int i = 0; i < inputs.size(); i++ ){
-                    for( int j = 0; j < inputs.get( i ).size(); j ++ ){
+                for( String type : teaching_data.getTypes() ){
+                    for ( String image : teaching_data.getImages( type ) ){
                         try{
-                            if ( detailed_log != null ){
-                                detailed_log.printf( "------class №%d, test №%d:------\n", i + 1, j + 1 );
+                            if ( detailed_writer != null ){
+                                detailed_writer.printf( "------type '%s', test '%s':------\n\n", type, image );
                             }
-                            Matrix x_input = inputs.get( i ).get( j );
-                            if ( teachTransaction( x_input, detailed_log, i , inaccuracy, idle_accuracy ) ){
-                                    positive_result++;
+                            Matrix x_input = teaching_data.getNetInput( type, image );
+                            if ( x_input == null ){
+                                throw new Exception( "Image can't be received on net's input." );
+                            }
+                            Integer reaction = null;
+                            for ( int i = 0; i < output_types.size(); i++ ){
+                                if ( type.equals( output_types.get( i ) ) ){
+                                    reaction = i;
+                                    break;
                                 }
+                            }
+                            if ( reaction == null ){
+                                throw new Exception( "Net can't recognize images such type." );
+                            }
+                            if ( teachTransaction( x_input, detailed_writer, reaction ) ){
+                                    positive_result++;
+                            }
+                            // Follow strategy: for teaching use one image of each type at one iteration.
+                            else{
+                                break;
+                            }
                         }
+                        // The training progress ends.
                         catch( StopTeachingProgressException e ){
-                            if ( brief_log != null ){
-                                brief_log.printf( "Teaching error!\n" );
-                                brief_log.printf( "Number of type: %d.\n", i + 1 );
-                                brief_log.printf( "Number of test inside type : %d.\n", j + 1 );
-                                brief_log.printf( "Number of iterations: %d.\n", iteration );
-                                brief_log.printf( "Image size: %dx%d.\n", input_height, input_width );
-                                brief_log.printf( "Idle accuracy: %.2e.\n", idle_accuracy );
-                                long delta_time = System.currentTimeMillis() - begin_time;
-                                long delta_time_sec = delta_time / 1000;
-                                long hours = delta_time_sec / 3600;
-                                long min = ( delta_time_sec - hours * 3600  ) / 60;
-                                long sec = delta_time_sec - hours * 3600 - min * 60;
-                                long msec = delta_time - delta_time_sec * 1000;
-                                brief_log.printf( "Net was teaching until error: %d hours, %d min, %d sec, %d msec.\n", hours, min, sec, msec );
+                            if ( brief_writer != null ){
+                                brief_writer.printf( "The teaching progress ended. Training was stopped. Net aren't trained.\n" );
+                                brief_writer.printf( "Type: '%s'.\n", type );
+                                brief_writer.printf( "Image : '%s'.\n", image );
+                                brief_writer.printf( "Number of iterations: %d.\n", iteration );
+                                brief_writer.printf( "Image size: %dx%d.\n", input_height, input_width );
+                                brief_writer.printf( "Idle accuracy: %.2e.\n", idle_accuracy );
+                                brief_writer.printf( "Net was teaching until error: %s\n", this.getDeltaTime( start_time ) );
                             }
                             return;
                         }
                     }
                 }
 
-                // Teaching is finished when all tests are correct.
-                if ( positive_result == tests_count ){
-                    if ( brief_log != null ){
-                        brief_log.printf( "Count of teaching tests: %d.\n", tests_count );
-                        brief_log.printf( "Count of teaching iterations: %d.\n", iteration );
-                        brief_log.printf( "Image size: %dx%d.\n", input_height, input_width );
-                        brief_log.printf( "Precision: %.2e.\n", inaccuracy );
-                        long delta_time = System.currentTimeMillis() - begin_time;
-                        long delta_time_sec = delta_time / 1000;
-                        long hours = delta_time_sec / 3600;
-                        long min = ( delta_time_sec - hours * 3600  ) / 60;
-                        long sec = delta_time_sec - hours * 3600 - min * 60;
-                        long msec = delta_time - delta_time_sec * 1000;
-                        brief_log.printf( "Net was teaching: %d hours, %d min, %d sec, %d msec.\n", hours, min, sec, msec );
+                // Use control checking for escape too detailed teaching.
+                int control_verified = 0;
+                for( String type : control_data.getTypes() ){
+                    for ( String image : control_data.getImages( type ) ){
+                        Matrix x_input = control_data.getNetInput( type, image );
+                        if ( x_input == null ){
+                            throw new Exception( "Image can't be received on net's input." );
+                        }
+                        if ( recognizeClass( x_input ).getType().equals( type ) ){
+                                control_verified++;
+                        }
                     }
-                    break;
                 }
-                else{
-                    iteration++;
+                if ( detailed_writer != null && control_data.getImagesCount() != 0 ){
+                    detailed_writer.printf( "_____Control checking result: verify %d  from %d._____\n",
+                            control_verified, control_data.getImagesCount() );
                 }
+
+                if ( positive_result != teaching_data.getImagesCount() ){
+                    // Too detailed teaching.
+                    if ( control_data.getImagesCount() > 0 && control_verified == control_data.getImagesCount() ){
+                        if ( brief_writer != null ){
+                            brief_writer.printf( "Too detailed teaching ( %d/%d ). Training was stopped.\n",
+                                    positive_result, teaching_data.getImagesCount() );
+                        }
+                    }
+                    // Not all teaching and control images pass verification.
+                    else{
+                        iteration++;
+                        positive_result = 0;
+                        continue;
+                    }
+                }
+                else if ( positive_result == teaching_data.getImagesCount() ){
+                    // Teaching set are not representative.
+                    if ( control_verified != control_data.getImagesCount() ){
+                        if ( brief_writer != null ){
+                            brief_writer.printf( "Teachign set are not representative ( control set didn't " +
+                                    "pass verification %d/%d).\n", control_verified, control_data.getImagesCount() );
+                        }
+                    }
+                    // Success teaching.
+                    if ( control_verified == control_data.getImagesCount() ){
+                        if ( brief_writer != null ){
+                            brief_writer.println( "Success teaching." );
+                        }
+                    }
+                }
+
+                if ( brief_writer != null ){
+                    brief_writer.printf( "Count of teaching tests: %d.\n", teaching_data.getImagesCount() );
+                    brief_writer.printf( "Count of teaching iterations: %d.\n", iteration );
+                    brief_writer.printf( "Image size: %dx%d.\n", input_height, input_width );
+                    brief_writer.printf( "Precision: %.2e.\n", output_accuracy );
+                    brief_writer.printf( "Net was teaching: %s\n", this.getDeltaTime( start_time ) );
+                }
+                // End teaching.
+                break;
             }
         }
         finally{
             try{
-                if ( brief_log != null ){
-                    brief_log.close();
+                if ( brief_writer != null ){
+                    brief_writer.close();
                 }
-                if ( detailed_log != null ){
-                    detailed_log.close();
+                if ( detailed_writer != null ){
+                    detailed_writer.close();
                 }
             }
             catch( Exception e ){
@@ -347,15 +420,10 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
     }
 
-    public void train( String config ){
-
-        //Document doc =  DocumentBuilderFactory.newInstance().newDocumentBuilder().parse( new File( config ) );
-    }
-
     /** Initialize all layers with random numbers.
         @param max_val     Random numbers will be generate in range (0, max_val).
      */
-    public void randomInit( double max_val ){
+    public void                 randomInit( double max_val ){
         for ( Layer layer : layers )
             layer.randomInit( max_val );
     }
@@ -364,7 +432,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param storage       File for saving.
      * @throws Exception
      */
-    public void save( String storage ) throws Exception{
+    public void                 save( String storage ) throws Exception{
         ObjectOutputStream outstream = null;
         try{
             outstream = new ObjectOutputStream( new FileOutputStream( storage ) );
@@ -386,22 +454,27 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
     }
 
-     /**Convert image to input data for net.
+     /**Convert image to input data for net. Input normalize in border ( 'min_input', 'max_input' ).
      * @param image_path        Absolute path of image.
+     * @param min_input         Min value of input.
+     * @param max_input         Max value of input.
      * @return                  Input matrix for net.
      */
-    public static Matrix readImage( String image_path )
-        throws Exception{
+    public static Matrix        readImage( String image_path, double min_input, double max_input ) throws Exception{
+        if ( min_input > max_input ){
+            throw new Exception( "Min value of input > max value." );
+        }
 
         File image_file = new File( image_path );
         BufferedImage image = ImageIO.read( image_file );
         int h = image.getHeight();
         int w = image.getWidth();
         Matrix x = new Matrix ( h * w, 1 );
-        // If color not 'black' then he is considered 'white'.
         for( int j = 0; j < h; ++j ){
             for( int i = 0; i < w; ++i ){
                 int rgb = image.getRGB( i, j ) & 0xffffff;
+//                double val = min_input + rgb * ( max_input - min_input ) / 0xffffff;
+//                x.set( i + j * h, 0, val );
                 int threshold = 0xffffff / 2;
                 if ( rgb >= threshold){
                     x.set( i + j * h, 0, 0 );
@@ -413,4 +486,98 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
         return x;
     }
+
+    /**
+     * @param start_time    Start time in msec.
+     * @return              String with time passed since 'start_time'.
+     */
+    String getDeltaTime( long start_time ){
+        long delta_time = System.currentTimeMillis() - start_time;
+        long delta_time_sec = delta_time / 1000;
+        long hours = delta_time_sec / 3600;
+        long min = ( delta_time_sec - hours * 3600  ) / 60;
+        long sec = delta_time_sec - hours * 3600 - min * 60;
+        long msec = delta_time - delta_time_sec * 1000;
+        return Long.toString( hours ) + " hours, " + Long.toString( min ) + " min, " +  Long.toString( sec ) +
+                " sec, " + Long.toString( msec ) + " msec.";
+    }
+
+    /** Set teaching path.
+     * On this path must be subdirectory for each type of recognition objects.
+     * This subdirectory contain all objects belong certain type.
+     * The name of subdirectory identify the name of type.
+     * IMPORTANT!!! All files and directories begin with '.' are ignored.
+     * @param path      Path where are all teaching tests.
+     */
+    public void                 setTeachingPath( String path ){
+        teaching_path = path;
+    }
+
+    /**@return      Teaching path.*/
+    public String               getTeachingPath(){
+        return teaching_path;
+    }
+
+    /** Set controlling path.
+     *  Path recstrictions coincides with teaching path ones.
+     * @param path      Path where are all controlling tests.
+     */
+    public void                 setControlPath( String path ){
+        control_path = path;
+    }
+
+    /**@return      Control path.*/
+    public String               getControlPath(){
+        return control_path;
+    }
+
+    /** Set brief log.
+     * @param log    Adress of log file for brief teaching history.
+     */
+    public void                 setBriefLog( String log ){
+        brief_log = log;
+    }
+
+    /**@return      Address of brief log file.*/
+    public String               getBriefLog(){
+        return brief_log;
+    }
+
+    /** Set detailed log.
+    * @param log    Adress of log file for detailed teaching history.
+    */
+    public void                 setDetailedLog( String log ){
+        detailed_log = log;
+    }
+
+    /**@return      Address of detailed log file.*/
+    public String               getDetailedLog(){
+        return detailed_log;
+    }
+
+    /** Set output accuracy.
+     * @param accuracy      Size of max accepable difference between input and output when they are considered equal.
+     */
+    public void                 setOutputAccuracy( double accuracy ){
+        output_accuracy = accuracy;
+    }
+
+    /**@return      Output accuracy.*/
+    public double               getOutputAccuracy(){
+        return output_accuracy;
+    }
+
+    /** Set idle accuracy.
+     * @param accuracy      Size of min accepable difference between old output and output of corrected net
+     *                                  when is considered that teach iteration was "useful" ( not idle ).
+     */
+    public void                 setIdleAccuracy( double accuracy ){
+        idle_accuracy = accuracy;
+    }
+
+    /**@return      Idle accuracy.*/
+    public double               getIdleAccuracy(){
+        return idle_accuracy;
+    }
+
 }

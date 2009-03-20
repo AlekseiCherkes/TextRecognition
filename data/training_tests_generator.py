@@ -12,9 +12,10 @@ teaching_dir = "for_teaching/teaching_set"
 control_dir = "for_teaching/control_set"
 font_size = 20
 size = (20, 20)
-teach_N = 5
-control_N = 5
-chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # chars = string.ascii_uppercase
+teach_N = 10
+control_N = 0
+#chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # chars = string.ascii_uppercase
+chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 angle   = (-15., 15) # (min, max)
 scale_x = (0.9, 1.1)

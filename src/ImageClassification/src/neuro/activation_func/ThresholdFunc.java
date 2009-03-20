@@ -1,8 +1,10 @@
-package neuro.layer;
+package neuro.activation_func;
+
+import neuro.activation_func.ActiveFunc;
 
 /** @author    Vadim Shpakovsky. */
 
-public class ThresholdFunc /*implements ActiveFunc*/{
+public class ThresholdFunc implements ActiveFunc {
     private double threshold;
     public ThresholdFunc( double threshold ){
         setThreshold( threshold );

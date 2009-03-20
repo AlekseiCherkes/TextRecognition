@@ -127,10 +127,9 @@ public class Tutor {
      *                              when is considered that teach iteration was "useful" ( not idle ).
      *      when output is considered right.
      */
-    public void train( String learning_path, String brief_log_path, String detailed_log_path,
-                       double inaccuracy, double idle_accuracy )
+    public void train()
             throws Exception{
-        net.train( learning_path, brief_log_path, detailed_log_path, inaccuracy, idle_accuracy );
+        net.train();
     }
 
     /** Initialize all wights of net by random numbers.

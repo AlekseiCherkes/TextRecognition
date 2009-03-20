@@ -36,7 +36,8 @@ abstract public class Layer implements Serializable {
         w.print( 2, precision );
     }
 
-     /** Print the weight matrix to stdout.
+     /** Print the weight matrix to output.
+     * @param out           Output for printing.
      * @param precision     Number of digits after the decimal.
      */
     public void print( PrintWriter out, int precision ){

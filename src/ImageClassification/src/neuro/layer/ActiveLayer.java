@@ -1,19 +1,20 @@
 package neuro.layer;
 
 import jblas.matrices.Matrix;
+import neuro.activation_func.ContinuousActiveFunc;
 
 /** @author    Vadim Shpakovsky. */
 
 // Layer that can get neuron's reactions.
 public class ActiveLayer extends Layer{
     // Activation function for each neuron in layer.
-    private ActiveFunc activation_func;
+    private ContinuousActiveFunc activation_func;
 
     /**Construct layer with weight matrix and activation function.
     @param w        Data for initialization weight matrix.
     @param f        Activation function.
     */
-    public ActiveLayer( Matrix w, ActiveFunc f){
+    public ActiveLayer( Matrix w, ContinuousActiveFunc f){
         this.w = w.copy();
         activation_func = f;
     }
@@ -23,16 +24,15 @@ public class ActiveLayer extends Layer{
     @param width     Number of columns in weight matrix 'w'.
     @param f         Activation function.
     */
-    public ActiveLayer( int height, int width, ActiveFunc f ){
+    public ActiveLayer( int height, int width, ContinuousActiveFunc f ){
         this.w = new Matrix( height, width, 0.);
-        // TODO How realize copy() or clone() for class consists only methods?
         activation_func = f;
     }
 
     /**
      * @return      The function of activation.
      */
-    public ActiveFunc getActiveFunc(){
+    public ContinuousActiveFunc getActiveFunc(){
         return activation_func;
     }
 

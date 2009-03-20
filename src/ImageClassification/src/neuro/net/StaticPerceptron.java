@@ -14,6 +14,10 @@ public class StaticPerceptron implements IStaticNet{
     protected int input_height;
     protected int input_width;
     protected int output_size;
+    private double min_input_val;
+    private double max_input_val;
+    // Number of digits after the decimal for printing real number.
+    protected int print_accuracy;
     protected String type;
      // Contains all classes that this network can recognize.
     // Position's number in this collection indicate number of output for it class in network.
@@ -27,8 +31,8 @@ public class StaticPerceptron implements IStaticNet{
      * @param width             Width of input image.
      * @throws Exception        When real size of image mismatch with wanted.
      */
-    public StaticPerceptron( ArrayList<ActiveLayer> layers, int height, int width )
-            throws Exception{
+    public                      StaticPerceptron( ArrayList<ActiveLayer> layers, int height, int width )
+                                    throws Exception{
         if ( layers.get( 0 ).prevSize() != height * width )
         {
             throw new Exception( "Input size != input_width * input_height." );
@@ -42,13 +46,14 @@ public class StaticPerceptron implements IStaticNet{
         input_height = height;
         output_size = layers.get( layers.size() - 1 ).size();
         output_types = new ArrayList< String >();
+        min_input_val = 0.;
+        max_input_val = 1.;
     }
 
     /**Make independent copy of itself.
      * @return          Copy of itself.
      */
-    public StaticPerceptron copy()
-        throws Exception{
+    public                      StaticPerceptron copy() throws Exception{
         return new StaticPerceptron( layers, input_height, input_width );
     }
 
@@ -56,7 +61,7 @@ public class StaticPerceptron implements IStaticNet{
      *
      * @param precision     Number of digits after the decimal.
      */
-    public void print( int precision ){
+    public void                 print( int precision ){
          for( int i = 0; i < layers.size(); i++ ){
              System.out.printf( "Layer %d:\n", i );
              layers.get( i ).print( precision );
@@ -66,42 +71,42 @@ public class StaticPerceptron implements IStaticNet{
     /** Get net's type.
         @return      String that consist net's type.
      */
-    public  String getType(){
+    public  String              getType(){
         return type;
     }
 
     /**
      * @return      Number of neurons in input layer.
      */
-    public int getInputSize(){
+    public int                  getInputSize(){
         return input_height * input_width;
     }
 
     /**
      * @return      Wight of input image.
      */
-    public int getInputWidth(){
+    public int                  getInputWidth(){
         return input_width;    
     }
 
     /**
      * @return      Height of input image.
      */
-    public int getInputHeight(){
+    public int                  getInputHeight(){
         return input_height;
     }
 
     /**
      * @return      Number of neurons in output layer.
      */
-    public int getOutputSize(){
+    public int                  getOutputSize(){
         return output_size;
     }
 
     /**Get list of types, that net can recognize.
      * @return      List of types.
      */
-    public ArrayList< String > getRecognizingTypes(){
+    public ArrayList< String >  getRecognizingTypes(){
         ArrayList< String > types = new ArrayList< String >();
         for ( String type : output_types ){
             types.add( type );
@@ -112,7 +117,7 @@ public class StaticPerceptron implements IStaticNet{
     /**
         * @return      Count of layers in net.
         */
-       public int getLayersCount(){
+    public int                  getLayersCount(){
            return layers.size();
        }
 
@@ -120,8 +125,7 @@ public class StaticPerceptron implements IStaticNet{
      * @param x     Input image.
      * @return      Output result.
      */
-    public Matrix recognize( Matrix x )
-        throws Exception{
+    public Matrix               recognize( Matrix x ) throws Exception{
         if ( x.getRowDimension() != layers.get( 0 ).prevSize() ){
             throw new Exception( "Dimentions of net's input and recognizable object are different." );
         }
@@ -135,7 +139,7 @@ public class StaticPerceptron implements IStaticNet{
      * @param x     Input image.
      * @return      Trace with output of each layer. Begin with input and end with output.
      */
-    public ArrayList< Matrix > traceRecognize( Matrix x ){
+    public ArrayList< Matrix >  traceRecognize( Matrix x ){
         ArrayList< Matrix > trace = new ArrayList< Matrix >();
         trace.add( x );
         for ( ActiveLayer layer : layers ){
@@ -149,8 +153,7 @@ public class StaticPerceptron implements IStaticNet{
      * @param x     Input image.
      * @return      Class of image. If net coudn't classificate image return 'null'.
      */
-    public RecognizeType recognizeClass( Matrix x )
-        throws Exception{
+    public RecognizeType        recognizeClass( Matrix x ) throws Exception{
         Matrix y = this.recognize( x );
         // Get number of max output. It identificate image's class.
         int output_num = 0;
@@ -174,7 +177,7 @@ public class StaticPerceptron implements IStaticNet{
      * @param storage       File for loading.
      * @throws Exception
      */
-	public void init( String storage ) throws Exception{
+	public void                 init( String storage ) throws Exception{
         ObjectInputStream input_stream = null;
         try{
             input_stream = new ObjectInputStream( new FileInputStream( storage ) );
@@ -198,5 +201,41 @@ public class StaticPerceptron implements IStaticNet{
                 }
             }
         }
+    }
+
+    /** Set print accuracy.
+     * @param accuracy      Number of digits after the decimal for printing real number.
+     */
+    public void                 setPrintAccuracy( int accuracy ){
+        print_accuracy = accuracy;
+    }
+
+    /**@return      Print accuracy.*/
+    public int                  getPrintAccuracy(){
+        return print_accuracy;
+    }
+
+    /**
+     * @param val      Min value of input.
+     */
+    public void                 setMinInput( double val ){
+        min_input_val = val;
+    }
+
+    /**@return      Min value of input. */
+    public double               getMinInput(){
+        return min_input_val;
+    }
+
+    /**
+     * @param val      Max value of input.
+     */
+    public void                 setMaxInput( double val ){
+       max_input_val = val;
+    }
+
+    /**@return      Max value of input. */
+    public double               getMaxInput(){
+        return max_input_val;
     }
 }

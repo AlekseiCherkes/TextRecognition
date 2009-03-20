@@ -2,22 +2,22 @@
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/ImageClassification.iml" afterPath="$PROJECT_DIR$/src/ImageClassification/ImageClassification.iml" />
+      <change type="MOVED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\layer\ThresholdFunc.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/activation_func/ThresholdFunc.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/Layer.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/Layer.java" />
-      <change type="MOVED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\Recognizer.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Recognizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/JBlas/src/jblas/matrices/Matrix.java" />
+      <change type="MOVED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\layer\ActiveFunc.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/activation_func/ActiveFunc.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/TestingClass.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/TestingClass.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.iws" afterPath="$PROJECT_DIR$/project.iws" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TeachingData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Recognizer.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Recognizer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Tutor.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Tutor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/activation_func" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/ITrainingNet.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/ITrainingNet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ThresholdFunc.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ThresholdFunc.java" />
-      <change type="DELETED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\TestGenerator.java" afterPath="" />
+      <change type="MOVED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\layer\Sigmoid.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/activation_func/Sigmoid.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/activation_func/ContinuousActiveFunc.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/StaticPerceptron.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/StaticPerceptron.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TrainingPerceptron.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TrainingPerceptron.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/IStaticNet.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/net/IStaticNet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ActiveLayer.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ActiveLayer.java" />
-      <change type="MOVED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\Tutor.java" afterPath="$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Tutor.java" />
-      <change type="DELETED" beforePath="D:\Study(8 sem)\ИТиРОД\text-recognition\trunk\src\ImageClassification\src\neuro\Matrix.java" afterPath="" />
     </list>
     <ignored path="project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,7 +45,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/ImageClassification/src/TestingClass.java" line="36" class="TestingClass" package="">
+      <breakpoint url="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TrainingPerceptron.java" line="365" class="neuro.net.TrainingPerceptron" package="neuro.net">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -92,37 +92,85 @@
       </breakpoint>
     </breakpoint_any>
     <breakpoint_rules />
-    <ui_properties />
+    <ui_properties>
+      <property name="line_breakpoints_groupByMethods" value="false" />
+      <property name="line_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_flattenPackages" value="true" />
+      <property name="method_breakpoints_flattenPackages" value="true" />
+      <property name="field_breakpoints_flattenPackages" value="true" />
+      <property name="exception_breakpoints_groupByMethods" value="false" />
+      <property name="line_breakpoints_groupByClasses" value="true" />
+      <property name="method_breakpoints_viewId" value="TABLE" />
+      <property name="field_breakpoints_groupByMethods" value="false" />
+      <property name="line_breakpoints_flattenPackages" value="true" />
+      <property name="field_breakpoints_groupByClasses" value="true" />
+      <property name="method_breakpoints_groupByClasses" value="true" />
+      <property name="exception_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="method_breakpoints_groupByMethods" value="false" />
+    </ui_properties>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="project" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="IStaticNet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/IStaticNet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="32" selection-start="49" selection-end="49" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tutor.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Tutor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TestingClass.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/TestingClass.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="65" selection-start="4389" selection-end="4389" vertical-scroll-proportion="3.0545025">
+            <state line="77" column="51" selection-start="2819" selection-end="3056" vertical-scroll-proportion="0.6445498">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TrainingPerceptron.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TrainingPerceptron.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="477" column="21" selection-start="21786" selection-end="22000" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="docComment;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#teachTransaction#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#TrainingPerceptron#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#TrainingPerceptron#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#copy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#copy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getTeachingData#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getTeachingData#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#train#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#train#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#randomInit#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#randomInit#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#save#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#save#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#readImage#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getDeltaTime#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getDeltaTime#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#setTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#setTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#setControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#setControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#setBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#setBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#setDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#setDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#setOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#setOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#setIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#setIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="docComment;method#getIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+                <element signature="method#getIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -421,6 +469,32 @@
           <option name="myItemId" value="neuro" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="layer" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageClassification" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageClassification" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="neuro" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -445,6 +519,32 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="adapter" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageClassification" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageClassification" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="neuro" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="activation_func" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -483,13 +583,14 @@
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="neuro.activation_func" />
       <recent name="jblas.matrices" />
       <recent name="neuro.adapter" />
     </key>
@@ -682,14 +783,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1288" height="778" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.54058194" sideWeight="0.5" order="7" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3867314" sideWeight="0.39932126" order="1" side_tool="false" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961783" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39968154" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18152866" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" />
@@ -697,14 +798,14 @@
       <window_info id="simpleUML" active="false" anchor="left" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32927817" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23726115" sideWeight="0.5" order="10" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="6" side_tool="false" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24979724" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495935" sideWeight="0.7133758" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22113821" sideWeight="0.7133758" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2754777" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2754777" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="11" side_tool="false" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495935" sideWeight="0.7133758" order="2" side_tool="false" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.58597285" order="5" side_tool="false" />
@@ -810,52 +911,66 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/exception/StopTeachingProgressException.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="2" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/ITrainingNet.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="6" selection-start="489" selection-end="489" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ActiveFunc.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0/src.zip!/javax/imageio/ImageIO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="17" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TeachingData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="18" selection-start="2376" selection-end="2376" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="docComment;class#ActiveFunc#0" expanded="false" />
-            <element signature="docComment;method#getDerivative#0;class#ActiveFunc#0" expanded="false" />
+            <element signature="docComment;class#TeachingData#0" expanded="false" />
+            <element signature="method#TeachingData#0;class#TeachingData#0" expanded="false" />
+            <element signature="docComment;method#getTypes#0;class#TeachingData#0" expanded="false" />
+            <element signature="method#addType#0;class#TeachingData#0" expanded="false" />
+            <element signature="docComment;method#getImages#0;class#TeachingData#0" expanded="false" />
+            <element signature="method#getImages#0;class#TeachingData#0" expanded="false" />
+            <element signature="docComment;method#addImage#0;class#TeachingData#0" expanded="false" />
+            <element signature="method#addImage#0;class#TeachingData#0" expanded="false" />
+            <element signature="docComment;method#getNetInput#0;class#TeachingData#0" expanded="false" />
+            <element signature="method#getNetInput#0;class#TeachingData#0" expanded="false" />
+            <element signature="docComment;method#addNetInput#0;class#TeachingData#0" expanded="false" />
+            <element signature="method#addNetInput#0;class#TeachingData#0" expanded="false" />
+            <element signature="docComment;method#getImagesCount#0;class#TeachingData#0" expanded="false" />
+            <element signature="method#getImagesCount#0;class#TeachingData#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ActiveLayer.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/RecognizeType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="5" selection-start="1017" selection-end="1017" vertical-scroll-proportion="-4.32">
-          <folding>
-            <element signature="docComment;class#ActiveLayer#0" expanded="false" />
-            <element signature="docComment;method#ActiveLayer#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="method#ActiveLayer#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="docComment;method#ActiveLayer#1;class#ActiveLayer#0" expanded="false" />
-            <element signature="method#ActiveLayer#1;class#ActiveLayer#0" expanded="false" />
-            <element signature="docComment;method#getActiveFunc#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="method#getActiveFunc#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="docComment;method#activateLayer#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="method#activateLayer#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="docComment;method#copy#0;class#ActiveLayer#0" expanded="false" />
-            <element signature="method#copy#0;class#ActiveLayer#0" expanded="false" />
-          </folding>
+        <state line="15" column="18" selection-start="368" selection-end="368" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0/src.zip!/java/lang/System.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/Layer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="22" selection-start="228" selection-end="228" vertical-scroll-proportion="0.0">
+        <state line="11" column="22" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="docComment;method#size#0;class#Layer#0" expanded="false" />
             <element signature="method#size#0;class#Layer#0" expanded="false" />
@@ -879,51 +994,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/Sigmoid.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/activation_func/Sigmoid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="95" selection-end="95" vertical-scroll-proportion="0.0">
+        <state line="11" column="25" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/IStaticNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="38" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Recognizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="65" selection-start="1486" selection-end="1486" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Tutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="15" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="docComment;class#Sigmoid#0" expanded="false" />
-            <element signature="method#activate#0;class#Sigmoid#0" expanded="false" />
-            <element signature="method#getDerivative#0;class#Sigmoid#0" expanded="false" />
+            <element signature="docComment;class#Tutor#0" expanded="false" />
+            <element signature="docComment;method#Tutor#0;class#Tutor#0" expanded="false" />
+            <element signature="method#Tutor#0;class#Tutor#0" expanded="false" />
+            <element signature="docComment;method#initNet#0;class#Tutor#0" expanded="false" />
+            <element signature="method#initNet#0;class#Tutor#0" expanded="false" />
+            <element signature="docComment;method#printNet#0;class#Tutor#0" expanded="false" />
+            <element signature="method#printNet#0;class#Tutor#0" expanded="false" />
+            <element signature="docComment;method#getNetType#0;class#Tutor#0" expanded="false" />
+            <element signature="method#getNetType#0;class#Tutor#0" expanded="false" />
+            <element signature="docComment;method#getRecognizingTypes#0;class#Tutor#0" expanded="false" />
+            <element signature="method#getRecognizingTypes#0;class#Tutor#0" expanded="false" />
+            <element signature="docComment;method#train#0;class#Tutor#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ThresholdFunc.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/ITrainingNet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="58" selection-end="58" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="docComment;class#ThresholdFunc#0" expanded="false" />
-            <element signature="method#ThresholdFunc#0;class#ThresholdFunc#0" expanded="false" />
-            <element signature="method#getThreshold#0;class#ThresholdFunc#0" expanded="false" />
-            <element signature="method#setThreshold#0;class#ThresholdFunc#0" expanded="false" />
-            <element signature="method#activate#0;class#ThresholdFunc#0" expanded="false" />
-          </folding>
+        <state line="8" column="9" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/RecognizeType.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/layer/ActiveLayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="113" selection-end="113" vertical-scroll-proportion="0.0">
+        <state line="8" column="13" selection-start="196" selection-end="196" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="docComment;class#RecognizeType#0" expanded="false" />
-            <element signature="method#RecognizeType#0;class#RecognizeType#0" expanded="false" />
-            <element signature="method#getType#0;class#RecognizeType#0" expanded="false" />
-            <element signature="method#setType#0;class#RecognizeType#0" expanded="false" />
-            <element signature="method#getAccuracy#0;class#RecognizeType#0" expanded="false" />
-            <element signature="method#setAccuracy#0;class#RecognizeType#0" expanded="false" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/StaticPerceptron.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="17" selection-start="5319" selection-end="5319" vertical-scroll-proportion="0.0">
+        <state line="190" column="40" selection-start="6372" selection-end="6372" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="docComment;class#StaticPerceptron#0" expanded="false" />
             <element signature="docComment;method#StaticPerceptron#0;class#StaticPerceptron#0" expanded="false" />
-            <element signature="method#StaticPerceptron#0;class#StaticPerceptron#0" expanded="false" />
             <element signature="docComment;method#copy#0;class#StaticPerceptron#0" expanded="false" />
             <element signature="method#copy#0;class#StaticPerceptron#0" expanded="false" />
             <element signature="docComment;method#print#0;class#StaticPerceptron#0" expanded="false" />
@@ -949,61 +1082,67 @@
             <element signature="docComment;method#recognizeClass#0;class#StaticPerceptron#0" expanded="false" />
             <element signature="method#recognizeClass#0;class#StaticPerceptron#0" expanded="false" />
             <element signature="docComment;method#init#0;class#StaticPerceptron#0" expanded="false" />
-            <element signature="method#init#0;class#StaticPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setMaxInput#0;class#StaticPerceptron#0" expanded="false" />
+            <element signature="method#setMaxInput#0;class#StaticPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getMaxInput#0;class#StaticPerceptron#0" expanded="false" />
+            <element signature="method#getMaxInput#0;class#StaticPerceptron#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/TrainingPerceptron.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="163" column="27" selection-start="7046" selection-end="7046" vertical-scroll-proportion="0.0">
+        <state line="477" column="21" selection-start="21786" selection-end="22000" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="docComment;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#teachTransaction#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#TrainingPerceptron#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#TrainingPerceptron#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#copy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#copy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getTeachingData#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getTeachingData#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#train#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="method#train#0;class#TrainingPerceptron#0" expanded="false" />
-            <element signature="method#train#1;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#randomInit#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="method#randomInit#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#save#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="method#save#0;class#TrainingPerceptron#0" expanded="false" />
             <element signature="docComment;method#readImage#0;class#TrainingPerceptron#0" expanded="false" />
-            <element signature="method#readImage#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getDeltaTime#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getDeltaTime#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#setTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getTeachingPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#setControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getControlPath#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#setBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getBriefLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#setDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getDetailedLog#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#setOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getOutputAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#setIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#setIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="docComment;method#getIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
+            <element signature="method#getIdleAccuracy#0;class#TrainingPerceptron#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Recognizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="49" selection-start="825" selection-end="841" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/net/IStaticNet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="32" selection-start="49" selection-end="49" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/neuro/adapter/Tutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ImageClassification/src/TestingClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="65" selection-start="4389" selection-end="4389" vertical-scroll-proportion="3.0545025">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="77" column="51" selection-start="2819" selection-end="3056" vertical-scroll-proportion="0.6445498">
+          <folding />
         </state>
       </provider>
     </entry>
