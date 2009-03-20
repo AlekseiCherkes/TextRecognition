@@ -12,7 +12,7 @@ teaching_dir = "for_teaching/teaching_set"
 control_dir = "for_teaching/control_set"
 font_size = 20
 size = (20, 20)
-teach_N = 10
+teach_N = 20
 control_N = 0
 #chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # chars = string.ascii_uppercase
 chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
