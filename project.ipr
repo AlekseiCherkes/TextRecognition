@@ -31,7 +31,7 @@
   <component name="CodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS">
       <value>
-        <ADDITIONAL_INDENT_OPTIONS fileType="java">
+        <ADDITIONAL_INDENT_OPTIONS fileType="">
           <option name="INDENT_SIZE" value="4" />
           <option name="CONTINUATION_INDENT_SIZE" value="8" />
           <option name="TAB_SIZE" value="4" />
@@ -40,7 +40,7 @@
           <option name="LABEL_INDENT_SIZE" value="0" />
           <option name="LABEL_INDENT_ABSOLUTE" value="false" />
         </ADDITIONAL_INDENT_OPTIONS>
-        <ADDITIONAL_INDENT_OPTIONS fileType="jsp">
+        <ADDITIONAL_INDENT_OPTIONS fileType="java">
           <option name="INDENT_SIZE" value="4" />
           <option name="CONTINUATION_INDENT_SIZE" value="8" />
           <option name="TAB_SIZE" value="4" />
@@ -269,6 +269,7 @@
       <module fileurl="file://$PROJECT_DIR$/src/ImageClassification/ImageClassification.iml" filepath="$PROJECT_DIR$/src/ImageClassification/ImageClassification.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/ImageProcessing/ImageProcessing.iml" filepath="$PROJECT_DIR$/src/ImageProcessing/ImageProcessing.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/JBlas/JBlas.iml" filepath="$PROJECT_DIR$/src/JBlas/JBlas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/TextRecognition/TextRecognition.iml" filepath="$PROJECT_DIR$/src/TextRecognition/TextRecognition.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
@@ -313,5 +314,15 @@
     <mapping directory="" vcs="svn" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
+  <component name="libraryTable">
+    <library name="Qt">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/deploy/lib" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/deploy/lib" recursive="false" />
+    </library>
+  </component>
 </project>
 

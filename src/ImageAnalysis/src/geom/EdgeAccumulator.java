@@ -3,6 +3,7 @@ package geom;
 import java.awt.geom.Point2D;
 import java.awt.*;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author M-NPO
@@ -12,6 +13,13 @@ public class EdgeAccumulator {
     private List<Point2D> leftVertices_m;
     private List<Point2D> rightVertices_m;
 
+    int maxLeft_m;
+    int maxRight_m;
+
+    public EdgeAccumulator() {
+        leftVertices_m = new ArrayList<Point2D>();
+        rightVertices_m = new ArrayList<Point2D>();
+    }
 
     /**
      * Takes pixel of left edge and pixel of right edge
@@ -21,6 +29,7 @@ public class EdgeAccumulator {
      * @param y
      */
     public void takeLine(int xLeft, int xRight, int y){
+
 
     }
 
