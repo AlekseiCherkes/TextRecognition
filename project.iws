@@ -17,24 +17,20 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.iws" afterPath="$PROJECT_DIR$/project.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TextRecognition/TextRecognition.iml" afterPath="$PROJECT_DIR$/src/TextRecognition/TextRecognition.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.ipr" afterPath="$PROJECT_DIR$/project.ipr" />
-      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\PixelPackFetcher.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageProcessing/ImageProcessing.iml" afterPath="$PROJECT_DIR$/src/ImageProcessing/ImageProcessing.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageAnalysis/ImageAnalysis.iml" afterPath="$PROJECT_DIR$/src/ImageAnalysis/ImageAnalysis.iml" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\PixelPack.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\UnionFind_Structure.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ImageAnalysis/src/binary" afterPath="" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\Main.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/image" />
     </list>
     <list name="Rejected commit: Default" comment="The Image decomposition is not ready yet.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/ResultsManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/PacksRegistry.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/ConnectionFinder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/ImageDataInterpriter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/QImageAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/PixelPack.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/PixelPack.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/ImageData.java" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\BinaryDecomposer.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\PacksRegistry.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\IBinaryImage.java" afterPath="" />
+      <change type="MOVED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\IBinaryImage.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/image/IGrayImage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageAnalysis/src/geom/EdgeAccumulator.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/geom/EdgeAccumulator.java" />
-      <change type="MOVED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\IBinaryImage.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/IGrayImage.java" />
-      <change type="MOVED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\IBinaryStream.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/IGrayStream.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/FigureStatistics.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/BinaryDecomposer.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/binary/ImageDecomposer.java" />
+      <change type="MOVED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\IBinaryStream.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/image/IGrayStream.java" />
+      <change type="DELETED" beforePath="D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\IBinaryStream.java" afterPath="" />
     </list>
     <ignored path="project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -101,46 +97,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PacksRegistry.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/PacksRegistry.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="6" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PixelPack.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/PixelPack.java">
+        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/PixelPack.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BinaryDecomposer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/BinaryDecomposer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
+            <state line="9" column="13" selection-start="186" selection-end="186" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ConnectionFinder.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/ConnectionFinder.java">
+        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/ConnectionFinder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="230" selection-end="230" vertical-scroll-proportion="0.15384616">
+            <state line="14" column="13" selection-start="270" selection-end="270" vertical-scroll-proportion="0.23571429">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ImageDecomposer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/ImageDecomposer.java">
+        <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/ImageDecomposer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
+            <state line="15" column="13" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -158,14 +136,7 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="PackagesPane">
-    <subPane>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="project" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-    </subPane>
+    <subPane />
   </component>
   <component name="ProjectLevelVcsManager">
     <OptionsSetting value="true" id="Add" />
@@ -185,6 +156,114 @@
         <PATH_ELEMENT>
           <option name="myItemId" value="project" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="geom" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="decomposition" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="project" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="ImageAnalysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
     </subPane>
@@ -232,6 +311,104 @@
       <recent name="jblas.matrices" />
       <recent name="neuro.adapter" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="3/31/09 9:36 PM" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+            <PATH vcs="svn" revision="81">D:\Study_Monted\ITRod\Recognition\src\ImageAnalysis\src\binary\UnionFind_Structure.java</PATH>
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager" selected="Application.Unnamed">
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -430,13 +607,13 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280543" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39968154" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32918552" sideWeight="0.5" order="9" side_tool="false" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32918552" sideWeight="0.5" order="9" side_tool="false" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23529412" sideWeight="0.5" order="10" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2517912" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.58597285" order="5" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32603407" sideWeight="0.75678736" order="0" side_tool="false" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32603407" sideWeight="0.6628959" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
@@ -585,58 +762,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/IGrayStream.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/image/IGrayStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="17" selection-start="187" selection-end="187" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/IGrayImage.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/image/IGrayImage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="9" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/FigureStatistics.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/FigureStatistics.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="30" selection-start="200" selection-end="200" vertical-scroll-proportion="0.17763157">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/PixelPack.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/PixelPack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
+        <state line="9" column="13" selection-start="186" selection-end="186" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/PacksRegistry.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/ImageDecomposer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="6" selection-start="201" selection-end="201" vertical-scroll-proportion="0.0">
+        <state line="15" column="13" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/ImageDecomposer.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/decomposition/ConnectionFinder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/BinaryDecomposer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="184" selection-end="184" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageAnalysis/src/binary/ConnectionFinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="230" selection-end="230" vertical-scroll-proportion="0.15384616">
+        <state line="14" column="13" selection-start="270" selection-end="270" vertical-scroll-proportion="0.23571429">
           <folding />
         </state>
       </provider>

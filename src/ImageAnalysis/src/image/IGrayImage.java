@@ -1,4 +1,4 @@
-package binary;
+package image;
 
 /**
  * Created by IntelliJ IDEA.
@@ -7,10 +7,13 @@ package binary;
  * Time: 20:49:14
  * To change this template use File | Settings | File Templates.
  */
-public interface IBinaryImage {
+public interface IGrayImage {
 
     int getWidth ();
     int getHeight();
 
-    boolean get(int x, int y);
+    float get(int x, int y);
+    void  set(int x, int y, float hue);
+
+    boolean isForeground(float hue);
 }
