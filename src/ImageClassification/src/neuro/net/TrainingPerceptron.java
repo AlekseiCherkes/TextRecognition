@@ -12,6 +12,9 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 import java.awt.image.BufferedImage;
 
+import com.trolltech.qt.gui.QImage;
+import processing.Binarization;
+
 /** @author    Vadim Shpakovsky. */
 
 // Variable multilayer perceptron.
@@ -466,13 +469,36 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
 
         File image_file = new File( image_path );
-        BufferedImage image = ImageIO.read( image_file );
-        int h = image.getHeight();
-        int w = image.getWidth();
+        BufferedImage bi_image = Binarization.work( ImageIO.read( image_file ) );
+        int h = bi_image.getHeight();
+        int w = bi_image.getWidth();
         Matrix x = new Matrix ( h * w, 1 );
         for( int j = 0; j < h; ++j ){
             for( int i = 0; i < w; ++i ){
-                int rgb = image.getRGB( i, j ) & 0xffffff;
+                int rgb = bi_image.getRGB( i, j ) & 0xffffff;
+                if ( rgb == 0){
+                    x.set( i + j * h, 0, 1 );
+                }
+                else{
+                    x.set( i + j * h, 0, 0 );
+                }
+            }
+        }
+        return x;
+    }
+
+     /**Convert image to input data for net.
+     * @param image        Qt image object.
+     * @return             Input matrix for net.
+     */
+    public static Matrix        readImage( QImage image ) throws Exception{
+
+        int h = image.height();
+        int w = image.width();
+        Matrix x = new Matrix ( h * w, 1 );
+        for( int j = 0; j < h; ++j ){
+            for( int i = 0; i < w; ++i ){
+                int rgb = image.pixel( i, j ) & 0xffffff;
 //                double val = min_input + rgb * ( max_input - min_input ) / 0xffffff;
 //                x.set( i + j * h, 0, val );
                 int threshold = 0xffffff / 2;
@@ -486,7 +512,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
         return x;
     }
-
+    
     /**
      * @param start_time    Start time in msec.
      * @return              String with time passed since 'start_time'.

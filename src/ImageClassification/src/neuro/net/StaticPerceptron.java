@@ -1,6 +1,7 @@
 package neuro.net;
 
 import neuro.layer.ActiveLayer;
+import neuro.activation_func.Sigmoid;
 import jblas.matrices.Matrix;
 
 import java.util.ArrayList;
@@ -50,11 +51,55 @@ public class StaticPerceptron implements IStaticNet{
         max_input_val = 1.;
     }
 
+    public                      StaticPerceptron( int height, int width, int output_count )
+                                    throws Exception{
+        int input = height * width;
+        int inner_layer = ( input + output_count ) / 2;
+        double teaching_speed = 0.5;
+        double output_accuracy = 0.1;
+        double idle_accuracy = 1e-7;
+        double shift = 0.;
+
+        // Create two layer perceptron:
+        // input        (m x n)
+        // first layer  (input x inner_layer)
+        // second layer (inner_layer x output)
+        // out          output
+        ArrayList<ActiveLayer> layers_list = new ArrayList<ActiveLayer>();
+        Sigmoid s = new Sigmoid( shift );
+
+        Matrix w = new Matrix( input, inner_layer );
+        ActiveLayer layer = new ActiveLayer( w, s);
+        layers_list.add( layer.copy() );
+        w = new Matrix( inner_layer, output_count  );
+        layer = new ActiveLayer( w, s);
+        layers_list.add( layer.copy() );
+
+        if ( layers_list.get( 0 ).prevSize() != height * width )
+        {
+            throw new Exception( "Input size != input_width * input_height." );
+        }
+
+        this.layers = new ArrayList<ActiveLayer>();
+        for ( ActiveLayer next_layer : this.layers ){
+            this.layers.add( next_layer.copy() );
+        }
+        this.type = "TwoLayerPerceptron";
+        this.input_width = width;
+        this.input_height = height;
+        this.output_size = layers_list.get( layers_list.size() - 1 ).size();
+        this.output_types = new ArrayList< String >();
+        this.min_input_val = 0.;
+        this.max_input_val = 1.;
+    }
+
     /**Make independent copy of itself.
      * @return          Copy of itself.
      */
-    public                      StaticPerceptron copy() throws Exception{
-        return new StaticPerceptron( layers, input_height, input_width );
+    public StaticPerceptron     copy() throws Exception{
+        StaticPerceptron net = new StaticPerceptron( layers, input_height, input_width );
+        net.output_types = this.output_types;
+        return net;
     }
 
     /** Print all layers in network to stdout..

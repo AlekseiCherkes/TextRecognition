@@ -25,9 +25,9 @@ public class TestingClass {
             int input = m * n;
             int output = 26;
             int inner_layer = ( input + output ) / 2;
-            double teaching_speed = 0.5;
+            double teaching_speed = 0.7;
             double output_accuracy = 0.1;
-            double idle_accuracy = 1e-7;
+            double idle_accuracy = 1e-6;
             double shift = 0.;
 
             // Create two layer perceptron:
@@ -73,7 +73,7 @@ public class TestingClass {
 //
                 StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
                 Recognizer recognizer = new Recognizer( static_net );
-                recognizer.initNet( "data\\nets\\32x32_test" );
+                recognizer.initNet( "data\\nets\\32x32_test.net" );
 
                 runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
             }

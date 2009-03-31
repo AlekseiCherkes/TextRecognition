@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>691</width>
-    <height>638</height>
+    <width>519</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>691</width>
+     <width>519</width>
      <height>21</height>
     </rect>
    </property>
@@ -35,8 +35,7 @@
     <property name="title" >
      <string>&amp;File</string>
     </property>
-    <addaction name="actionSave" />
-    <addaction name="actionClose" />
+    <addaction name="actionOpen_Network" />
     <addaction name="separator" />
     <addaction name="actionExit" />
    </widget>
@@ -150,7 +149,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_cyan_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -173,7 +172,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_red_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -183,7 +182,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_magenta_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -206,7 +205,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_green_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -216,7 +215,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_yellow_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -239,7 +238,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_blue_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -249,7 +248,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_white_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -272,7 +271,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_black_16.png</pixmap>
+           <pixmap/>
           </property>
          </widget>
         </item>
@@ -329,10 +328,6 @@
    <property name="enabled" >
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset>
-     <normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/zoomin.png</normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/zoomin.png</iconset>
-   </property>
    <property name="text" >
     <string>Zoom In</string>
    </property>
@@ -340,10 +335,6 @@
   <action name="actionZoom_Out" >
    <property name="enabled" >
     <bool>false</bool>
-   </property>
-   <property name="icon" >
-    <iconset>
-     <normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/zoomout.png</normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/zoomout.png</iconset>
    </property>
    <property name="text" >
     <string>Zoom Out</string>
@@ -368,10 +359,6 @@
    <property name="enabled" >
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset>
-     <normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/images/save.png</normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/images/save.png</iconset>
-   </property>
    <property name="text" >
     <string>&amp;Save</string>
    </property>
@@ -383,10 +370,6 @@
    <property name="enabled" >
     <bool>false</bool>
    </property>
-   <property name="icon" >
-    <iconset>
-     <normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/images/close.png</normaloff>classpath:C:\!!!! TEMP\qtjambi-win32-gpl-4.4.3_01\qtjambi-win32-gpl-4.4.3_01\qtjambi-examples-4.4.3_01.jar#com/trolltech/images/close.png</iconset>
-   </property>
    <property name="text" >
     <string>Cl&amp;ose</string>
    </property>
@@ -394,6 +377,11 @@
   <action name="actionAbout_Qt" >
    <property name="text" >
     <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="actionOpen_Network" >
+   <property name="text" >
+    <string>Open Network</string>
    </property>
   </action>
  </widget>

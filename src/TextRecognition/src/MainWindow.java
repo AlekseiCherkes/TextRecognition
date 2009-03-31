@@ -2,16 +2,35 @@ import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
 import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
 
+import neuro.adapter.*;
+import neuro.net.*;
+import neuro.layer.ActiveLayer;
+import neuro.activation_func.Sigmoid;
+
+import java.util.ArrayList;
+
+import jblas.matrices.Matrix;
+
 public class MainWindow extends QMainWindow {
 
     public MainWindow() {
         ui.setupUi(this);
         setupTableView();
         setupView();
-    //  readSettings();
+        //  readSettings();
+
+        try {
+            StaticPerceptron staticPerceptron = new StaticPerceptron(20, 20, 26);
+            staticPerceptron.init("data/nets/32x32_test.net");
+            recognizer = new Recognizer(staticPerceptron);
+            statusBar().showMessage("Network opened");
+        }
+        catch (Exception e) {
+            statusBar().showMessage("File open error");
+        }
     }
 
-    public void on_dirView_activated(QModelIndex index) {
+    public void on_dirView_activated(QModelIndex index) throws Exception {
         QFileInfo info = dirModel.fileInfo(index);
         if (info.isDir()) {
             statusBar().showMessage("This is directory");
@@ -19,15 +38,49 @@ public class MainWindow extends QMainWindow {
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
                 view.setImage(image);
-                statusBar().showMessage("Image loaded");
+
+                if (recognizer == null) {
+                    statusBar().showMessage("Network wasn't opened");
+                } else {
+//                    RecognizeType type = recognizer.recognize(info.absoluteFilePath());
+                    RecognizeType type = recognizer.recognize(TrainingPerceptron.readImage(image));
+                    String t = type.getType(); // Не рефакторить!!!
+                    statusBar().showMessage(t);
+                }
+
+                RecognizeType type = recognizer.recognize(info.absoluteFilePath());
+                String t = type.getType(); // Не рефакторить!!!
+                statusBar().showMessage(t);
+
+//                statusBar().showMessage("Image loaded");
             } else {
-                statusBar().showMessage("Can't load image");
+//                statusBar().showMessage("Can't load image");
+            }
+        }
+    }
+
+    public void on_actionOpen_Network_triggered() throws Exception {
+        String fileName = QFileDialog.getOpenFileName(this, "File to open", "*.net");
+        if (fileName.length() == 0 || !fileName.toLowerCase().endsWith("net")) {
+            statusBar().showMessage("Not openning file");
+            return;
+        } else {
+            try {
+                StaticPerceptron staticPerceptron = new StaticPerceptron(20, 20, 26);
+                staticPerceptron.init(fileName);
+                recognizer = new Recognizer(staticPerceptron);
+                statusBar().showMessage("Network opened");
+            }
+            catch (Exception e) {
+                statusBar().showMessage("File open error");
             }
         }
     }
 
     public void on_tableView_activated(QModelIndex index) {
         view.setImage(imageModel.imageAt(index.row()));
+
+
         statusBar().showMessage("Displaying image");
     }
 
@@ -172,4 +225,6 @@ public class MainWindow extends QMainWindow {
     private QDirModel dirModel;
     private ImageTableModel imageModel;
     private View view;
+
+    private Recognizer recognizer;
 }

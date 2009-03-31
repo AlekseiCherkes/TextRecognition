@@ -14,16 +14,12 @@ public class Recognizer{
     private IStaticNet net;
 
     /**Construct recognizer with net.
-    @param net        Static neuron net.
+    @param local_net        Static neuron net.
     */
-    public Recognizer( IStaticNet net )
+    public Recognizer( IStaticNet local_net )
         throws Exception{
-        if ( net != null ){
-            this.net = net.copy();
-        }
-        else{
-            net = null;
-        }
+        this.net = local_net.copy();
+        
     }
 
     /** Initialize net from file.

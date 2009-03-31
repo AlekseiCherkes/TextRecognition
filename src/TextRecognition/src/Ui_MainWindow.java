@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'MainWindow.jui'
 **
-** Created: ѕн 30. мар 13:33:11 2009
+** Created: ¬т 31. мар 16:26:15 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -20,6 +20,7 @@ public class Ui_MainWindow
     public QAction actionSave;
     public QAction actionClose;
     public QAction actionAbout_Qt;
+    public QAction actionOpen_Network;
     public QWidget centralwidget;
     public QMenuBar menubar;
     public QMenu menuHelp;
@@ -60,15 +61,13 @@ public class Ui_MainWindow
     public void setupUi(QMainWindow MainWindow)
     {
         MainWindow.setObjectName("MainWindow");
-        MainWindow.resize(new QSize(691, 638).expandedTo(MainWindow.minimumSizeHint()));
+        MainWindow.resize(new QSize(519, 434).expandedTo(MainWindow.minimumSizeHint()));
         actionZoom_In = new QAction(MainWindow);
         actionZoom_In.setObjectName("actionZoom_In");
         actionZoom_In.setEnabled(false);
-        actionZoom_In.setIcon(new QIcon(new QPixmap("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/zoomin.png")));
         actionZoom_Out = new QAction(MainWindow);
         actionZoom_Out.setObjectName("actionZoom_Out");
         actionZoom_Out.setEnabled(false);
-        actionZoom_Out.setIcon(new QIcon(new QPixmap("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/zoomout.png")));
         actionExit = new QAction(MainWindow);
         actionExit.setObjectName("actionExit");
         actionAbout_Text_Recognition = new QAction(MainWindow);
@@ -78,19 +77,19 @@ public class Ui_MainWindow
         actionSave = new QAction(MainWindow);
         actionSave.setObjectName("actionSave");
         actionSave.setEnabled(false);
-        actionSave.setIcon(new QIcon(new QPixmap("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/images/save.png")));
         actionClose = new QAction(MainWindow);
         actionClose.setObjectName("actionClose");
         actionClose.setEnabled(false);
-        actionClose.setIcon(new QIcon(new QPixmap("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/images/close.png")));
         actionAbout_Qt = new QAction(MainWindow);
         actionAbout_Qt.setObjectName("actionAbout_Qt");
+        actionOpen_Network = new QAction(MainWindow);
+        actionOpen_Network.setObjectName("actionOpen_Network");
         centralwidget = new QWidget(MainWindow);
         centralwidget.setObjectName("centralwidget");
         MainWindow.setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar.setObjectName("menubar");
-        menubar.setGeometry(new QRect(0, 0, 691, 21));
+        menubar.setGeometry(new QRect(0, 0, 519, 21));
         menuHelp = new QMenu(menubar);
         menuHelp.setObjectName("menuHelp");
         menuFile = new QMenu(menubar);
@@ -154,7 +153,7 @@ public class Ui_MainWindow
         gridLayout3.setObjectName("gridLayout3");
         labelCyan = new QLabel(groupBox);
         labelCyan.setObjectName("labelCyan");
-        labelCyan.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_cyan_16.png")));
+        labelCyan.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelCyan, 0, 0, 1, 1);
 
@@ -168,13 +167,13 @@ public class Ui_MainWindow
 
         labelRed = new QLabel(groupBox);
         labelRed.setObjectName("labelRed");
-        labelRed.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_red_16.png")));
+        labelRed.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelRed, 0, 2, 1, 1);
 
         labelMagenta = new QLabel(groupBox);
         labelMagenta.setObjectName("labelMagenta");
-        labelMagenta.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_magenta_16.png")));
+        labelMagenta.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelMagenta, 1, 0, 1, 1);
 
@@ -188,13 +187,13 @@ public class Ui_MainWindow
 
         labelGreen = new QLabel(groupBox);
         labelGreen.setObjectName("labelGreen");
-        labelGreen.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_green_16.png")));
+        labelGreen.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelGreen, 1, 2, 1, 1);
 
         labelYellow = new QLabel(groupBox);
         labelYellow.setObjectName("labelYellow");
-        labelYellow.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_yellow_16.png")));
+        labelYellow.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelYellow, 2, 0, 1, 1);
 
@@ -208,13 +207,13 @@ public class Ui_MainWindow
 
         labelBlue = new QLabel(groupBox);
         labelBlue.setObjectName("labelBlue");
-        labelBlue.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_blue_16.png")));
+        labelBlue.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelBlue, 2, 2, 1, 1);
 
         labelWhite = new QLabel(groupBox);
         labelWhite.setObjectName("labelWhite");
-        labelWhite.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_white_16.png")));
+        labelWhite.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelWhite, 3, 0, 1, 1);
 
@@ -228,7 +227,7 @@ public class Ui_MainWindow
 
         labelBlack = new QLabel(groupBox);
         labelBlack.setObjectName("labelBlack");
-        labelBlack.setPixmap(new QPixmap(("classpath:C:\\!!!! TEMP\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-win32-gpl-4.4.3_01\\qtjambi-examples-4.4.3_01.jar#com/trolltech/demos/imageviewer/circle_black_16.png")));
+        labelBlack.setPixmap(new QPixmap());
 
         gridLayout3.addWidget(labelBlack, 3, 2, 1, 1);
 
@@ -262,8 +261,7 @@ public class Ui_MainWindow
         menuHelp.addSeparator();
         menuHelp.addAction(actionAbout_Qt_Jambi);
         menuHelp.addAction(actionAbout_Qt);
-        menuFile.addAction(actionSave);
-        menuFile.addAction(actionClose);
+        menuFile.addAction(actionOpen_Network);
         menuFile.addSeparator();
         menuFile.addAction(actionExit);
         toolBar_2.addAction(actionSave);
@@ -285,6 +283,7 @@ public class Ui_MainWindow
         actionSave.setShortcut(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Ctrl+S"));
         actionClose.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Cl&ose"));
         actionAbout_Qt.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "About &Qt"));
+        actionOpen_Network.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Open Network"));
         menuHelp.setTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "&Help"));
         menuFile.setTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "&File"));
         treeDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Directories"));

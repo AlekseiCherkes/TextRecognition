@@ -12,6 +12,9 @@ import com.trolltech.qt.gui.*;
 
 import java.awt.image.BufferedImage;
 
+import processing.Greyscale;
+import processing.Binarization;
+
 public class View extends QWidget {
     public Signal1<Boolean> valid = new Signal1<Boolean>();
 
@@ -210,8 +213,8 @@ public class View extends QWidget {
 
         p.end();
 
-        grayscaled = createGrayscaled(modified);
-        binarized = createBinarized(modified);
+        grayscaled = Greyscale.work(modified);
+        binarized = Binarization.work(modified);
         rmodified = createReflection(modified);
         rgrayscaled = createReflection(grayscaled);
         rbinarized = createReflection(binarized);
@@ -279,55 +282,6 @@ public class View extends QWidget {
         pt.end();
 
         return image;
-    }
-
-     private QImage createGrayscaled(QImage in) {
-        int h = in.height();
-        int w = in.width();
-
-        QImage out = in.clone();
-
-        for(int i = 0; i < w; ++i) {
-            for(int j = 0; j < h; ++j) {
-                int rgb = in.pixel(i, j);
-                int r = (rgb & 0x00ff0000) >> 16;
-                int g = (rgb & 0x0000ff00) >> 8;
-                int b = (rgb & 0x000000ff);
-            //  rgb = 0x0 | (b << 16) | (g << 8) | r; // Swap Red and Blue.
-                int c = (r + b + g) / 3;
-                rgb = (c << 16) | (c << 8) | c;
-                out.setPixel(i, j, rgb);
-            }
-        }
-
-        return out;
-    }
-
-    private QImage createBinarized(QImage in) {
-        int h = in.height();
-        int w = in.width();
-
-        QImage out = createGrayscaled(in);
-
-        int sum = 0;
-        for(int i = 0; i < w; ++i) {
-            for(int j = 0; j < h; ++j ) {
-                sum += out.pixel(i, j) & 0xff;
-            }
-        }
-
-        int threshold = sum / (w * h);
-        for(int i = 0; i < w; ++i) {
-            for(int j = 0; j < h; ++j) {
-                int c = out.pixel(i, j) & 0xff;
-                if(c > threshold)
-                    out.setPixel(i, j, -1);
-                else
-                    out.setPixel(i, j, 0);
-            }
-        }
-
-        return out;
     }
 
     private int colorBalance;

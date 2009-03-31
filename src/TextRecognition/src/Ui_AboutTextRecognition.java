@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'AboutTextRecognition.jui'
 **
-** Created: �� 30. ��� 13:33:11 2009
+** Created: �� 31. ��� 16:26:15 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
