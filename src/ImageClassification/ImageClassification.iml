@@ -23,7 +23,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ImageProcessing" />
     <orderEntry type="module" module-name="JBlas" />
-    <orderEntry type="library" name="Qt" level="project" />
+    <orderEntry type="library" name="QT" level="project" />
   </component>
 </module>
 
