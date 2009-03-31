@@ -14,7 +14,6 @@
   <property name="compiler.generate.no.warnings" value="off"/>
   <property name="compiler.args" value=""/>
   <property name="compiler.max.memory" value="128m"/>
-
   <patternset id="ignored.files">
     <exclude name="**/CVS/**"/>
     <exclude name="**/SCCS/**"/>
@@ -52,23 +51,34 @@
   </patternset>
   
   
+  <!-- Project Libraries -->
+  
+  <path id="library.qt.classpath">
+    <fileset dir="${basedir}/deploy/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+  </path>
+  
+  
   <!-- Application Server Libraries -->
   
   <!-- Modules -->
   
   <import file="${basedir}/src/ImageAnalysis/module_imageanalysis.xml"/>
   
-  <import file="${basedir}/src/ImageClassification/module_imageclassification.xml"/>
-  
   <import file="${basedir}/src/ImageProcessing/module_imageprocessing.xml"/>
   
   <import file="${basedir}/src/JBlas/module_jblas.xml"/>
+  
+  <import file="${basedir}/src/TextRecognition/module_textrecognition.xml"/>
+  
+  <import file="${basedir}/src/ImageClassification/module_imageclassification.xml"/>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.imageanalysis, clean.module.imageclassification, clean.module.imageprocessing, clean.module.jblas" description="cleanup all"/>
+  <target name="clean" depends="clean.module.imageanalysis, clean.module.imageprocessing, clean.module.jblas, clean.module.textrecognition, clean.module.imageclassification" description="cleanup all"/>
   
-  <target name="all" depends="init, clean, compile.module.imageanalysis, compile.module.imageclassification, compile.module.imageprocessing, compile.module.jblas" description="build all"/>
+  <target name="all" depends="init, clean, compile.module.imageanalysis, compile.module.imageprocessing, compile.module.jblas, compile.module.textrecognition, compile.module.imageclassification" description="build all"/>
 </project>

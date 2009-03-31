@@ -12,11 +12,14 @@
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
   
-  <path id="imageprocessing.module.classpath"/>
+  <path id="imageprocessing.module.classpath">
+    <path refid="library.qt.classpath"/>
+  </path>
   
   <path id="imageprocessing.runtime.module.classpath">
     <pathelement location="${imageprocessing.output.dir}"/>
     <pathelement location="${imageprocessing.testoutput.dir}"/>
+    <path refid="library.qt.classpath"/>
   </path>
   
   

@@ -12,11 +12,18 @@
     <!-- Paths to be included in compilation bootclasspath -->
   </path>
   
-  <path id="imageclassification.module.classpath"/>
+  <path id="imageclassification.module.classpath">
+    <pathelement location="${imageprocessing.output.dir}"/>
+    <pathelement location="${imageprocessing.testoutput.dir}"/>
+    <pathelement location="${jblas.output.dir}"/>
+    <pathelement location="${jblas.testoutput.dir}"/>
+  </path>
   
   <path id="imageclassification.runtime.module.classpath">
     <pathelement location="${imageclassification.output.dir}"/>
     <pathelement location="${imageclassification.testoutput.dir}"/>
+    <path refid="imageprocessing.runtime.module.classpath"/>
+    <path refid="jblas.runtime.module.classpath"/>
   </path>
   
   
@@ -43,7 +50,7 @@
   
   <target name="compile.module.imageclassification" depends="compile.module.imageclassification.production,compile.module.imageclassification.tests" description="Compile module ImageClassification"/>
   
-  <target name="compile.module.imageclassification.production" description="Compile module ImageClassification; production classes">
+  <target name="compile.module.imageclassification.production" depends="compile.module.imageprocessing,compile.module.jblas" description="Compile module ImageClassification; production classes">
     <mkdir dir="${imageclassification.output.dir}"/>
     <javac destdir="${imageclassification.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.imageclassification}"/>

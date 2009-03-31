@@ -44,5 +44,9 @@
         <fileset dir="${imageclassification.output.dir}" excludes="**/Test.class"/>
     </jar>
 
+    <jar destfile="${jar.output.dir}/text_recognition.jar">
+        <fileset dir="${textrecognition.output.dir}" excludes="**/Test.class"/>
+    </jar>
+
   </target>
 </project>
