@@ -1,4 +1,3 @@
-
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
 import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
@@ -9,15 +8,22 @@ public class MainWindow extends QMainWindow {
         ui.setupUi(this);
         setupTableView();
         setupView();
-    //    readSettings();
+    //  readSettings();
     }
 
     public void on_dirView_activated(QModelIndex index) {
-        QDir dir = new QDir(dirModel.fileInfo(index).absoluteFilePath());
-        imageModel.setDirectory(dir);
-        ui.tableDock.setWindowTitle("Images in: " + dir.absolutePath());
-
-        statusBar().showMessage("Displaying a list of images in " + dir.absolutePath() + "'");
+        QFileInfo info = dirModel.fileInfo(index);
+        if (info.isDir()) {
+            statusBar().showMessage("This is directory");
+        } else {
+            QImage image = new QImage();
+            if (image.load(info.absoluteFilePath())) {
+                view.setImage(image);
+                statusBar().showMessage("Image loaded");
+            } else {
+                statusBar().showMessage("Can't load image");
+            }
+        }
     }
 
     public void on_tableView_activated(QModelIndex index) {
@@ -98,26 +104,29 @@ public class MainWindow extends QMainWindow {
             return;
         dirModel = new QDirModel(this);
         dirModel.setLazyChildCount(true);
-        dirModel.setFilter(new QDir.Filters(QDir.Filter.Dirs, QDir.Filter.Drives, QDir.Filter.NoDotAndDotDot));
+        //  dirModel.setFilter(new QDir.Filters(QDir.Filter.Dirs, QDir.Filter.Drives, QDir.Filter.NoDotAndDotDot));
+        dirModel.setFilter(new QDir.Filters(QDir.Filter.AllEntries, QDir.Filter.NoDotAndDotDot, QDir.Filter.TypeMask));
 
         ui.dirView.setModel(dirModel);
 
-        for (int i=1; i<ui.dirView.header().count(); ++i)
+        for (int i = 1; i < ui.dirView.header().count(); ++i)
             ui.dirView.hideColumn(i);
         ui.dirView.header().hide();
 
         ui.dirView.header().setStretchLastSection(false);
         ui.dirView.header().setResizeMode(QHeaderView.ResizeMode.ResizeToContents);
 
-        QFileInfo info = new QFileInfo("com/trolltech/images");
-//        QModelIndex initial = dirModel.index(info.absoluteFilePath());
-        QModelIndex initial = dirModel.index("C:\\!!! Media\\art\\");
+        QDir dir = new QDir();
+        dir.cd("trunk");
+        dir.cd("data");
+        //  QModelIndex initial = dirModel.index(dir.absolutePath());
+        QModelIndex initial = dirModel.index(dir.absolutePath());
         if (initial != null) {
             ui.dirView.setCurrentIndex(initial);
             ui.dirView.activated.emit(initial);
         }
 
-        ui.dirView.scrollTo(ui.dirView.currentIndex(),ScrollHint.PositionAtCenter);
+        ui.dirView.scrollTo(ui.dirView.currentIndex(), ScrollHint.PositionAtCenter);
     }
 
     private void setupView() {
@@ -136,7 +145,7 @@ public class MainWindow extends QMainWindow {
     }
 
     public void closeEvent(QCloseEvent event) {
-     //   writeSettings();
+        //   writeSettings();
     }
 
 //    public void readSettings(){
