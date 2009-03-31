@@ -2,9 +2,8 @@
 <project relativePaths="false" version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ImageAnalysis/src/geom/EdgeAccumulator.java" afterPath="$PROJECT_DIR$/src/ImageAnalysis/src/geom/EdgeAccumulator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.ipr" afterPath="$PROJECT_DIR$/project.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.iws" afterPath="$PROJECT_DIR$/project.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TextRecognition/src/MainWindow.java" afterPath="$PROJECT_DIR$/src/TextRecognition/src/MainWindow.java" />
     </list>
     <ignored path="project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -103,43 +102,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Ui_AboutTextRecognition.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Ui_AboutTextRecognition.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="3" selection-start="514" selection-end="514" vertical-scroll-proportion="0.17603551">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Ui_MainWindow.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Ui_MainWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1238409191718" expanded="false" signature="16585:16595" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MainWindow.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="13" selection-start="136" selection-end="136" vertical-scroll-proportion="84.52">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LazyPixmap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/LazyPixmap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="13" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
+            <state line="173" column="24" selection-start="5925" selection-end="5925" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,59 +116,28 @@
       <file leaf-file-name="ImageTableModel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/ImageTableModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="40" selection-start="3332" selection-end="3336" vertical-scroll-proportion="16.88">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="30" column="49" selection-start="872" selection-end="872" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="View.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="17" selection-start="3437" selection-end="3437" vertical-scroll-proportion="0.0">
+            <state line="19" column="14" selection-start="661" selection-end="661" vertical-scroll-proportion="0.21610169">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LazyPixmap.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/LazyPixmap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="1" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Binarization.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageProcessing/src/processing/Binarization.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="199" selection-end="833" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Greyscale.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImageProcessing/src/processing/Greyscale.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="224" selection-end="836" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="3" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Worker.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Worker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="30" selection-start="320" selection-end="320" vertical-scroll-proportion="0.0">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -271,53 +206,15 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="JBlas" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="project" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ImageProcessing" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="project" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ImageProcessing" />
+          <option name="myItemId" value="TextRecognition" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="ImageProcessing" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="project" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ImageProcessing" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ImageProcessing" />
+          <option name="myItemId" value="TextRecognition" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="src" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="processing" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -570,7 +467,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39821574" sideWeight="0.8255416" order="1" side_tool="false" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18152866" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41961232" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32927817" sideWeight="0.6579248" order="4" side_tool="false" />
@@ -580,7 +477,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24898621" sideWeight="0.7133758" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3998378" sideWeight="0.83922464" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.58597285" order="5" side_tool="false" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25790754" sideWeight="0.8369441" order="0" side_tool="false" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22627737" sideWeight="0.8369441" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15507412" sideWeight="0.5" order="2" side_tool="false" />
@@ -736,18 +633,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Ui_MainWindow.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/src/processing/Binarization.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="13" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1238409191718" expanded="false" signature="16585:16595" placeholder="{...}" />
-          </folding>
+        <state line="10" column="0" selection-start="199" selection-end="833" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/LazyPixmap.java">
+    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/src/processing/Greyscale.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="13" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
+        <state line="11" column="0" selection-start="224" selection-end="836" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="3" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -761,62 +663,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/ImageTableModel.java">
+    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Ui_AboutTextRecognition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="40" selection-start="3332" selection-end="3336" vertical-scroll-proportion="16.88">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="22" column="39" selection-start="778" selection-end="778" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Ui_MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="3" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0">
+        <state line="12" column="13" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1238409191718" expanded="false" signature="16585:16595" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="136" selection-end="136" vertical-scroll-proportion="84.52">
+        <state line="173" column="24" selection-start="5925" selection-end="5925" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/src/processing/Greyscale.java">
+    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/LazyPixmap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="224" selection-end="836" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="4" column="1" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ImageProcessing/src/processing/Binarization.java">
+    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/ImageTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="199" selection-end="833" vertical-scroll-proportion="0.0">
+        <state line="30" column="49" selection-start="872" selection-end="872" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="17" selection-start="3437" selection-end="3437" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TextRecognition/src/Ui_AboutTextRecognition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="3" selection-start="514" selection-end="514" vertical-scroll-proportion="0.17603551">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="19" column="14" selection-start="661" selection-end="661" vertical-scroll-proportion="0.21610169">
+          <folding />
         </state>
       </provider>
     </entry>
