@@ -21,11 +21,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< .mine
     <orderEntry type="library" name="Qt" level="project" />
-=======
-    <orderEntry type="library" name="QT" level="project" />
->>>>>>> .r83
   </component>
 </module>
 
