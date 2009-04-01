@@ -7,7 +7,7 @@ package image;
  * Time: 20:49:14
  * To change this template use File | Settings | File Templates.
  */
-public interface IGrayImage {
+public interface IGreyImage {
 
     int getWidth ();
     int getHeight();

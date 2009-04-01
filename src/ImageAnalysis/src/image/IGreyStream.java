@@ -7,7 +7,7 @@ package image;
  * Time: 2:04:11
  * To change this template use File | Settings | File Templates.
  */
-public interface IGrayStream {
+public interface IGreyStream {
     float   get ();
     boolean move();
 }
