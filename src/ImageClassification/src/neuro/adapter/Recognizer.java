@@ -65,6 +65,14 @@ public class Recognizer{
         return net.getType();
     }
 
+    public int getInputHeight(){
+        return net.getInputHeight();
+    }
+
+    public int getInputWidth(){
+        return net.getInputWidth();
+    }
+
     /**Get list of all  types that net can recognize.
      *
      * @return      List with types names.
