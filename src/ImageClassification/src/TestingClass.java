@@ -47,35 +47,29 @@ public class TestingClass {
 
 
             try{
-                // Transform all teaching images to binary form.
+                TrainingPerceptron training_net = new TrainingPerceptron( layers_list, m, n, teaching_speed );
+                training_net.setTeachingPath( "data//for_teaching//teaching_set" );
+                training_net.setControlPath( "data//for_teaching//control_set" );
+                training_net.setBriefLog( "data//brief_log.txt" );
+//                training_net.setDetailedLog( "data//detailed_log.txt");
+                training_net.setOutputAccuracy( output_accuracy );
+                training_net.setIdleAccuracy( idle_accuracy );
+                training_net.setPrintAccuracy( 8 );
 
-                //Binarization.work( teaching_path, "jpg" );
+                double ceiling = 4. / ( m * n );
+                training_net.randomInit( ceiling );
+//                training_net.init( "data\\nets\\32x32_test" );
 
-//                TrainingPerceptron training_net = new TrainingPerceptron( layers_list, m, n, teaching_speed );
-//                training_net.setTeachingPath( "data//for_teaching//teaching_set" );
-//                training_net.setControlPath( "data//for_teaching//control_set" );
-//                training_net.setBriefLog( "data//brief_log.txt" );
-////                training_net.setDetailedLog( "data//detailed_log.txt");
-//                training_net.setMinInput( 0. );
-//                training_net.setMaxInput( 1. );
-//                training_net.setOutputAccuracy( output_accuracy );
-//                training_net.setIdleAccuracy( idle_accuracy );
-//                training_net.setPrintAccuracy( 8 );
+                Tutor teacher = new Tutor( training_net );
+                //teacher.initNet( "data\\nets\\32x32_test" );
+                teacher.train();
+                teacher.save( "data\\nets\\20x20.net");
 //
-//                double ceiling = 4. / ( m * n );
-//                training_net.randomInit( ceiling );
-////                training_net.init( "data\\nets\\32x32_test" );
+//                StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
+//                Recognizer recognizer = new Recognizer( static_net );
+//                recognizer.initNet( "data\\nets\\32x32_test.net" );
 //
-//                Tutor teacher = new Tutor( training_net );
-//                //teacher.initNet( "data\\nets\\32x32_test" );
-//                teacher.train();
-//                teacher.save( "data\\nets\\32x32_test");
-//
-                StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
-                Recognizer recognizer = new Recognizer( static_net );
-                recognizer.initNet( "data\\nets\\32x32_test.net" );
-
-                runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
+//                runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
             }
             catch( Exception e ){
                 StackTraceElement[] frames = e.getStackTrace();

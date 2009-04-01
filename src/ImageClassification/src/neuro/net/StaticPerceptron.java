@@ -15,8 +15,6 @@ public class StaticPerceptron implements IStaticNet{
     protected int input_height;
     protected int input_width;
     protected int output_size;
-    private double min_input_val;
-    private double max_input_val;
     // Number of digits after the decimal for printing real number.
     protected int print_accuracy;
     protected String type;
@@ -43,54 +41,61 @@ public class StaticPerceptron implements IStaticNet{
             this.layers.add( layer.copy() );
         }
         type = "TwoLayerPerceptron";
+        this.print_accuracy = 4;
         input_width = width;
         input_height = height;
         output_size = layers.get( layers.size() - 1 ).size();
         output_types = new ArrayList< String >();
-        min_input_val = 0.;
-        max_input_val = 1.;
     }
 
-    public                      StaticPerceptron( int height, int width, int output_count )
-                                    throws Exception{
-        int input = height * width;
-        int inner_layer = ( input + output_count ) / 2;
-        double teaching_speed = 0.5;
-        double output_accuracy = 0.1;
-        double idle_accuracy = 1e-7;
-        double shift = 0.;
-
-        // Create two layer perceptron:
-        // input        (m x n)
-        // first layer  (input x inner_layer)
-        // second layer (inner_layer x output)
-        // out          output
-        ArrayList<ActiveLayer> layers_list = new ArrayList<ActiveLayer>();
-        Sigmoid s = new Sigmoid( shift );
-
-        Matrix w = new Matrix( input, inner_layer );
-        ActiveLayer layer = new ActiveLayer( w, s);
+    /**Construct static perceptron. Size of inner layers are ( input + output ) / 2.
+     * All weights are initialized by 0.
+     * @param height            Height of input image.
+     * @param width             Width of input image.
+     * @param output_size       Size of networt outputs.
+     * @param layers_count      Count of layers in network.
+     */
+    public                      StaticPerceptron( int height, int width, int output_size, int layers_count ){
+        int inner_layer_size = ( height * width + output_size ) / 2;
+        ArrayList<ActiveLayer> layers_list = new ArrayList<ActiveLayer>();        
+        Sigmoid s = new Sigmoid();
+        // First layer.
+        Matrix w = new Matrix( height * width, inner_layer_size );
+        ActiveLayer layer = new ActiveLayer( w, s );
         layers_list.add( layer.copy() );
-        w = new Matrix( inner_layer, output_count  );
+        // Inner layers.
+        for ( int i = 0; i < layers_count - 2; i++ ){
+            w = new Matrix( inner_layer_size, inner_layer_size );
+            layer = new ActiveLayer( w, s);
+            layers_list.add( layer.copy() );
+        }
+        // Last layer.
+        w = new Matrix( inner_layer_size, output_size  );
         layer = new ActiveLayer( w, s);
         layers_list.add( layer.copy() );
 
-        if ( layers_list.get( 0 ).prevSize() != height * width )
-        {
-            throw new Exception( "Input size != input_width * input_height." );
-        }
-
         this.layers = new ArrayList<ActiveLayer>();
-        for ( ActiveLayer next_layer : this.layers ){
+        for ( ActiveLayer next_layer : layers_list ){
             this.layers.add( next_layer.copy() );
         }
         this.type = "TwoLayerPerceptron";
+        this.print_accuracy = 4;
         this.input_width = width;
         this.input_height = height;
-        this.output_size = layers_list.get( layers_list.size() - 1 ).size();
+        this.output_size = output_size;
         this.output_types = new ArrayList< String >();
-        this.min_input_val = 0.;
-        this.max_input_val = 1.;
+    }
+
+     /**Construct empty static perceptron.
+     */
+    public                      StaticPerceptron( ){
+        this.layers = new ArrayList<ActiveLayer>();
+        this.type = "TwoLayerPerceptron";
+        this.print_accuracy = 0;
+        this.input_width = 0;
+        this.input_height = 0;
+        this.output_size = 0;
+        this.output_types = new ArrayList< String >();
     }
 
     /**Make independent copy of itself.
@@ -98,7 +103,10 @@ public class StaticPerceptron implements IStaticNet{
      */
     public StaticPerceptron     copy() throws Exception{
         StaticPerceptron net = new StaticPerceptron( layers, input_height, input_width );
-        net.output_types = this.output_types;
+        net.print_accuracy = this.print_accuracy;
+        for ( int i = 0; i < this.output_types.size(); i++ ){
+            net.output_types.add( this.output_types.get( i )  );    
+        }
         return net;
     }
 
@@ -228,6 +236,7 @@ public class StaticPerceptron implements IStaticNet{
             input_stream = new ObjectInputStream( new FileInputStream( storage ) );
             input_height = ( Integer )input_stream.readObject();
             input_width = ( Integer )input_stream.readObject();
+            print_accuracy = ( Integer )input_stream.readObject();
             String read_type = ( String )input_stream.readObject();
             if ( !type.equals( read_type ) ){
                 throw new Exception( "Mismatch of net's types. " );
@@ -258,29 +267,5 @@ public class StaticPerceptron implements IStaticNet{
     /**@return      Print accuracy.*/
     public int                  getPrintAccuracy(){
         return print_accuracy;
-    }
-
-    /**
-     * @param val      Min value of input.
-     */
-    public void                 setMinInput( double val ){
-        min_input_val = val;
-    }
-
-    /**@return      Min value of input. */
-    public double               getMinInput(){
-        return min_input_val;
-    }
-
-    /**
-     * @param val      Max value of input.
-     */
-    public void                 setMaxInput( double val ){
-       max_input_val = val;
-    }
-
-    /**@return      Max value of input. */
-    public double               getMaxInput(){
-        return max_input_val;
     }
 }

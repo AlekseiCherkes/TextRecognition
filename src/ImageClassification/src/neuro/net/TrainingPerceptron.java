@@ -201,7 +201,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param image_size    Count of pixels in image.
      * @return              Data necessary for net teaching.
      */
-    static public TeachingData  getTeachingData( String path, int image_size, double min_input, double max_input )
+    static public TeachingData  getTeachingData( String path, int image_size )
         throws Exception{
         TeachingData data = new TeachingData();
 
@@ -233,7 +233,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                 if ( image_name.charAt( 0 ) != '.' && image.isFile() ){
                     data.addImage( type_name, image_name );
                     // Read input from file.
-                    Matrix input = readImage( full_image_name, min_input, max_input );
+                    Matrix input = readImage( full_image_name );
                     if ( input.getRowDimension() != image_size ){
                         throw new Exception( "Invalid count of pixels in image." );
                     }
@@ -250,10 +250,8 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
 
         // 1) Get data for teaching.
 
-        TeachingData teaching_data = getTeachingData( teaching_path, input_height * input_width,
-                this.getMinInput(), this.getMaxInput() );
-        TeachingData control_data = getTeachingData( control_path, input_height * input_width, 
-                this.getMinInput(), this.getMaxInput());
+        TeachingData teaching_data = getTeachingData( teaching_path, input_height * input_width );
+        TeachingData control_data = getTeachingData( control_path, input_height * input_width );
 
         if ( teaching_data.getImagesCount() == 0 ){
             throw new Exception( "Teaching set is empty." );
@@ -441,6 +439,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
             outstream = new ObjectOutputStream( new FileOutputStream( storage ) );
             outstream.writeObject( input_height );
             outstream.writeObject( input_width );
+            outstream.writeObject( print_accuracy );
             outstream.writeObject( type );
             outstream.writeObject( output_types );
             outstream.writeObject( layers );
@@ -457,17 +456,11 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
     }
 
-     /**Convert image to input data for net. Input normalize in border ( 'min_input', 'max_input' ).
+     /**Convert image to input data for net.
      * @param image_path        Absolute path of image.
-     * @param min_input         Min value of input.
-     * @param max_input         Max value of input.
      * @return                  Input matrix for net.
      */
-    public static Matrix        readImage( String image_path, double min_input, double max_input ) throws Exception{
-        if ( min_input > max_input ){
-            throw new Exception( "Min value of input > max value." );
-        }
-
+    public static Matrix        readImage( String image_path ) throws Exception{
         File image_file = new File( image_path );
         BufferedImage bi_image = Binarization.work( ImageIO.read( image_file ) );
         int h = bi_image.getHeight();

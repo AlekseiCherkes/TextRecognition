@@ -47,7 +47,7 @@ public class Recognizer{
      * @return          Class of image. If net coudn't classificate image return 'null'.
      */
 	public RecognizeType recognize( String path ) throws Exception{
-        Matrix input_x = TrainingPerceptron.readImage( path, net.getMinInput(), net.getMaxInput() );
+        Matrix input_x = TrainingPerceptron.readImage( path );
         return net.recognizeClass( input_x );
     }
 

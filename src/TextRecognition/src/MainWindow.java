@@ -20,8 +20,8 @@ public class MainWindow extends QMainWindow {
         //  readSettings();
 
         try {
-            StaticPerceptron staticPerceptron = new StaticPerceptron(20, 20, 26);
-            staticPerceptron.init("data/nets/32x32_test.net");
+            StaticPerceptron staticPerceptron = new StaticPerceptron();
+            staticPerceptron.init("data/nets/20x20.net");
             recognizer = new Recognizer(staticPerceptron);
             statusBar().showMessage("Network opened");
         }
@@ -66,7 +66,7 @@ public class MainWindow extends QMainWindow {
             return;
         } else {
             try {
-                StaticPerceptron staticPerceptron = new StaticPerceptron(20, 20, 26);
+                StaticPerceptron staticPerceptron = new StaticPerceptron();
                 staticPerceptron.init(fileName);
                 recognizer = new Recognizer(staticPerceptron);
                 statusBar().showMessage("Network opened");

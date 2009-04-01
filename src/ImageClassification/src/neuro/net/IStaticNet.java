@@ -15,10 +15,6 @@ public interface IStaticNet {
     int                 getInputWidth();
     int                 getInputHeight();
     int                 getOutputSize();
-    void                setMinInput( double val );
-    double              getMinInput();
-    void                setMaxInput( double val );
-    double              getMaxInput();
     ArrayList< String > getRecognizingTypes();
 
     Matrix              recognize( Matrix x ) throws Exception;
