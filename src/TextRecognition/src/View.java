@@ -130,17 +130,17 @@ public class View extends QWidget {
             QRect rect2 = new QRect(rect.x() + 1 * w + dw, rect.y() + dh, w - dw, h - dh);
             QRect rect3 = new QRect(rect.x() + 2 * w + dw, rect.y() + dh, w - dw, h - dh);
 
-            QRect rrect1 = new QRect(rect.x() + 0 * w + dw, rect.y() + h + dh, w - dw, h - dh);
-            QRect rrect2 = new QRect(rect.x() + 1 * w + dw, rect.y() + h + dh, w - dw, h - dh);
-            QRect rrect3 = new QRect(rect.x() + 2 * w + dw, rect.y() + h + dh, w - dw, h - dh);
+//            QRect rrect1 = new QRect(rect.x() + 0 * w + dw, rect.y() + h + dh, w - dw, h - dh);
+//            QRect rrect2 = new QRect(rect.x() + 1 * w + dw, rect.y() + h + dh, w - dw, h - dh);
+//            QRect rrect3 = new QRect(rect.x() + 2 * w + dw, rect.y() + h + dh, w - dw, h - dh);
 
             p.drawImage(rect1, modified);
             p.drawImage(rect2, grayscaled);
             p.drawImage(rect3, binarized);
 
-            p.drawImage(rrect1, rmodified);
-            p.drawImage(rrect2, rgrayscaled);
-            p.drawImage(rrect3, rbinarized);
+//            p.drawImage(rrect1, rmodified);
+//            p.drawImage(rrect2, rgrayscaled);
+//            p.drawImage(rrect3, rbinarized);
         }
 
         p.end();
