@@ -25,5 +25,6 @@
     <orderEntry type="module" module-name="JBlas" />
     <orderEntry type="library" name="QT" level="project" />
   </component>
+  <component name="libraryTable" />
 </module>
 

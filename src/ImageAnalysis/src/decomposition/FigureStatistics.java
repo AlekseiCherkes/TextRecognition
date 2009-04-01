@@ -64,6 +64,22 @@ public class FigureStatistics {
     }
 
 
+    public int getYMax() {
+        return yMax_m;
+    }
+
+    public int getYMin() {
+        return yMin_m;
+    }
+
+    public int getXMax() {
+        return xMax_m;
+    }
+
+    public int getXMin() {
+        return xMin_m;
+    }
+
     public double getN(){
         return sum_m;
     }

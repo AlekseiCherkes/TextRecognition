@@ -5,6 +5,9 @@ import decomposition.PixelPack;
 import java.util.List;
 import java.util.ArrayList;
 
+import image.IGrayImage;
+import image.IGreyImage;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Nick
@@ -35,6 +38,24 @@ public class ImageData {
     public void finish(){
         if (!currentBundle_m.isEmpty()){
             bundles_m.add(currentBundle_m);
+        }
+    }
+
+
+    public void copyPixels(IGreyImage src, IGreyImage dst){
+        int x;
+        int y;
+        float hue;
+
+        for (List<PixelPack> bundle : bundles_m){
+            for (PixelPack pack : bundle){
+                y = pack.y;
+
+                for (x=pack.x_min ; x <= pack.x_max ; ++x){
+                    hue = src.get(x,y);
+                    dst.set(x, y, hue);
+                }
+            }
         }
     }
 

@@ -21,11 +21,15 @@ public class ImageDecomposer {
     private FigureStatistics unregistered_m;
 
 
+    private IRegionCollector<ImageData> collector_m;
+
     private IGreyImage img_m;
     private int x_m;
     private int y_m;
     private int h_m;
     private int w_m;
+
+
 
     public ImageDecomposer(){
         registry_m  = new ResultsManager();
@@ -33,7 +37,10 @@ public class ImageDecomposer {
         handler_m =  new ConnectionFinder.IConnectionListener(){
             @Override
             public void onRegionFinished(int regionKey){
-
+                FigureStatistics stat = registry_m.removeStatistics(regionKey);
+                ImageData        data = registry_m.removeData(regionKey);
+                data.finish();
+                collector_m.onImageRegion(data, stat);
             }
 
             @Override
@@ -56,6 +63,13 @@ public class ImageDecomposer {
         };
 
         connector_m = new ConnectionFinder(handler_m);
+    }
+
+
+    public void decompose(IGreyImage img, IRegionCollector<ImageData> handler){
+        img_m = img;
+        collector_m = handler;
+        scanImage();
     }
 
 
@@ -88,7 +102,7 @@ public class ImageDecomposer {
 
 
     private void processBackGround(){
-        while (x_m < w_m && img_m.get(x_m, y_m) <= 0) ++x_m;
+        while (x_m < w_m && !img_m.isForeground(img_m.get(x_m, y_m))) ++x_m;
     }
 
 
@@ -102,7 +116,7 @@ public class ImageDecomposer {
 
         while (x_m < w_m){
             hue = img_m.get(x_m, y_m);
-            if (hue <= 0) break;
+            if (!img_m.isForeground(hue)) break;
 
             unregistered_m.takePixel(x_m, y_m, hue);
             ++x_m;

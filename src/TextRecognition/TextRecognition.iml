@@ -14,5 +14,6 @@
     <orderEntry type="module" module-name="ImageProcessing" />
     <orderEntry type="module" module-name="ImageAnalysis" />
   </component>
+  <component name="libraryTable" />
 </module>
 

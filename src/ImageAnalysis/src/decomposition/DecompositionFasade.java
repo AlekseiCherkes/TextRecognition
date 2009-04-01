@@ -9,8 +9,6 @@ import image.IGreyImage;
  */
 public class DecompositionFasade {
 
-    //private ImageDataInterpriter interpriter_m;
-
     public void decompose(QImage source, IRegionCollector<QImage> handler){
         ImageDecomposer decomposer = new ImageDecomposer();
         //IGreyImage greyImage = new QImageAdapter(source);
