@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
-    <height>434</height>
+    <width>707</width>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>519</width>
+     <width>707</width>
      <height>21</height>
     </rect>
    </property>
@@ -71,7 +71,7 @@
    <property name="minimumSize" >
     <size>
      <width>274</width>
-     <height>102</height>
+     <height>146</height>
     </size>
    </property>
    <property name="layoutDirection" >
@@ -122,192 +122,6 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="effectsDock" >
-   <property name="features" >
-    <set>com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetFloatable|com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetMovable</set>
-   </property>
-   <property name="windowTitle" >
-    <string>Image Effects</string>
-   </property>
-   <attribute name="dockWidgetArea" >
-    <number>2</number>
-   </attribute>
-   <widget class="QWidget" name="effectsDockContents" >
-    <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="QGroupBox" name="groupBox" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="title" >
-        <string>Color Balance</string>
-       </property>
-       <layout class="QGridLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="labelCyan" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="QSlider" name="redCyanBalance" >
-          <property name="minimum" >
-           <number>-100</number>
-          </property>
-          <property name="maximum" >
-           <number>100</number>
-          </property>
-          <property name="orientation" >
-           <enum>com.trolltech.qt.core.Qt.Orientation.Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2" >
-         <widget class="QLabel" name="labelRed" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="labelMagenta" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QSlider" name="greenMagentaBalance" >
-          <property name="minimum" >
-           <number>-100</number>
-          </property>
-          <property name="maximum" >
-           <number>100</number>
-          </property>
-          <property name="orientation" >
-           <enum>com.trolltech.qt.core.Qt.Orientation.Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2" >
-         <widget class="QLabel" name="labelGreen" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="labelYellow" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" >
-         <widget class="QSlider" name="blueYellowBalance" >
-          <property name="minimum" >
-           <number>-100</number>
-          </property>
-          <property name="maximum" >
-           <number>100</number>
-          </property>
-          <property name="orientation" >
-           <enum>com.trolltech.qt.core.Qt.Orientation.Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2" >
-         <widget class="QLabel" name="labelBlue" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" >
-         <widget class="QLabel" name="labelWhite" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1" >
-         <widget class="QSlider" name="colorBalance" >
-          <property name="minimum" >
-           <number>-100</number>
-          </property>
-          <property name="maximum" >
-           <number>100</number>
-          </property>
-          <property name="orientation" >
-           <enum>com.trolltech.qt.core.Qt.Orientation.Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2" >
-         <widget class="QLabel" name="labelBlack" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" >
-         <widget class="QCheckBox" name="inverted" >
-          <property name="text" >
-           <string>Inverted</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1" >
-         <widget class="QPushButton" name="resetColorBalance" >
-          <property name="text" >
-           <string>Reset</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item row="1" column="0" >
-      <spacer>
-       <property name="orientation" >
-        <enum>com.trolltech.qt.core.Qt.Orientation.Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>256</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </widget>
-  </widget>
   <widget class="QToolBar" name="toolBar_2" >
    <property name="windowTitle" >
     <string>File toolbar</string>
@@ -323,6 +137,65 @@
    </attribute>
    <addaction name="actionSave" />
    <addaction name="actionClose" />
+  </widget>
+  <widget class="QDockWidget" name="labelDock" >
+   <property name="minimumSize" >
+    <size>
+     <width>72</width>
+     <height>73</height>
+    </size>
+   </property>
+   <property name="font" >
+    <font>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+     <underline>false</underline>
+     <strikeout>false</strikeout>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="layoutDirection" >
+    <enum>com.trolltech.qt.core.Qt.LayoutDirection.LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground" >
+    <bool>false</bool>
+   </property>
+   <property name="floating" >
+    <bool>false</bool>
+   </property>
+   <property name="features" >
+    <set>com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetFloatable|com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Recognition</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents" >
+    <widget class="QLabel" name="recognitionLabel" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>241</width>
+       <height>271</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>No image</string>
+     </property>
+     <property name="scaledContents" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <action name="actionZoom_In" >
    <property name="enabled" >

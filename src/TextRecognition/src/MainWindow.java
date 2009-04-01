@@ -17,7 +17,7 @@ public class MainWindow extends QMainWindow {
         ui.setupUi(this);
         setupTableView();
         setupView();
-        //  readSettings();
+        //     readSettings();
 
         try {
             StaticPerceptron staticPerceptron = new StaticPerceptron();
@@ -32,6 +32,7 @@ public class MainWindow extends QMainWindow {
 
     public void on_dirView_activated(QModelIndex index) throws Exception {
         QFileInfo info = dirModel.fileInfo(index);
+        String s = new String();
         if (info.isDir()) {
             statusBar().showMessage("This is directory");
         } else {
@@ -40,21 +41,24 @@ public class MainWindow extends QMainWindow {
                 view.setImage(image);
 
                 if (recognizer == null) {
+                    s = "Recognizer hasn't been loaded.";
                     statusBar().showMessage("Network wasn't opened");
                 } else {
-//                    RecognizeType type = recognizer.recognize(info.absoluteFilePath());
-                    RecognizeType type = recognizer.recognize(TrainingPerceptron.readImage(image));
-                    String t = type.getType(); // Не рефакторить!!!
-                    statusBar().showMessage(t);
+                    try {
+                        RecognizeType type = recognizer.recognize(info.absoluteFilePath());
+                        String t = type.getType(); // Не рефакторить!!!                        
+                        s = t;
+                        s += "\t" + Double.toString(type.getAccuracy());                        
+                    }
+                    catch(Exception e) {
+                        s = "Can't recognize image." + "\n" + e.getMessage();
+                    }
                 }
+                ui.recognitionLabel.setText(s);
+                statusBar().showMessage("Image opened");
 
-                RecognizeType type = recognizer.recognize(info.absoluteFilePath());
-                String t = type.getType(); // Не рефакторить!!!
-                statusBar().showMessage(t);
-
-//                statusBar().showMessage("Image loaded");
             } else {
-//                statusBar().showMessage("Can't load image");
+                statusBar().showMessage("Can't load image");
             }
         }
     }
@@ -79,17 +83,15 @@ public class MainWindow extends QMainWindow {
 
     public void on_tableView_activated(QModelIndex index) {
         view.setImage(imageModel.imageAt(index.row()));
-
-
         statusBar().showMessage("Displaying image");
     }
 
     public void on_resetColorBalance_clicked() {
-        ui.redCyanBalance.setValue(0);
-        ui.greenMagentaBalance.setValue(0);
-        ui.blueYellowBalance.setValue(0);
-        ui.colorBalance.setValue(0);
-        ui.inverted.setChecked(false);
+//        ui.redCyanBalance.setValue(0);
+//        ui.greenMagentaBalance.setValue(0);
+//        ui.blueYellowBalance.setValue(0);
+//        ui.colorBalance.setValue(0);
+//        ui.inverted.setChecked(false);
     }
 
     public void on_actionSave_triggered() {
@@ -117,7 +119,7 @@ public class MainWindow extends QMainWindow {
         QDialog d = new QDialog(this);
         Ui_AboutTextRecognition ui = new Ui_AboutTextRecognition();
         ui.setupUi(d);
-        ui.label.setPixmap(new QPixmap("classpath:com/trolltech/images/qt-logo.png"));
+        //    ui.label.setPixmap(new QPixmap("classpath:com/trolltech/images/qt-logo.png"));
 
         QPalette pal = ui.textEdit.palette();
         pal.setBrush(QPalette.ColorRole.Base, d.palette().window());
@@ -186,40 +188,40 @@ public class MainWindow extends QMainWindow {
         view = new View(this);
         setCentralWidget(view);
 
-        ui.redCyanBalance.valueChanged.connect(view, "setRedCyan(int)");
-        ui.greenMagentaBalance.valueChanged.connect(view, "setGreenMagenta(int)");
-        ui.blueYellowBalance.valueChanged.connect(view, "setBlueYellow(int)");
-        ui.colorBalance.valueChanged.connect(view, "setColorBalance(int)");
-        ui.inverted.toggled.connect(view, "setInvert(boolean)");
+//        ui.redCyanBalance.valueChanged.connect(view, "setRedCyan(int)");
+//        ui.greenMagentaBalance.valueChanged.connect(view, "setGreenMagenta(int)");
+//        ui.blueYellowBalance.valueChanged.connect(view, "setBlueYellow(int)");
+//        ui.colorBalance.valueChanged.connect(view, "setColorBalance(int)");
+//        ui.inverted.toggled.connect(view, "setInvert(boolean)");
 
         view.valid.connect(ui.actionClose, "setEnabled(boolean)");
         view.valid.connect(ui.actionSave, "setEnabled(boolean)");
-        view.valid.connect(ui.groupBox, "setEnabled(boolean)");
+//        view.valid.connect(ui.groupBox, "setEnabled(boolean)");
     }
 
     public void closeEvent(QCloseEvent event) {
-        //   writeSettings();
+        writeSettings();
     }
 
-//    public void readSettings(){
-//        QSettings settings = new QSettings("Trolltech", "ImageViewer Example");
-//        resize((QSize)settings.value("size", new QSize(1000, 500)));
-//        QPoint point = (QPoint)settings.value("pos", null);
-//        if(point!=null)
-//            move(point);
-//        restoreState((QByteArray)settings.value("state", null));
-//        settings.sync();
-//        settings.dispose();
-//    }
-//
-//    public void writeSettings(){
-//        QSettings settings = new QSettings("Trolltech", "ImageViewer Example");
-//        settings.setValue("pos", pos());
-//        settings.setValue("size", size());
-//        settings.setValue("state", saveState());
-//        settings.sync();
-//        settings.dispose();
-//    }
+    public void readSettings() {
+        QSettings settings = new QSettings("Trolltech", "ImageViewer Example");
+        resize((QSize) settings.value("size", new QSize(1000, 500)));
+        QPoint point = (QPoint) settings.value("pos", null);
+        if (point != null)
+            move(point);
+        restoreState((QByteArray) settings.value("state", null));
+        settings.sync();
+        settings.dispose();
+    }
+
+    public void writeSettings() {
+        QSettings settings = new QSettings("Trolltech", "ImageViewer Example");
+        settings.setValue("pos", pos());
+        settings.setValue("size", size());
+        settings.setValue("state", saveState());
+        settings.sync();
+        settings.dispose();
+    }
 
     private Ui_MainWindow ui = new Ui_MainWindow();
     private QDirModel dirModel;

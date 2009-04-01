@@ -1,12 +1,3 @@
-/********************************************************************************
- ** Form generated from reading ui file 'MainWindow.jui'
- **
- ** Created: �� 30. ��� 10:06:31 2009
- **      by: Qt User Interface Compiler version 4.4.2
- **
- ** WARNING! All changes made in this file will be lost when recompiling ui file!
- ********************************************************************************/
-
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
 

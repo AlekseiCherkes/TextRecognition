@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'MainWindow.jui'
 **
-** Created: ¬т 31. мар 16:26:15 2009
+** Created: —р 1. апр 10:55:30 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -34,34 +34,17 @@ public class Ui_MainWindow
     public QWidget tableDockContents;
     public QGridLayout gridLayout1;
     public QTreeView tableView;
-    public QDockWidget effectsDock;
-    public QWidget effectsDockContents;
-    public QGridLayout gridLayout2;
-    public QGroupBox groupBox;
-    public QGridLayout gridLayout3;
-    public QLabel labelCyan;
-    public QSlider redCyanBalance;
-    public QLabel labelRed;
-    public QLabel labelMagenta;
-    public QSlider greenMagentaBalance;
-    public QLabel labelGreen;
-    public QLabel labelYellow;
-    public QSlider blueYellowBalance;
-    public QLabel labelBlue;
-    public QLabel labelWhite;
-    public QSlider colorBalance;
-    public QLabel labelBlack;
-    public QCheckBox inverted;
-    public QPushButton resetColorBalance;
-    public QSpacerItem spacerItem;
     public QToolBar toolBar_2;
+    public QDockWidget labelDock;
+    public QWidget dockWidgetContents;
+    public QLabel recognitionLabel;
 
     public Ui_MainWindow() { super(); }
 
     public void setupUi(QMainWindow MainWindow)
     {
         MainWindow.setObjectName("MainWindow");
-        MainWindow.resize(new QSize(519, 434).expandedTo(MainWindow.minimumSizeHint()));
+        MainWindow.resize(new QSize(707, 614).expandedTo(MainWindow.minimumSizeHint()));
         actionZoom_In = new QAction(MainWindow);
         actionZoom_In.setObjectName("actionZoom_In");
         actionZoom_In.setEnabled(false);
@@ -89,7 +72,7 @@ public class Ui_MainWindow
         MainWindow.setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar.setObjectName("menubar");
-        menubar.setGeometry(new QRect(0, 0, 519, 21));
+        menubar.setGeometry(new QRect(0, 0, 707, 21));
         menuHelp = new QMenu(menubar);
         menuHelp.setObjectName("menuHelp");
         menuFile = new QMenu(menubar);
@@ -116,7 +99,7 @@ public class Ui_MainWindow
         MainWindow.addDockWidget(com.trolltech.qt.core.Qt.DockWidgetArea.resolve(1), treeDock);
         tableDock = new QDockWidget(MainWindow);
         tableDock.setObjectName("tableDock");
-        tableDock.setMinimumSize(new QSize(274, 102));
+        tableDock.setMinimumSize(new QSize(274, 146));
         tableDock.setLayoutDirection(com.trolltech.qt.core.Qt.LayoutDirection.LeftToRight);
         tableDock.setFloating(false);
         tableDock.setFeatures(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.createQFlags(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetFloatable,com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetMovable));
@@ -139,121 +122,36 @@ public class Ui_MainWindow
 
         tableDock.setWidget(tableDockContents);
         MainWindow.addDockWidget(com.trolltech.qt.core.Qt.DockWidgetArea.resolve(2), tableDock);
-        effectsDock = new QDockWidget(MainWindow);
-        effectsDock.setObjectName("effectsDock");
-        effectsDock.setFeatures(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.createQFlags(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetFloatable,com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetMovable));
-        effectsDockContents = new QWidget();
-        effectsDockContents.setObjectName("effectsDockContents");
-        gridLayout2 = new QGridLayout(effectsDockContents);
-        gridLayout2.setObjectName("gridLayout2");
-        groupBox = new QGroupBox(effectsDockContents);
-        groupBox.setObjectName("groupBox");
-        groupBox.setEnabled(false);
-        gridLayout3 = new QGridLayout(groupBox);
-        gridLayout3.setObjectName("gridLayout3");
-        labelCyan = new QLabel(groupBox);
-        labelCyan.setObjectName("labelCyan");
-        labelCyan.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelCyan, 0, 0, 1, 1);
-
-        redCyanBalance = new QSlider(groupBox);
-        redCyanBalance.setObjectName("redCyanBalance");
-        redCyanBalance.setMinimum(-100);
-        redCyanBalance.setMaximum(100);
-        redCyanBalance.setOrientation(com.trolltech.qt.core.Qt.Orientation.Horizontal);
-
-        gridLayout3.addWidget(redCyanBalance, 0, 1, 1, 1);
-
-        labelRed = new QLabel(groupBox);
-        labelRed.setObjectName("labelRed");
-        labelRed.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelRed, 0, 2, 1, 1);
-
-        labelMagenta = new QLabel(groupBox);
-        labelMagenta.setObjectName("labelMagenta");
-        labelMagenta.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelMagenta, 1, 0, 1, 1);
-
-        greenMagentaBalance = new QSlider(groupBox);
-        greenMagentaBalance.setObjectName("greenMagentaBalance");
-        greenMagentaBalance.setMinimum(-100);
-        greenMagentaBalance.setMaximum(100);
-        greenMagentaBalance.setOrientation(com.trolltech.qt.core.Qt.Orientation.Horizontal);
-
-        gridLayout3.addWidget(greenMagentaBalance, 1, 1, 1, 1);
-
-        labelGreen = new QLabel(groupBox);
-        labelGreen.setObjectName("labelGreen");
-        labelGreen.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelGreen, 1, 2, 1, 1);
-
-        labelYellow = new QLabel(groupBox);
-        labelYellow.setObjectName("labelYellow");
-        labelYellow.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelYellow, 2, 0, 1, 1);
-
-        blueYellowBalance = new QSlider(groupBox);
-        blueYellowBalance.setObjectName("blueYellowBalance");
-        blueYellowBalance.setMinimum(-100);
-        blueYellowBalance.setMaximum(100);
-        blueYellowBalance.setOrientation(com.trolltech.qt.core.Qt.Orientation.Horizontal);
-
-        gridLayout3.addWidget(blueYellowBalance, 2, 1, 1, 1);
-
-        labelBlue = new QLabel(groupBox);
-        labelBlue.setObjectName("labelBlue");
-        labelBlue.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelBlue, 2, 2, 1, 1);
-
-        labelWhite = new QLabel(groupBox);
-        labelWhite.setObjectName("labelWhite");
-        labelWhite.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelWhite, 3, 0, 1, 1);
-
-        colorBalance = new QSlider(groupBox);
-        colorBalance.setObjectName("colorBalance");
-        colorBalance.setMinimum(-100);
-        colorBalance.setMaximum(100);
-        colorBalance.setOrientation(com.trolltech.qt.core.Qt.Orientation.Horizontal);
-
-        gridLayout3.addWidget(colorBalance, 3, 1, 1, 1);
-
-        labelBlack = new QLabel(groupBox);
-        labelBlack.setObjectName("labelBlack");
-        labelBlack.setPixmap(new QPixmap());
-
-        gridLayout3.addWidget(labelBlack, 3, 2, 1, 1);
-
-        inverted = new QCheckBox(groupBox);
-        inverted.setObjectName("inverted");
-
-        gridLayout3.addWidget(inverted, 4, 1, 1, 1);
-
-        resetColorBalance = new QPushButton(groupBox);
-        resetColorBalance.setObjectName("resetColorBalance");
-
-        gridLayout3.addWidget(resetColorBalance, 5, 1, 1, 1);
-
-
-        gridLayout2.addWidget(groupBox, 0, 0, 1, 1);
-
-        spacerItem = new QSpacerItem(256, 20, com.trolltech.qt.gui.QSizePolicy.Policy.Minimum, com.trolltech.qt.gui.QSizePolicy.Policy.Expanding);
-
-        gridLayout2.addItem(spacerItem, 1, 0, 1, 1);
-
-        effectsDock.setWidget(effectsDockContents);
-        MainWindow.addDockWidget(com.trolltech.qt.core.Qt.DockWidgetArea.resolve(2), effectsDock);
         toolBar_2 = new QToolBar(MainWindow);
         toolBar_2.setObjectName("toolBar_2");
         toolBar_2.setOrientation(com.trolltech.qt.core.Qt.Orientation.Horizontal);
         MainWindow.addToolBar(com.trolltech.qt.core.Qt.ToolBarArea.TopToolBarArea, toolBar_2);
+        labelDock = new QDockWidget(MainWindow);
+        labelDock.setObjectName("labelDock");
+        labelDock.setMinimumSize(new QSize(72, 73));
+        QFont font = new QFont();
+        font.setBold(false);
+        font.setItalic(false);
+        font.setUnderline(false);
+        font.setWeight(50);
+        font.setStrikeOut(false);
+        font.setKerning(true);
+        labelDock.setFont(font);
+        labelDock.setLayoutDirection(com.trolltech.qt.core.Qt.LayoutDirection.LeftToRight);
+        labelDock.setAutoFillBackground(false);
+        labelDock.setFloating(false);
+        labelDock.setFeatures(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.createQFlags(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetFloatable,com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetMovable));
+        dockWidgetContents = new QWidget();
+        dockWidgetContents.setObjectName("dockWidgetContents");
+        recognitionLabel = new QLabel(dockWidgetContents);
+        recognitionLabel.setObjectName("recognitionLabel");
+        recognitionLabel.setGeometry(new QRect(0, 0, 241, 271));
+        QFont font1 = new QFont();
+        font1.setPointSize(16);
+        recognitionLabel.setFont(font1);
+        recognitionLabel.setScaledContents(true);
+        labelDock.setWidget(dockWidgetContents);
+        MainWindow.addDockWidget(com.trolltech.qt.core.Qt.DockWidgetArea.resolve(2), labelDock);
 
         menubar.addAction(menuFile.menuAction());
         menubar.addAction(menuHelp.menuAction());
@@ -288,19 +186,9 @@ public class Ui_MainWindow
         menuFile.setTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "&File"));
         treeDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Directories"));
         tableDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Images "));
-        effectsDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Image Effects"));
-        groupBox.setTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Color Balance"));
-        labelCyan.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelRed.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelMagenta.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelGreen.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelYellow.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelBlue.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelWhite.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        labelBlack.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", ""));
-        inverted.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Inverted"));
-        resetColorBalance.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Reset"));
         toolBar_2.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "File toolbar"));
+        labelDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Recognition"));
+        recognitionLabel.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "No image"));
     } // retranslateUi
 
 }

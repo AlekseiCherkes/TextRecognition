@@ -1,4 +1,4 @@
- import com.trolltech.qt.core.*;
+import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
 
 public class LazyPixmap extends QObject {

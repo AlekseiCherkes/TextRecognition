@@ -5,29 +5,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>625</width>
-    <height>407</height>
+    <width>622</width>
+    <height>412</height>
    </rect>
   </property>
   <property name="autoFillBackground" >
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" colspan="3" >
     <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label" >
-       <property name="text" >
-        <string/>
-       </property>
-       <property name="pixmap" >
-        <pixmap/>
-       </property>
-       <property name="alignment" >
-        <set>com.trolltech.qt.core.Qt.AlignmentFlag.AlignAbsolute|com.trolltech.qt.core.Qt.AlignmentFlag.AlignBottom|com.trolltech.qt.core.Qt.AlignmentFlag.AlignCenter|com.trolltech.qt.core.Qt.AlignmentFlag.AlignHCenter|com.trolltech.qt.core.Qt.AlignmentFlag.AlignHorizontal_Mask|com.trolltech.qt.core.Qt.AlignmentFlag.AlignJustify|com.trolltech.qt.core.Qt.AlignmentFlag.AlignLeading|com.trolltech.qt.core.Qt.AlignmentFlag.AlignLeft|com.trolltech.qt.core.Qt.AlignmentFlag.AlignRight|com.trolltech.qt.core.Qt.AlignmentFlag.AlignTop|com.trolltech.qt.core.Qt.AlignmentFlag.AlignTrailing|com.trolltech.qt.core.Qt.AlignmentFlag.AlignVCenter|com.trolltech.qt.core.Qt.AlignmentFlag.AlignVertical_Mask</set>
-       </property>
-      </widget>
-     </item>
      <item rowspan="2" row="0" column="1" >
       <widget class="QTextEdit" name="textEdit" >
        <property name="palette" >
