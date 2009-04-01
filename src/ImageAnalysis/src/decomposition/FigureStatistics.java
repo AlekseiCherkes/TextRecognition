@@ -23,7 +23,8 @@ public class FigureStatistics {
 
 
     public FigureStatistics(){
-        xMax_m = yMax_m = Integer.MAX_VALUE;
+        xMin_m = yMin_m = Integer.MAX_VALUE;
+        xMax_m = yMax_m = Integer.MIN_VALUE;
     }
 
 

@@ -4,6 +4,7 @@ import decomposition.PixelPack;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.HashMap;
 
 import decomposition.FigureStatistics;
 import decomposition.ImageData;
@@ -22,9 +23,11 @@ public class ResultsManager {
 
     private int nextKey_m;
 
-    private Set<Integer> oldRegions_m;
-    private Set<Integer> unfinishedRegions_m;
 
+    public ResultsManager() {
+        statMap_m = new HashMap<Integer, FigureStatistics>();
+        dataMap_m = new HashMap<Integer, ImageData>();
+    }
 
     public FigureStatistics removeStatistics(int regionKey){
         return statMap_m.remove(regionKey);
@@ -43,7 +46,7 @@ public class ResultsManager {
         dataMap_m.put(nextKey_m, data);
         statMap_m.put(nextKey_m, stat);
 
-        return ++nextKey_m;
+        return nextKey_m++;
     }
 
     public void appendRegionStatistics(FigureStatistics stat, PixelPack pack, int regionKey){

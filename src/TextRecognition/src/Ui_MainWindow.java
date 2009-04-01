@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'MainWindow.jui'
 **
-** Created: —р 1. апр 10:55:30 2009
+** Created: —р 1. апр 12:04:12 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -44,7 +44,7 @@ public class Ui_MainWindow
     public void setupUi(QMainWindow MainWindow)
     {
         MainWindow.setObjectName("MainWindow");
-        MainWindow.resize(new QSize(707, 614).expandedTo(MainWindow.minimumSizeHint()));
+        MainWindow.resize(new QSize(714, 614).expandedTo(MainWindow.minimumSizeHint()));
         actionZoom_In = new QAction(MainWindow);
         actionZoom_In.setObjectName("actionZoom_In");
         actionZoom_In.setEnabled(false);
@@ -72,7 +72,7 @@ public class Ui_MainWindow
         MainWindow.setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar.setObjectName("menubar");
-        menubar.setGeometry(new QRect(0, 0, 707, 21));
+        menubar.setGeometry(new QRect(0, 0, 714, 21));
         menuHelp = new QMenu(menubar);
         menuHelp.setObjectName("menuHelp");
         menuFile = new QMenu(menubar);
@@ -145,11 +145,11 @@ public class Ui_MainWindow
         dockWidgetContents.setObjectName("dockWidgetContents");
         recognitionLabel = new QLabel(dockWidgetContents);
         recognitionLabel.setObjectName("recognitionLabel");
-        recognitionLabel.setGeometry(new QRect(0, 0, 241, 271));
+        recognitionLabel.setGeometry(new QRect(10, 0, 211, 31));
         QFont font1 = new QFont();
         font1.setPointSize(16);
         recognitionLabel.setFont(font1);
-        recognitionLabel.setScaledContents(true);
+        recognitionLabel.setScaledContents(false);
         labelDock.setWidget(dockWidgetContents);
         MainWindow.addDockWidget(com.trolltech.qt.core.Qt.DockWidgetArea.resolve(2), labelDock);
 

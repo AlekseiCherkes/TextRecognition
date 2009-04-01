@@ -13,7 +13,7 @@ public class DecompositionFasade {
         ImageDecomposer decomposer = new ImageDecomposer();
         //IGreyImage greyImage = new QImageAdapter(source);
 
-        for (int i=0 ; i<25 ; ++i){
+        for (int i=0 ; i<1 ; ++i){
             QImage cloned = source.clone();
             handler.onImageRegion(cloned, new FigureStatistics());
         }

@@ -4,6 +4,7 @@ import decomposition.PixelPack;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,6 +31,8 @@ public class ConnectionFinder {
         listener_m    = listener;
         connectable_m = new ArrayList<PixelPack>();
         unready_m     = new ArrayList<PixelPack>();
+        newFinishLimits_m = new HashMap<Integer, PixelPack>();
+        oldFinishLimits_m = new HashMap<Integer, PixelPack>();
     }
 
 
@@ -54,11 +57,13 @@ public class ConnectionFinder {
     }
 
     public void find4Connections(PixelPack newPack){
+        newPack_m = newPack;
         findConnections(newPack.x_min, newPack.x_max);
         incorporatePack(newPack);
     }
 
     public void find8Connections(PixelPack newPack){
+        newPack_m = newPack;
         findConnections(newPack.x_min-1, newPack.x_max+1);
         incorporatePack(newPack);
     }
@@ -68,7 +73,7 @@ public class ConnectionFinder {
 
 
     private void incorporatePack(PixelPack newPack){
-        newPack_m = newPack;
+
         unready_m.add(newPack);
         newFinishLimits_m.put(newPack.key, newPack);
     }

@@ -12,7 +12,7 @@ import image.IGreyImage;
  */
 public class QImageAdapter implements IGreyImage {
     private QImage source_m;
-    private float threshold_m = 0.4f;
+    private float threshold_m = 0.0f;
 
 
     public float getThreshold_() {

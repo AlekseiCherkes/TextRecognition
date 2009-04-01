@@ -10,14 +10,39 @@ import neuro.activation_func.Sigmoid;
 import java.util.ArrayList;
 
 import jblas.matrices.Matrix;
+import decomposition.DecompositionFasade;
+import decomposition.TrueDecomposition;
+import decomposition.IRegionCollector;
+import decomposition.FigureStatistics;
 
 public class MainWindow extends QMainWindow {
+
+
+    private Ui_MainWindow ui = new Ui_MainWindow();
+    private QDirModel dirModel;
+    private ImageTableModel imageModel;
+    private View view;
+
+    private Recognizer recognizer;
+
+    private DecompositionFasade decomposer;
+    private IRegionCollector collector
+            = new IRegionCollector<QImage>(){
+
+        private int identity;
+
+        @Override
+        public void onImageRegion(QImage region, FigureStatistics statistics) {
+            String str = Integer.toString(identity++);
+            region.save("data\\decomposed\\Out_image_"+str+".png", "png");
+        }
+    };
 
     public MainWindow() {
         ui.setupUi(this);
         setupTableView();
         setupView();
-        //     readSettings();
+        readSettings();
 
         try {
             StaticPerceptron staticPerceptron = new StaticPerceptron();
@@ -28,6 +53,10 @@ public class MainWindow extends QMainWindow {
         catch (Exception e) {
             statusBar().showMessage("File open error");
         }
+
+
+        //decomposer = new TrueDecomposition();
+        decomposer = new DecompositionFasade();
     }
 
     public void on_dirView_activated(QModelIndex index) throws Exception {
@@ -40,6 +69,8 @@ public class MainWindow extends QMainWindow {
             if (image.load(info.absoluteFilePath())) {
                 view.setImage(image);
 
+                decomposer.decompose(image, collector);
+
                 if (recognizer == null) {
                     s = "Recognizer hasn't been loaded.";
                     statusBar().showMessage("Network wasn't opened");
@@ -48,7 +79,7 @@ public class MainWindow extends QMainWindow {
                         RecognizeType type = recognizer.recognize(info.absoluteFilePath());
                         String t = type.getType(); // Не рефакторить!!!                        
                         s = t;
-                        s += "\t" + Double.toString(type.getAccuracy());                        
+                        s += "\t" + Double.toString( ((int) Math.round(type.getAccuracy() * 100.)) / 100.  );                        
                     }
                     catch(Exception e) {
                         s = "Can't recognize image." + "\n" + e.getMessage();
@@ -223,10 +254,6 @@ public class MainWindow extends QMainWindow {
         settings.dispose();
     }
 
-    private Ui_MainWindow ui = new Ui_MainWindow();
-    private QDirModel dirModel;
-    private ImageTableModel imageModel;
-    private View view;
 
-    private Recognizer recognizer;
+
 }
