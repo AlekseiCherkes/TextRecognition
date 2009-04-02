@@ -25,9 +25,9 @@ public class Binarization {
             for (int j = 0; j < h; ++j) {
                 int c = out.pixel(i, j) & 0xff;
                 if (c > threshold)
-                    out.setPixel(i, j, -1);
+                    out.setPixel(i, j, 0xffffffff);
                 else
-                    out.setPixel(i, j, 0);
+                    out.setPixel(i, j, 0xff000000);
             }
         }
 

@@ -15,6 +15,7 @@ import decomposition.TrueDecomposition;
 import decomposition.IRegionCollector;
 import decomposition.FigureStatistics;
 import processing.Greyscale;
+import processing.Binarization;
 
 public class MainWindow extends QMainWindow {
     private Ui_MainWindow ui = new Ui_MainWindow();
@@ -53,7 +54,6 @@ public class MainWindow extends QMainWindow {
             statusBar().showMessage("File open error");
         }
 
-
         //decomposer = new TrueDecomposition();
         decomposer = new DecompositionFasade();
     }
@@ -66,7 +66,7 @@ public class MainWindow extends QMainWindow {
         } else {
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
-                view.setImages(image, Greyscale.work(image));
+                view.setImages(image, Binarization.work(image));
 
                 decomposer.decompose(image, collector);
 
