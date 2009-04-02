@@ -14,10 +14,9 @@ import decomposition.DecompositionFasade;
 import decomposition.TrueDecomposition;
 import decomposition.IRegionCollector;
 import decomposition.FigureStatistics;
+import processing.Greyscale;
 
 public class MainWindow extends QMainWindow {
-
-
     private Ui_MainWindow ui = new Ui_MainWindow();
     private QDirModel dirModel;
     private ImageTableModel imageModel;
@@ -67,7 +66,7 @@ public class MainWindow extends QMainWindow {
         } else {
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
-                view.setImage(image);
+                view.setImages(image, Greyscale.work(image));
 
                 decomposer.decompose(image, collector);
 
@@ -113,8 +112,8 @@ public class MainWindow extends QMainWindow {
     }
 
     public void on_tableView_activated(QModelIndex index) {
-        view.setImage(imageModel.imageAt(index.row()));
-        statusBar().showMessage("Displaying image");
+    //    view.setImages(imageModel.imageAt(index.row()));
+    //    statusBar().showMessage("Displaying image");
     }
 
     public void on_resetColorBalance_clicked() {
@@ -126,20 +125,20 @@ public class MainWindow extends QMainWindow {
     }
 
     public void on_actionSave_triggered() {
-        if (view.modifiedImage() == null) {
-            statusBar().showMessage("No image to save");
-            return;
-        }
-
-        String fileName = QFileDialog.getSaveFileName(this, "File to save", "*.png");
-        if (fileName.length() == 0 || !fileName.toLowerCase().endsWith("png")) {
-            statusBar().showMessage("Not saving image");
-            return;
-        }
-
-        view.modifiedImage().save(fileName, "PNG");
-
-        statusBar().showMessage("Image saved as '" + fileName + "'");
+//        if (view.modifiedImage() == null) {
+//            statusBar().showMessage("No image to save");
+//            return;
+//        }
+//
+//        String fileName = QFileDialog.getSaveFileName(this, "File to save", "*.png");
+//        if (fileName.length() == 0 || !fileName.toLowerCase().endsWith("png")) {
+//            statusBar().showMessage("Not saving image");
+//            return;
+//        }
+//
+//        view.modifiedImage().save(fileName, "PNG");
+//
+//        statusBar().showMessage("Image saved as '" + fileName + "'");
     }
 
     public void on_actionAbout_Qt_triggered() {
@@ -169,7 +168,7 @@ public class MainWindow extends QMainWindow {
     }
 
     public void on_actionClose_triggered() {
-        view.setImage(null);
+        view.setImages(null, null);
     }
 
     protected void showEvent(QShowEvent e) {

@@ -19,25 +19,27 @@ public class View extends QWidget {
         QPalette pal = palette();
         pal.setBrush(backgroundRole(), new QBrush(bg));
         setPalette(pal);
-
         setAutoFillBackground(true);
-
         delayedUpdate.setDelay(10);
     }
 
-    public QImage image() {
-        return source_original;
+    public void setImages(QImage source, QImage processed) {
+        this.source = source != null ? source.convertToFormat(QImage.Format.Format_ARGB32_Premultiplied) : null;
+        this.processed = processed != null ? processed.convertToFormat(QImage.Format.Format_ARGB32_Premultiplied) : null;
+
+        if (source != null && processed != null) {
+            assert source.size() == processed.size();
+        }
+        update();
+        valid.emit(source != null && processed != null);
     }
 
-    public void setImage(QImage original) {
-        this.source_original = original != null ? original.convertToFormat(QImage.Format.Format_ARGB32_Premultiplied) : null;
-        resetImage();
-
-        valid.emit(original != null);
+    public QImage getSourceImage() {
+        return source;
     }
 
-    public QImage modifiedImage() {
-        return source_modified;
+    public QImage getProcessedImage() {
+        return processed;
     }
 
     public QSize sizeHint() {
@@ -45,7 +47,7 @@ public class View extends QWidget {
     }
 
     protected void paintEvent(QPaintEvent e) {
-        if (background == null) {
+        if (true || background == null) {
             background = new QPixmap(size());
             QPainter p = new QPainter(background);
             QLinearGradient lg = new QLinearGradient(0, 0, 0, height());
@@ -59,14 +61,9 @@ public class View extends QWidget {
         QPainter p = new QPainter(this);
         p.drawPixmap(0, 0, background);
 
-        if (source_modified == null)
-            updateImage();
-
-        if (source_modified != null && !source_modified.isNull()) {
-            p.setViewport(rect().adjusted(10, 10, -10, -10));
-
-            int w = source_modified.width();
-            int h = source_modified.height();
+        if (source != null && !source.isNull()) {
+            int w = source.width();
+            int h = source.height();
 
             QSize size = size();
             QSize isize_v = new QSize(w, 2 * h);
@@ -78,9 +75,8 @@ public class View extends QWidget {
             QRect rect1 = new QRect();
             QRect rect2 = new QRect();
 
-            if (isize_h.width() * isize_h.height() >
+            if (isize_h.width() * isize_h.height() >=
                     isize_v.width() * isize_v.height()) {
-
                 QSize isize = isize_h;
                 w = isize.width() / 2;
                 h = isize.height();
@@ -92,8 +88,8 @@ public class View extends QWidget {
                 int dw = (int) (0.1 * w);
                 int dh = (int) (0.1 * h);
 
-                rect1 = new QRect(rect.x() + dw, rect.y() + dh, w - 2 * dw, h - 2 * dh);
-                rect2 = new QRect(rect.x() + w + dw, rect.y() + dh, w - 2 * dw, h - 2 * dh);
+                rect1.setRect(rect.x() + dw, rect.y() + dh, w - 2 * dw, h - 2 * dh);
+                rect2.setRect(rect.x() + w + dw, rect.y() + dh, w - 2 * dw, h - 2 * dh);
             } else {
                 QSize isize = isize_v;
                 w = isize.width();
@@ -106,58 +102,21 @@ public class View extends QWidget {
                 int dw = (int) (0.1 * w);
                 int dh = (int) (0.1 * h);
 
-                rect1 = new QRect(rect.x() + dw, rect.y() + dh, w - 2 * dw, h - 2 * dh);
-                rect2 = new QRect(rect.x() + dw, rect.y() + h + dh, w - 2 * dw, h - 2 * dh);
+                rect1.setRect(rect.x() + dw, rect.y() + dh, w - 2 * dw, h - 2 * dh);
+                rect2.setRect(rect.x() + dw, rect.y() + h + dh, w - 2 * dw, h - 2 * dh);
             }
 
-            p.drawImage(rect1, source_modified);
-            p.drawImage(rect2, source_modified);
+            p.drawImage(rect1, source);
+            if (processed != null && !processed.isNull()) {
+                p.drawImage(rect2, processed);
+            }
         }
 
         p.end();
     }
 
-    protected void resizeEvent(QResizeEvent e) {
-        if (background != null) {
-            background.dispose();
-            background = null;
-        }
-
-        resetImage();
-    }
-
-    private final void resetImage() {
-        if (source_modified != null)
-            source_modified.dispose();
-        source_modified = null;
-        delayedUpdate.start();
-    }
-
-    private static final QColor decideColor(int value, QColor c1, QColor c2) {
-        QColor c = value < 0 ? c1 : c2;
-        double sign = value < 0 ? -1.0 : 1.0;
-        return QColor.fromRgbF(c.redF(), c.greenF(), c.blueF(), sign * value * 0.5 / 100);
-    }
-
-    private void updateImage() {
-        if (source_original == null || source_original.isNull())
-            return;
-
-        if (source_modified != null)
-            source_modified.dispose();
-
-        source_modified = source_original.copy();
-
-        QPainter p = new QPainter();
-        p.begin(source_modified);
-        p.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceAtop);
-        p.end();
-    }
-
-    private QImage source_original;
-    private QImage source_modified;
-    private QImage processed_original;
-    private QImage processed_modified;
+    private QImage source;
+    private QImage processed;
     private QPixmap background;
 
     private Worker delayedUpdate = new Worker(this) {
