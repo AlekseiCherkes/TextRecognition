@@ -10,10 +10,7 @@ import neuro.activation_func.Sigmoid;
 import java.util.ArrayList;
 
 import jblas.matrices.Matrix;
-import decomposition.DecompositionFasade;
-import decomposition.TrueDecomposition;
-import decomposition.IRegionCollector;
-import decomposition.FigureStatistics;
+import decomposition.*;
 import processing.Greyscale;
 import processing.Binarization;
 
@@ -23,18 +20,21 @@ public class MainWindow extends QMainWindow {
     private ImageTableModel imageModel;
     private View view;
 
+    private ArrayList<FigureStatistics> statisticsList;
+
     private Recognizer recognizer;
 
     private DecompositionFasade decomposer;
     private IRegionCollector collector
-            = new IRegionCollector<QImage>(){
+            = new IRegionCollector<QImage>() {
 
         private int identity;
 
         @Override
         public void onImageRegion(QImage region, FigureStatistics statistics) {
             String str = Integer.toString(identity++);
-            region.save("data\\decomposed\\Out_image_"+str+".png", "png");
+            region.save("data\\decomposed\\Out_image_" + str + ".png", "png");
+            statisticsList.add(statistics);
         }
     };
 
@@ -54,8 +54,20 @@ public class MainWindow extends QMainWindow {
             statusBar().showMessage("File open error");
         }
 
-        //decomposer = new TrueDecomposition();
+        //  decomposer = new TrueDecomposition();
         decomposer = new DecompositionFasade();
+    }
+
+    private QImage drawStatistics(QImage image) {
+        QPainter p = new QPainter(image);
+        p.setBrush(new QColor(255, 0, 0, 127));
+        p.setPen(new QColor(0, 0, 0, 0));
+        for(FigureStatistics stat : statisticsList) {
+            p.drawRect(stat.getXMin(), stat.getYMin(),
+                       stat.getXMax() - stat.getXMin(), stat.getYMax() - stat.getYMin());
+        }
+        p.end();
+        return image;
     }
 
     public void on_dirView_activated(QModelIndex index) throws Exception {
@@ -66,9 +78,9 @@ public class MainWindow extends QMainWindow {
         } else {
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
-                view.setImages(image, Binarization.work(image));
-
+                statisticsList = new ArrayList<FigureStatistics>();
                 decomposer.decompose(image, collector);
+                view.setImages(image, drawStatistics(Binarization.work(image)));
 
                 if (recognizer == null) {
                     s = "Recognizer hasn't been loaded.";
@@ -78,9 +90,9 @@ public class MainWindow extends QMainWindow {
                         RecognizeType type = recognizer.recognize(info.absoluteFilePath());
                         String t = type.getType(); // Не рефакторить!!!                        
                         s = t;
-                        s += "\t" + Double.toString( ((int) Math.round(type.getAccuracy() * 100.)) / 100.  );                        
+                        s += "\t" + Double.toString(((int) Math.round(type.getAccuracy() * 100.)) / 100.);
                     }
-                    catch(Exception e) {
+                    catch (Exception e) {
                         s = "Can't recognize image." + "\n" + e.getMessage();
                     }
                 }
@@ -112,8 +124,8 @@ public class MainWindow extends QMainWindow {
     }
 
     public void on_tableView_activated(QModelIndex index) {
-    //    view.setImages(imageModel.imageAt(index.row()));
-    //    statusBar().showMessage("Displaying image");
+        //    view.setImages(imageModel.imageAt(index.row()));
+        //    statusBar().showMessage("Displaying image");
     }
 
     public void on_resetColorBalance_clicked() {
@@ -252,7 +264,4 @@ public class MainWindow extends QMainWindow {
         settings.sync();
         settings.dispose();
     }
-
-
-
 }

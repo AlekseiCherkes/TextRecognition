@@ -30,7 +30,6 @@ public class TrueDecomposition extends DecompositionFasade {
                     public void onImageRegion(ImageData region, FigureStatistics statistics) {
                         QImage img = interpriter_m.InterpriteImageData(region, statistics);
                         handler.onImageRegion(img, statistics);
-
                     }
                 }
         );
