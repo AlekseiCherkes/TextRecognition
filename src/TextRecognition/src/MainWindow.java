@@ -4,15 +4,13 @@ import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
 
 import neuro.adapter.*;
 import neuro.net.*;
-import neuro.layer.ActiveLayer;
-import neuro.activation_func.Sigmoid;
 
 import java.util.ArrayList;
 
-import jblas.matrices.Matrix;
-import decomposition.*;
-import processing.Greyscale;
+import analysis.decomposition.*;
 import processing.Binarization;
+import analysis.decomposition.DecompositionFasade;
+import analysis.data.acumulators.StatisticsAccumulator;
 
 public class MainWindow extends QMainWindow {
     private Ui_MainWindow ui = new Ui_MainWindow();
@@ -20,7 +18,7 @@ public class MainWindow extends QMainWindow {
     private ImageTableModel imageModel;
     private View view;
 
-    private ArrayList<FigureStatistics> statisticsList;
+    private ArrayList<StatisticsAccumulator> statisticsList;
 
     private Recognizer recognizer;
 
@@ -31,9 +29,9 @@ public class MainWindow extends QMainWindow {
         private int identity;
 
         @Override
-        public void onImageRegion(QImage region, FigureStatistics statistics) {
+        public void onImageRegion(QImage region, StatisticsAccumulator statistics) {
             String str = Integer.toString(identity++);
-            region.save("data\\decomposed\\Out_image_" + str + ".png", "png");
+            region.save("analysis.data\\decomposed\\Out_image_" + str + ".png", "png");
             statisticsList.add(statistics);
         }
     };
@@ -62,7 +60,7 @@ public class MainWindow extends QMainWindow {
         QPainter p = new QPainter(image);
         p.setBrush(new QColor(255, 0, 0, 127));
         p.setPen(new QColor(0, 0, 0, 0));
-        for(FigureStatistics stat : statisticsList) {
+        for(StatisticsAccumulator stat : statisticsList) {
             p.drawRect(stat.getXMin(), stat.getYMin(),
                        stat.getXMax() - stat.getXMin(), stat.getYMax() - stat.getYMin());
         }
@@ -78,7 +76,7 @@ public class MainWindow extends QMainWindow {
         } else {
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
-                statisticsList = new ArrayList<FigureStatistics>();
+                statisticsList = new ArrayList<StatisticsAccumulator>();
                 decomposer.decompose(image, collector);
                 view.setImages(image, drawStatistics(Binarization.work(image)));
 
@@ -93,14 +91,14 @@ public class MainWindow extends QMainWindow {
                         s += "\t" + Double.toString(((int) Math.round(type.getAccuracy() * 100.)) / 100.);
                     }
                     catch (Exception e) {
-                        s = "Can't recognize image." + "\n" + e.getMessage();
+                        s = "Can't recognize analysis.image." + "\n" + e.getMessage();
                     }
                 }
                 ui.recognitionLabel.setText(s);
                 statusBar().showMessage("Image opened");
 
             } else {
-                statusBar().showMessage("Can't load image");
+                statusBar().showMessage("Can't load analysis.image");
             }
         }
     }
@@ -125,7 +123,7 @@ public class MainWindow extends QMainWindow {
 
     public void on_tableView_activated(QModelIndex index) {
         //    view.setImages(imageModel.imageAt(index.row()));
-        //    statusBar().showMessage("Displaying image");
+        //    statusBar().showMessage("Displaying analysis.image");
     }
 
     public void on_resetColorBalance_clicked() {
@@ -138,13 +136,13 @@ public class MainWindow extends QMainWindow {
 
     public void on_actionSave_triggered() {
 //        if (view.modifiedImage() == null) {
-//            statusBar().showMessage("No image to save");
+//            statusBar().showMessage("No analysis.image to save");
 //            return;
 //        }
 //
 //        String fileName = QFileDialog.getSaveFileName(this, "File to save", "*.png");
 //        if (fileName.length() == 0 || !fileName.toLowerCase().endsWith("png")) {
-//            statusBar().showMessage("Not saving image");
+//            statusBar().showMessage("Not saving analysis.image");
 //            return;
 //        }
 //

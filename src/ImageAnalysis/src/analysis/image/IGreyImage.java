@@ -1,4 +1,4 @@
-package image;
+package analysis.image;
 
 /**
  * Created by IntelliJ IDEA.

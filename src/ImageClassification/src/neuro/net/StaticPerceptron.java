@@ -208,7 +208,7 @@ public class StaticPerceptron implements IStaticNet{
      */
     public RecognizeType        recognizeClass( Matrix x ) throws Exception{
         Matrix y = this.recognize( x );
-        // Get number of max output. It identificate image's class.
+        // Get number of max output. It identificate analysis.image's class.
         int output_num = 0;
         double max = y.get( 0, 0 );
         for ( int i = 0; i < y.getRowDimension(); i++ ){

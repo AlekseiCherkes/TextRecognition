@@ -1,7 +1,7 @@
-package image;
+package analysis.image;
 
 import com.trolltech.qt.gui.QImage;
-import image.IGreyImage;
+import analysis.image.IGreyImage;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,7 +12,7 @@ import image.IGreyImage;
  */
 public class QImageAdapter implements IGreyImage {
     private QImage source_m;
-    private float threshold_m = 0.0f;
+    private float threshold_m = 0.01f;
 
 
     public float getThreshold_() {
@@ -51,7 +51,7 @@ public class QImageAdapter implements IGreyImage {
         int hue = ( rgb & 0x000000ff)
                 + ((rgb & 0x0000ff00) >>>  8)
                 + ((rgb & 0x00ff0000) >>> 16);
-        return 1.0f - hue / 765;
+        return 1.0f - hue / 765.f;
     }
 
     @Override

@@ -7,22 +7,22 @@ package jblas.util;
  * Time: 22:54:17
  * To change this template use File | Settings | File Templates.
  */
-public class Sparse2DenseEnumerator implements IEnumerator {
-    private IEnumerator sparse_m;
+public class Sparse2DenseEnumerator implements IJblasEnumerator {
+    private IJblasEnumerator sparse_m;
     private int outerCursor_m;
 
 
     private int limit_m;
     private boolean isFinishing_m;
 
-    public Sparse2DenseEnumerator(IEnumerator source, int limit) {
+    public Sparse2DenseEnumerator(IJblasEnumerator source, int limit) {
         setSource(source,limit);
     }
 
-    public IEnumerator getSource(){
+    public IJblasEnumerator getSource(){
         return sparse_m;
     }
-    public void setSource(IEnumerator source, int limit){
+    public void setSource(IJblasEnumerator source, int limit){
         sparse_m = source;
         limit_m  = limit;
         isFinishing_m = false;
@@ -44,6 +44,10 @@ public class Sparse2DenseEnumerator implements IEnumerator {
         outerCursor_m = -1;
         isFinishing_m = false;
         sparse_m.reset();
+    }
+
+    public Object current() {
+        return null;
     }
 
     public float getVal() {

@@ -30,8 +30,8 @@ public class DenseVector implements IVector {
 
     }
 
-    public IEnumerator getEnumerator(Density density) {
-        IEnumerator dense = new ArrayDenseEnumerator(cells_m);
+    public IJblasEnumerator getEnumerator(Density density) {
+        IJblasEnumerator dense = new ArrayDenseEnumerator(cells_m);
 
         switch (density){
             case DENSE : return dense;

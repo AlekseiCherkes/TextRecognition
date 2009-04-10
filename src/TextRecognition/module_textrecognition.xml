@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_textrecognition" default="compile.module.textrecognition">
+  <dirname property="module.textrecognition.basedir" file="${ant.file.module_textrecognition}"/>
+  
+  
+  <property name="compiler.args.textrecognition" value="${compiler.args}"/>
+  
+  <property name="textrecognition.output.dir" value="${module.textrecognition.basedir}/../../deploy/production/TextRecognition"/>
+  <property name="textrecognition.testoutput.dir" value="${module.textrecognition.basedir}/../../deploy/test/TextRecognition"/>
+  
+  <path id="textrecognition.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="textrecognition.module.classpath">
+    <path refid="library.qt.classpath"/>
+  </path>
+  
+  <path id="textrecognition.runtime.module.classpath">
+    <pathelement location="${textrecognition.output.dir}"/>
+    <pathelement location="${textrecognition.testoutput.dir}"/>
+    <path refid="library.qt.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.textrecognition">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.textrecognition">
+    <patternset refid="excluded.from.module.textrecognition"/>
+  </patternset>
+  
+  <path id="textrecognition.module.sourcepath">
+    <dirset dir="${module.textrecognition.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.textrecognition" depends="compile.module.textrecognition.production,compile.module.textrecognition.tests" description="Compile module TextRecognition"/>
+  
+  <target name="compile.module.textrecognition.production" description="Compile module TextRecognition; production classes">
+    <mkdir dir="${textrecognition.output.dir}"/>
+    <javac destdir="${textrecognition.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.textrecognition}"/>
+      <bootclasspath refid="textrecognition.module.bootclasspath"/>
+      <classpath refid="textrecognition.module.classpath"/>
+      <src refid="textrecognition.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.textrecognition"/>
+    </javac>
+    
+    <copy todir="${textrecognition.output.dir}">
+      <fileset dir="${module.textrecognition.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.textrecognition.tests" depends="compile.module.textrecognition.production" description="compile module TextRecognition; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.textrecognition" description="cleanup module">
+    <delete dir="${textrecognition.output.dir}"/>
+    <delete dir="${textrecognition.testoutput.dir}"/>
+  </target>
+</project>

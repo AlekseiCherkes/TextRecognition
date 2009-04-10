@@ -1,18 +1,13 @@
 import neuro.adapter.Recognizer;
-import neuro.adapter.Tutor;
 import neuro.layer.ActiveLayer;
 import neuro.activation_func.Sigmoid;
 import neuro.net.RecognizeType;
-import neuro.net.TrainingPerceptron;
 import neuro.net.StaticPerceptron;
-import neuro.net.TeachingData;
 
 
 import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.io.File;
-import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
 
 import jblas.matrices.Matrix;
 
@@ -47,29 +42,29 @@ public class TestingClass {
 
 
             try{
-                TrainingPerceptron training_net = new TrainingPerceptron( layers_list, m, n, teaching_speed );
-                training_net.setTeachingPath( "data//for_teaching//teaching_set" );
-                training_net.setControlPath( "data//for_teaching//control_set" );
-                training_net.setBriefLog( "data//brief_log.txt" );
-//                training_net.setDetailedLog( "data//detailed_log.txt");
-                training_net.setOutputAccuracy( output_accuracy );
-                training_net.setIdleAccuracy( idle_accuracy );
-                training_net.setPrintAccuracy( 8 );
-
-                double ceiling = 4. / ( m * n );
-                training_net.randomInit( ceiling );
-//                training_net.init( "data\\nets\\32x32_test" );
-
-                Tutor teacher = new Tutor( training_net );
-                //teacher.initNet( "data\\nets\\32x32_test" );
-                teacher.train();
-                teacher.save( "data\\nets\\20x20.net");
+//                TrainingPerceptron training_net = new TrainingPerceptron( layers_list, m, n, teaching_speed );
+//                training_net.setTeachingPath( "data//for_teaching//teaching_set" );
+//                training_net.setControlPath( "data//for_teaching//control_set" );
+//                training_net.setBriefLog( "data//brief_log.txt" );
+////                training_net.setDetailedLog( "analysis.data//detailed_log.txt");
+//                training_net.setOutputAccuracy( output_accuracy );
+//                training_net.setIdleAccuracy( idle_accuracy );
+//                training_net.setPrintAccuracy( 8 );
 //
-//                StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
-//                Recognizer recognizer = new Recognizer( static_net );
-//                recognizer.initNet( "data\\nets\\32x32_test.net" );
+//                double ceiling = 4. / ( m * n );
+//                training_net.randomInit( ceiling );
+////                training_net.init( "analysis.data\\nets\\32x32_test" );
 //
-//                runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
+//                Tutor teacher = new Tutor( training_net );
+//                //teacher.initNet( "analysis.data\\nets\\32x32_test" );
+//                teacher.train();
+//                teacher.save( "data\\nets\\20x20_temp.net");
+//
+                StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
+                Recognizer recognizer = new Recognizer( static_net );
+                recognizer.initNet( "data\\nets\\20x20_temp.net" );
+
+                runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
             }
             catch( Exception e ){
                 StackTraceElement[] frames = e.getStackTrace();

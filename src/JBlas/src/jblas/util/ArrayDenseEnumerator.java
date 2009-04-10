@@ -7,7 +7,7 @@ package jblas.util;
  * Time: 20:09:09
  * To change this template use File | Settings | File Templates.
  */
-public class ArrayDenseEnumerator implements IEnumerator {
+public class ArrayDenseEnumerator implements IJblasEnumerator {
     protected float[] arr_m;
     protected int  cursor_m;
 
@@ -26,6 +26,10 @@ public class ArrayDenseEnumerator implements IEnumerator {
 
     public void reset(){
         cursor_m = -1;
+    }
+
+    public Object current() {
+        return null;
     }
 
     public float getVal() {

@@ -1,4 +1,4 @@
-package decomposition;
+package analysis.data.acumulators;
 
 /**
  * Created by IntelliJ IDEA.
@@ -7,22 +7,22 @@ package decomposition;
  * Time: 2:45:38
  * To change this template use File | Settings | File Templates.
  */
-public class FigureStatistics {
+public class StatisticsAccumulator implements IMergible<StatisticsAccumulator>{
 
-    protected double sum_m;
-    protected double a01_m;
-    protected double a10_m;
-    protected double a02_m;
-    protected double a11_m;
-    protected double a20_m;
+    public double sum_m;
+    public double a01_m;
+    public double a10_m;
+    public double a02_m;
+    public double a11_m;
+    public double a20_m;
 
-    protected int xMin_m;
-    protected int xMax_m;
-    protected int yMin_m;
-    protected int yMax_m;
+    public int xMin_m;
+    public int xMax_m;
+    public int yMin_m;
+    public int yMax_m;
 
 
-    public FigureStatistics(){
+    public StatisticsAccumulator(){
         xMin_m = yMin_m = Integer.MAX_VALUE;
         xMax_m = yMax_m = Integer.MIN_VALUE;
     }
@@ -48,7 +48,7 @@ public class FigureStatistics {
     }
 
 
-    public void merge(FigureStatistics stat){
+    public void merge(StatisticsAccumulator stat){
         assert this != stat : "Self merging!";
 
         sum_m += stat.sum_m;
@@ -105,6 +105,10 @@ public class FigureStatistics {
         return a11_m / sum_m - mx*my;
     }
 
-
+    
+    @Override
+    public String toString() {
+        return "(Mass= " + sum_m + ')';
+    }
 }
 

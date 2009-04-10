@@ -1,6 +1,6 @@
 package jblas.vectors;
 
-import jblas.util.IEnumerator;
+import jblas.util.IJblasEnumerator;
 import jblas.util.Density;
 
 /**
@@ -10,5 +10,5 @@ public interface IVector extends IIndexed {
 
     Density getDensityType();
 
-    IEnumerator getEnumerator(Density density);
+    IJblasEnumerator getEnumerator(Density density);
 }

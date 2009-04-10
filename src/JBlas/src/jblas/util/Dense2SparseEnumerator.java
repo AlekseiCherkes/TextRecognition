@@ -7,17 +7,17 @@ package jblas.util;
  * Time: 22:48:42
  * To change this template use File | Settings | File Templates.
  */
-public class Dense2SparseEnumerator implements IEnumerator {
-    private IEnumerator dense_m;
+public class Dense2SparseEnumerator implements IJblasEnumerator {
+    private IJblasEnumerator dense_m;
 
-    public Dense2SparseEnumerator(IEnumerator source) {
+    public Dense2SparseEnumerator(IJblasEnumerator source) {
         setSource(source);
     }
 
-    public IEnumerator getSource(){
+    public IJblasEnumerator getSource(){
         return dense_m;
     }
-    public void setSource(IEnumerator source){
+    public void setSource(IJblasEnumerator source){
         dense_m = source;
         /*no reset call here */
     }
@@ -38,6 +38,10 @@ public class Dense2SparseEnumerator implements IEnumerator {
 
     public void reset() {
         dense_m.reset();
+    }
+
+    public Object current() {
+        return null;
     }
 
     public float getVal() {

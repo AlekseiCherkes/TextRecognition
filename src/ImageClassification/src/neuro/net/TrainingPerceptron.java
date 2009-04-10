@@ -235,7 +235,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                     // Read input from file.
                     Matrix input = readImage( full_image_name );
                     if ( input.getRowDimension() != image_size ){
-                        throw new Exception( "Invalid count of pixels in image." );
+                        throw new Exception( "Invalid count of pixels in analysis.image." );
                     }
                     data.addNetInput( type_name, image_name, input );
                 }
@@ -248,7 +248,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      */
     public void                 train() throws Exception{
 
-        // 1) Get data for teaching.
+        // 1) Get analysis.data for teaching.
 
         TeachingData teaching_data = getTeachingData( teaching_path, input_height * input_width );
         TeachingData control_data = getTeachingData( control_path, input_height * input_width );
@@ -292,8 +292,8 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
             long iteration = 1;
 
             // Use tests for teaching one by one in cycle until net recognize all of it.
-            // Follow strategy: for teaching use one image of each type at one iteration
-            // ( e.g. when for teaching was used image of current type, next teaching image
+            // Follow strategy: for teaching use one analysis.image of each type at one iteration
+            // ( e.g. when for teaching was used analysis.image of current type, next teaching analysis.image
             // will find for next type ) .
             while( true ){
                 if ( detailed_writer != null ){
@@ -325,7 +325,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                             if ( teachTransaction( x_input, detailed_writer, reaction ) ){
                                     positive_result++;
                             }
-                            // Follow strategy: for teaching use one image of each type at one iteration.
+                            // Follow strategy: for teaching use one analysis.image of each type at one iteration.
                             else{
                                 break;
                             }

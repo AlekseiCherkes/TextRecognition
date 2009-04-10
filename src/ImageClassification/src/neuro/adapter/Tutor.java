@@ -75,7 +75,7 @@ public class Tutor {
             }
         }
         catch( Exception e){
-           throw new Exception( "Problem with reading image from file." + e.getMessage() );
+           throw new Exception( "Problem with reading analysis.image from file." + e.getMessage() );
         }
         finally{
             if(  scanner != null ){

@@ -8,7 +8,7 @@ import java.util.*;
  * @author Vadim Shpakovsky.
  */
 
-// Contain data necessary for net teaching.
+// Contain analysis.data necessary for net teaching.
 public class TeachingData {
     private TreeMap< String, TreeSet< String > > types;
     private TreeMap< String, TreeMap< String, Matrix > > net_inputs;

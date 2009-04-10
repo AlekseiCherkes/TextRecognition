@@ -1,7 +1,7 @@
 package jblas.matrices;
 
 import jblas.vectors.IVector;
-import jblas.util.IEnumerator;
+import jblas.util.IJblasEnumerator;
 import jblas.util.Density;
 
 
@@ -24,8 +24,8 @@ public interface IMatrix extends IBiindexed {
 
     IVector getRow(int i);
 
-    IEnumerator getEnumeratorOwerRow(int row, Density density);
-    IEnumerator getEnumeratorOwerCol(int col, Density density);
+    IJblasEnumerator getEnumeratorOwerRow(int row, Density density);
+    IJblasEnumerator getEnumeratorOwerCol(int col, Density density);
 
     
 }

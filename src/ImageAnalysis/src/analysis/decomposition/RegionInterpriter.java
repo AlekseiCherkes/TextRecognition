@@ -1,10 +1,9 @@
-package decomposition;
+package analysis.decomposition;
 
-import decomposition.ImageData;
-import decomposition.FigureStatistics;
-import image.IGreyImage;
-import image.QImageAdapter;
-import image.GreyRegionView;
+import analysis.data.acumulators.PackAccumulator;
+import analysis.data.acumulators.StatisticsAccumulator;
+import analysis.data.acumulators.DecomposedRegion;
+import analysis.image.QImageAdapter;
 import com.trolltech.qt.gui.QImage;
 
 /**
@@ -14,14 +13,14 @@ import com.trolltech.qt.gui.QImage;
  * Time: 16:31:48
  * To change this template use File | Settings | File Templates.
  */
-public class ImageDataInterpriter {
+public class RegionInterpriter {
 
 
     private QImageAdapter adapter_m;
     private QImageAdapter greysource_m;
 
 
-    public ImageDataInterpriter(){
+    public RegionInterpriter(){
         adapter_m     = new QImageAdapter(null);
         greysource_m  = new QImageAdapter(null);
     }
@@ -34,14 +33,16 @@ public class ImageDataInterpriter {
         greysource_m.setSource(source);
     }
 
-    public QImage InterpriteImageData(ImageData data, FigureStatistics statistics){
+    public QImage InterpriteImageData(DecomposedRegion data, StatisticsAccumulator statistics){
         int x_min = statistics.getXMin();
         int y_min = statistics.getYMin();
         int width = statistics.getXMax() - x_min + 1;
         int heigt = statistics.getYMax() - y_min + 1;
 
-        QImage result = new QImage(width, heigt, QImage.Format.Format_ARGB32);
-        adapter_m.setSource(result);
+        QImage source = getSource();
+        QImage.Format format = source.format();
+        QImage result = new QImage(width, heigt, format);
+        /*adapter_m.setSource(result);
 
         GreyRegionView view = new GreyRegionView(adapter_m);
         view.setXMin  (-x_min);
@@ -49,8 +50,9 @@ public class ImageDataInterpriter {
         view.setWidth (width);
         view.setHeight(heigt);
         
-        data.copyPixels(greysource_m, view);
-        adapter_m.setSource(null);
+        analysis.data.copyPixels(greysource_m, view);
+        adapter_m.setSource(null);*/
+        //data.copyPixels(source, result, x_min, y_min);
         return result;
     }
 }

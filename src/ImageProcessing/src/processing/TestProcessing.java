@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 
-import processing.Greyscale;
-import processing.FlipHorizontal;
-import processing.FlipVertical;
 import processing.Binarization;
 
 public class TestProcessing
@@ -22,14 +19,14 @@ public class TestProcessing
 //
 //        if(2 != args.length) {
 //            System.out.printf("Arguments error.\n");
-//            System.out.printf("Usage: TestProcessing <input image> <output image>\n");
+//            System.out.printf("Usage: TestProcessing <input analysis.image> <output analysis.image>\n");
 //            System.exit(-1);
 //        }
 //
 //        File fin = new File(args[0]);
 //        File fout = new File(args[1]);
-        File fin = new File("data\\teaching_set\\A\\0.png");
-        File fout = new File("data\\teaching_set\\A\\res.png");
+        File fin = new File("analysis.data\\teaching_set\\A\\0.png");
+        File fout = new File("analysis.data\\teaching_set\\A\\res.png");
         BufferedImage iin = ImageIO.read(fin);
         BufferedImage iout = Binarization.work(iin);
         ImageIO.write(iout, "jpg", fout);

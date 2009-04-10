@@ -1,4 +1,4 @@
-package image;
+package analysis.image;
 
 /**
  * @author M-NPO

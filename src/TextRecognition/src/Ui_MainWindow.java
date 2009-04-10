@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading ui file 'MainWindow.jui'
 **
-** Created: Ср 1. апр 12:04:12 2009
+** Created: пїЅпїЅ 1. пїЅпїЅпїЅ 12:04:12 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
@@ -188,7 +188,7 @@ public class Ui_MainWindow
         tableDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Images "));
         toolBar_2.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "File toolbar"));
         labelDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Recognition"));
-        recognitionLabel.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "No image"));
+        recognitionLabel.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "No analysis.image"));
     } // retranslateUi
 
 }

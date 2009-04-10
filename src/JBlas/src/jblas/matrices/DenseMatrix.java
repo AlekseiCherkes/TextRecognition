@@ -2,7 +2,7 @@ package jblas.matrices;
 
 import jblas.vectors.IRowView;
 import jblas.vectors.IColumnView;
-import jblas.util.IEnumerator;
+import jblas.util.IJblasEnumerator;
 import jblas.util.ArrayDenseEnumerator;
 import jblas.util.Dense2SparseEnumerator;
 import jblas.util.Density;
@@ -106,8 +106,8 @@ public class DenseMatrix implements IMatrix {
         return view;
     }
 
-    public IEnumerator getEnumeratorOwerRow(int row, Density density) {
-        IEnumerator dense = new ArrayDenseEnumerator(cells_m[row]);
+    public IJblasEnumerator getEnumeratorOwerRow(int row, Density density) {
+        IJblasEnumerator dense = new ArrayDenseEnumerator(cells_m[row]);
 
         switch (density){
             case DENSE : return dense;
@@ -117,8 +117,8 @@ public class DenseMatrix implements IMatrix {
         }
     }
 
-    public IEnumerator getEnumeratorOwerCol(int col, Density density) {
-        IEnumerator dense = new ColDenseEnumerator(col);
+    public IJblasEnumerator getEnumeratorOwerCol(int col, Density density) {
+        IJblasEnumerator dense = new ColDenseEnumerator(col);
 
         switch (density){
             case DENSE : return dense;
@@ -166,10 +166,12 @@ public class DenseMatrix implements IMatrix {
             return Density.DENSE;
         }
 
-        public IEnumerator getEnumerator(Density density) {
+        public IJblasEnumerator getEnumerator(Density density) {
             return getEnumeratorOwerRow(rowIndex, density);
         }
     }
+
+
 
 
 
@@ -205,7 +207,7 @@ public class DenseMatrix implements IMatrix {
             return Density.DENSE;
         }
 
-        public IEnumerator getEnumerator(Density density) {
+        public IJblasEnumerator getEnumerator(Density density) {
             return getEnumeratorOwerCol(colIndex, density);
         }
     }
@@ -219,7 +221,7 @@ public class DenseMatrix implements IMatrix {
 
 
 
-    protected class ColDenseEnumerator implements IEnumerator {
+    protected class ColDenseEnumerator implements IJblasEnumerator {
         private int row_m;
         private int col_m;
 
@@ -238,6 +240,10 @@ public class DenseMatrix implements IMatrix {
 
         public void reset() {
             row_m = -1;
+        }
+
+        public Object current() {
+            return null;
         }
 
         public float getVal() {
