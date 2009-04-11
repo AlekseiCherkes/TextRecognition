@@ -1,9 +1,8 @@
 package analysis.decomposition;
 
-import analysis.data.acumulators.PackAccumulator;
-import analysis.data.acumulators.StatisticsAccumulator;
 import analysis.data.acumulators.DecomposedRegion;
-import analysis.image.QImageAdapter;
+import analysis.data.acumulators.StatisticsAccumulator;
+import analysis.data.pixels.IPixelPack;
 import com.trolltech.qt.gui.QImage;
 
 /**
@@ -16,21 +15,17 @@ import com.trolltech.qt.gui.QImage;
 public class RegionInterpriter {
 
 
-    private QImageAdapter adapter_m;
-    private QImageAdapter greysource_m;
+    private QImage source_m;
 
 
-    public RegionInterpriter(){
-        adapter_m     = new QImageAdapter(null);
-        greysource_m  = new QImageAdapter(null);
-    }
+    public RegionInterpriter(){}
 
 
     public QImage getSource() {
-        return greysource_m.getSource();
+        return source_m;
     }
     public void setSource(QImage source) {
-        greysource_m.setSource(source);
+        source_m= source;
     }
 
     public QImage InterpriteImageData(DecomposedRegion data, StatisticsAccumulator statistics){
@@ -42,17 +37,27 @@ public class RegionInterpriter {
         QImage source = getSource();
         QImage.Format format = source.format();
         QImage result = new QImage(width, heigt, format);
-        /*adapter_m.setSource(result);
 
-        GreyRegionView view = new GreyRegionView(adapter_m);
-        view.setXMin  (-x_min);
-        view.setYMin  (-y_min);
-        view.setWidth (width);
-        view.setHeight(heigt);
-        
-        analysis.data.copyPixels(greysource_m, view);
-        adapter_m.setSource(null);*/
-        //data.copyPixels(source, result, x_min, y_min);
+        int dx;
+        int dy;
+        int sx;
+        int sy;
+        int se;
+        int rgb;
+
+        for (IPixelPack pack : data.getPackAcc()){
+            sx = pack.getStart();
+            se = pack.getEnd  ();
+            sy = pack.getY    ();
+            dx = sx - x_min;
+            dy = sy - y_min;
+
+            for (; sx < se ; ++sx, ++dx){
+                rgb = source.pixel(sx, sy);
+                result.setPixel(dx, dy, rgb);
+            }
+
+        }
         return result;
     }
 }

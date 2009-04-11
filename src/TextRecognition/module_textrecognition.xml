@@ -13,12 +13,24 @@
   </path>
   
   <path id="textrecognition.module.classpath">
+    <pathelement location="${imageclassification.output.dir}"/>
+    <pathelement location="${imageclassification.testoutput.dir}"/>
+    <pathelement location="${jblas.output.dir}"/>
+    <pathelement location="${jblas.testoutput.dir}"/>
+    <pathelement location="${imageprocessing.output.dir}"/>
+    <pathelement location="${imageprocessing.testoutput.dir}"/>
+    <pathelement location="${imageanalysis.output.dir}"/>
+    <pathelement location="${imageanalysis.testoutput.dir}"/>
     <path refid="library.qt.classpath"/>
   </path>
   
   <path id="textrecognition.runtime.module.classpath">
     <pathelement location="${textrecognition.output.dir}"/>
     <pathelement location="${textrecognition.testoutput.dir}"/>
+    <path refid="imageclassification.runtime.module.classpath"/>
+    <path refid="jblas.runtime.module.classpath"/>
+    <path refid="imageprocessing.runtime.module.classpath"/>
+    <path refid="imageanalysis.runtime.module.classpath"/>
     <path refid="library.qt.classpath"/>
   </path>
   
@@ -40,7 +52,7 @@
   
   <target name="compile.module.textrecognition" depends="compile.module.textrecognition.production,compile.module.textrecognition.tests" description="Compile module TextRecognition"/>
   
-  <target name="compile.module.textrecognition.production" description="Compile module TextRecognition; production classes">
+  <target name="compile.module.textrecognition.production" depends="compile.module.imageclassification,compile.module.jblas,compile.module.imageprocessing,compile.module.imageanalysis" description="Compile module TextRecognition; production classes">
     <mkdir dir="${textrecognition.output.dir}"/>
     <javac destdir="${textrecognition.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.textrecognition}"/>

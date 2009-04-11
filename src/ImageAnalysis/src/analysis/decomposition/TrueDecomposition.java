@@ -1,11 +1,10 @@
 package analysis.decomposition;
 
-import com.trolltech.qt.gui.QImage;
+import analysis.data.acumulators.DecomposedRegion;
+import analysis.data.acumulators.StatisticsAccumulator;
 import analysis.image.IGreyImage;
 import analysis.image.QImageAdapter;
-import analysis.decomposition.DecompositionFasade;
-import analysis.data.acumulators.StatisticsAccumulator;
-import analysis.data.acumulators.DecomposedRegion;
+import com.trolltech.qt.gui.QImage;
 
 /**
  * @author M-NPO
@@ -21,8 +20,8 @@ public class TrueDecomposition extends DecompositionFasade {
     
     @Override
     public void decompose(QImage source, final IRegionCollector<QImage> handler) {
-        DecompositionContext decomposer       = new DecompositionContext();
-        IGreyImage greyImage             = new QImageAdapter(source);
+        DecompositionContext decomposer = new DecompositionContext();
+        IGreyImage greyImage            = new QImageAdapter(source);
 
 
         interpriter_m.setSource(source);

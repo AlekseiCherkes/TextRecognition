@@ -1,18 +1,14 @@
 package analysis.decomposition;
 
 import analysis.image.IGreyImage;
-import analysis.decomposition.ConnectionFinder;
-import analysis.data.acumulators.StatisticsAccumulator;
-import analysis.data.acumulators.PackAccumulator;
 import analysis.data.acumulators.DecomposedRegion;
 import analysis.data.pixels.ForegroundData;
 
-import java.util.Map;
-import java.util.HashMap;
+
 
 /**
  * Created by IntelliJ IDEA.
- * User: Nick
+ * Author: M-NPO
  * Date: 21.02.2009
  * Time: 20:52:51
  * To change this template use File | Settings | File Templates.
@@ -20,7 +16,6 @@ import java.util.HashMap;
 public class DecompositionContext {
 
     private ConnectionFinder connector_m;
-    private ConnectionFinder.IConnectionListener handler_m;
     private RegionsKeeper regions_m;
 
     private IRegionCollector<DecomposedRegion> collector_m;
@@ -35,9 +30,9 @@ public class DecompositionContext {
     public DecompositionContext(){
         regions_m  = new RegionsKeeper();
 
-        handler_m =  new ConnectionFinder.IConnectionListener(){
+        ConnectionFinder.IConnectionListener handler = new ConnectionFinder.IConnectionListener() {
             @Override
-            public void onRegionFinished(int regionKey){
+            public void onRegionFinished(int regionKey) {
                 DecomposedRegion region = regions_m.removeRegion(regionKey);
                 collector_m.onImageRegion(region, region.getStatAcc());
             }
@@ -59,7 +54,7 @@ public class DecompositionContext {
             }
         };
 
-        connector_m = new ConnectionFinder(handler_m);
+        connector_m = new ConnectionFinder(handler);
     }
 
 

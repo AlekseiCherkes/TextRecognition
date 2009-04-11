@@ -42,6 +42,8 @@ public class ConnectionFinder {
         listener_m        = listener;
         oldSpans_m        = new ArrayList<IRowSpan>();
         newSpans_m        = new ArrayList<IRowSpan>();
+        oldKeys_m         = new ArrayOfInt();
+        newKeys_m         = new ArrayOfInt();
         newFinishLimits_m = new HashMap<Integer, Integer>();
         oldFinishLimits_m = new HashMap<Integer, Integer>();
     }

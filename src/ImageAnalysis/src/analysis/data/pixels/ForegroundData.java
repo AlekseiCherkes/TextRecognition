@@ -14,7 +14,9 @@ public class ForegroundData extends PixelPack {
 
     private StatisticsAccumulator statistics_m;
 
-
+    public ForegroundData() {
+        statistics_m = new StatisticsAccumulator();
+    }
 
     public int getKey()         { return key_m;}
     public void setKey(int key) { key_m = key; }

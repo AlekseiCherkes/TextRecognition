@@ -17,6 +17,7 @@
     <pathelement location="${imageprocessing.testoutput.dir}"/>
     <pathelement location="${jblas.output.dir}"/>
     <pathelement location="${jblas.testoutput.dir}"/>
+    <path refid="library.qt.classpath"/>
   </path>
   
   <path id="imageclassification.runtime.module.classpath">
@@ -24,6 +25,7 @@
     <pathelement location="${imageclassification.testoutput.dir}"/>
     <path refid="imageprocessing.runtime.module.classpath"/>
     <path refid="jblas.runtime.module.classpath"/>
+    <path refid="library.qt.classpath"/>
   </path>
   
   

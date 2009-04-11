@@ -106,7 +106,7 @@
     <option name="GENERATE_NO_WARNINGS" value="false" />
     <option name="DEPRECATION" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
-    <option name="MAXIMUM_HEAP_SIZE" value="128" />
+    <option name="MAXIMUM_HEAP_SIZE" value="256" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -346,6 +346,10 @@
       <JAVADOC />
       <SOURCES />
     </library>
+  </component>
+  <component name="uidesigner-configuration">
+    <option name="INSTRUMENT_CLASSES" value="false" />
+    <option name="DEFAULT_LAYOUT_MANAGER" value="GridBagLayout" />
   </component>
 </project>
 

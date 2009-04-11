@@ -7,9 +7,11 @@ import neuro.net.*;
 
 import java.util.ArrayList;
 
-import analysis.decomposition.*;
+
 import processing.Binarization;
 import analysis.decomposition.DecompositionFasade;
+import analysis.decomposition.IRegionCollector;
+import analysis.decomposition.TrueDecomposition;
 import analysis.data.acumulators.StatisticsAccumulator;
 
 public class MainWindow extends QMainWindow {
@@ -52,8 +54,8 @@ public class MainWindow extends QMainWindow {
             statusBar().showMessage("File open error");
         }
 
-        //  decomposer = new TrueDecomposition();
-        decomposer = new DecompositionFasade();
+          decomposer = new TrueDecomposition();
+        //  decomposer = new DecompositionFasade();
     }
 
     private QImage drawStatistics(QImage image) {

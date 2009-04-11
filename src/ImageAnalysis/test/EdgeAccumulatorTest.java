@@ -6,7 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-import geom.*;
+import analysis.data.acumulators.EdgeAccumulator;
+
+
 
 import java.awt.*;
 
@@ -82,7 +84,7 @@ public class EdgeAccumulatorTest {
         ea2.takeLine(-5, -2, 1);
         ea2.takeLine(-6, -1, 6);
 
-        ea.join(ea2);
+        ea.merge(ea2);
 
         p = (Polygon) ea.buildConvexPolygon();
 
