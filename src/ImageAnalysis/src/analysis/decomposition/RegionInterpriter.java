@@ -36,8 +36,28 @@ public class RegionInterpriter {
 
         QImage source = getSource();
         QImage.Format format = source.format();
-        QImage result = new QImage(width, heigt, format);
+        //QImage result = new QImage(width, heigt, format);
+        //result.fill(0xaaaaaaaa);
 
+        QImage result = source.copy();
+
+
+        int sx;
+        int sy;
+        int se;
+
+        for (IPixelPack pack : data.getPackAcc()){
+            sx = pack.getStart();
+            se = pack.getEnd  ();
+            sy = pack.getY    ();
+
+            for (; sx < se ; ++sx){
+                result.setPixel(sx, sy, 0xff0000ff);
+            }
+
+        }
+        return result;
+/*
         int dx;
         int dy;
         int sx;
@@ -54,11 +74,14 @@ public class RegionInterpriter {
 
             for (; sx < se ; ++sx, ++dx){
                 rgb = source.pixel(sx, sy);
+                System.err.println(
+                        "Pixel (" + sx + "; " + sy + ")->(" + dx + "; " + dy + ")" 
+                );
                 result.setPixel(dx, dy, rgb);
             }
 
         }
-        return result;
+        return result;*/
     }
 }
 

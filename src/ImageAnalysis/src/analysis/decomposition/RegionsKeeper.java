@@ -19,6 +19,7 @@ public class RegionsKeeper {
     }
 
     public int registerNewRegion(ForegroundData pack){
+        assert pack != null: "Registering null as a decomposed region!";
         DecomposedRegion region = new DecomposedRegion();
         region.append(pack);
         return add(region);
@@ -26,13 +27,15 @@ public class RegionsKeeper {
 
 
     public void appendOldRegion(ForegroundData pack, int oldKey){
+        assert pack != null: "Appending null to decomposed region!";
         DecomposedRegion region = get(oldKey);
         region.append(pack);
     }
 
     public int megreOldRegions(int leftKey, int rightKey){
-        DecomposedRegion left  = get(leftKey );
-        DecomposedRegion right = get(rightKey);
+        assert leftKey != rightKey : "Merging region with itself!";
+        DecomposedRegion left  = get   (leftKey );
+        DecomposedRegion right = remove(rightKey);
         left.merge(right);
         return leftKey;
     }

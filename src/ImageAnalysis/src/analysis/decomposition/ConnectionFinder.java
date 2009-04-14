@@ -30,7 +30,7 @@ public class ConnectionFinder {
     private int cursor_m;
     private ForegroundData context_m;
     private IConnectionListener listener_m;
-    private boolean are8connections_m;
+    private boolean use8connections_m;
 
 
 
@@ -49,24 +49,30 @@ public class ConnectionFinder {
     }
 
 
+    public boolean isUse8connections() {
+        return use8connections_m;
+    }
+
+    public void setUse8connections(boolean use8connections) {
+        use8connections_m = use8connections;
+    }
 
     public void switchToNextLine(){
-        ArrayList<IRowSpan> swapList;
+        finishOldRegions();
         oldSpans_m.clear();
+        oldKeys_m.clear();
+
+        ArrayList<IRowSpan> swapList;
         swapList   = oldSpans_m;
         oldSpans_m = newSpans_m;
         newSpans_m = swapList;
 
-
         ArrayOfInt swapArray;
-        oldKeys_m.clear();
         swapArray = oldKeys_m;
         oldKeys_m = newKeys_m;
         newKeys_m = swapArray;
 
-
         Map<Integer, Integer> swapMap;
-        oldFinishLimits_m.clear();
         swapMap           = oldFinishLimits_m;
         oldFinishLimits_m = newFinishLimits_m;
         newFinishLimits_m = swapMap;
@@ -74,35 +80,44 @@ public class ConnectionFinder {
 
         cursor_m  = 0;
         context_m = null;  // JIC
+
+        assert newSpans_m       .isEmpty();
+        assert newKeys_m        .isEmpty();
+        assert newFinishLimits_m.isEmpty();
     }
 
     public void find4Connections(ForegroundData foreground){
         context_m = foreground;
-        findConnections(foreground.getStart(), foreground.getEnd()-1);
+        findConnections(foreground.getStart(), foreground.getEnd());
         incorporatePack(foreground);
     }
 
     public void find8Connections(ForegroundData foreground){
         context_m = foreground;
-        findConnections(foreground.getStart()-1, foreground.getEnd());
+        findConnections(foreground.getStart()-1, foreground.getEnd()+1);
         incorporatePack(foreground);
     }
 
     public void findConnections(ForegroundData foreground){
         context_m = foreground;
-        if (are8connections_m){
-            findConnections(foreground.getStart()-1, foreground.getEnd());
+        if (use8connections_m){
+            findConnections(foreground.getStart()-1, foreground.getEnd()+1);
         } else {
-            findConnections(foreground.getStart(), foreground.getEnd()-1);
+            findConnections(foreground.getStart(), foreground.getEnd());
         }
         incorporatePack(foreground);
     }
 
-
+    public void finish(){
+        switchToNextLine();
+        finishOldRegions();
+    }
 
 
 
     private void incorporatePack(ForegroundData foreground){
+        assert foreground.getKey() != 0;
+
         newSpans_m.add(foreground.getRowSpan());
         newKeys_m .add(foreground.getKey());
         newFinishLimits_m.put(foreground.getKey(), foreground.getEnd());
@@ -111,27 +126,29 @@ public class ConnectionFinder {
     private void findConnections(int start, int finish){
         int lim = oldSpans_m.size();
         IRowSpan cnn = null;
+        int cnnEnd = 0;
        
         while (cursor_m < lim){
            cnn = oldSpans_m.get(cursor_m); 
-
-           if (cnn.getEnd() > start) break;
+           cnnEnd = cnn.getEnd();
+           if (cnnEnd > start) break;
 
            tryToFinish(cursor_m, start);
            ++cursor_m;
         }
 
 
-        if (cursor_m == lim || cnn.getStart() > finish){
+        if (cursor_m == lim || cnn.getStart() >= finish){
             fireNoConnectionsFound();
             return;
         }
 
         fireFirstConnectionFound(cursor_m);
 
-        while (++cursor_m < lim){
+        while ((cnnEnd <= finish) && (++cursor_m < lim)){
             cnn = oldSpans_m.get(cursor_m);
-            if (cnn.getStart() > finish) return;
+            cnnEnd = cnn.getEnd();
+            if (cnn.getStart() >= finish) return;
 
             fireNextConnectionFound(cursor_m);
         }
@@ -151,6 +168,8 @@ public class ConnectionFinder {
 
     private void fireFirstConnectionFound(int oldRegionIndex){
         int oldKey = oldKeys_m.get(oldRegionIndex);
+        assert  oldKeys_m.contains(oldKey);
+
         listener_m.onFirstConnectionFound(context_m, oldKey);
         dismissFinishing(oldKey);
     }
@@ -162,32 +181,57 @@ public class ConnectionFinder {
 
         listener_m.onNextConnectionFound(context_m, oldKey);
         dismissFinishing(oldKey);
-        updateMergedKeys(oldKey, newKey);
+        updateMergedKeys(oldKey, newKey); 
     }
 
 
 
 
     private void updateMergedKeys(int oldKey, int newKey){
+        assert  newKeys_m.contains(newKey);
+
+        assert  newFinishLimits_m.containsKey(newKey);
+        assert !oldFinishLimits_m.containsKey(newKey);
+
+        assert  oldKeys_m.contains(oldKey);
+        assert  oldKeys_m.get(cursor_m) == oldKey;
+
         oldKeys_m.replaceAll(oldKey, newKey, cursor_m);
+        newKeys_m.replaceAll(oldKey, newKey, 0);
+        newFinishLimits_m.remove(oldKey);
+
+        assert  oldKeys_m.indexOf(oldKey) < cursor_m;
+        assert !newKeys_m.contains(oldKey);
     }
 
 
 
 
     private void dismissFinishing(int oldKey){
+        assert  oldKeys_m.contains(oldKey);
         oldFinishLimits_m.remove(oldKey);
+        assert !oldFinishLimits_m.containsKey(oldKey);
     }
 
     private void tryToFinish(int regionIndex, int newPackStart){
         int     oldKey = oldKeys_m.get(regionIndex);
+
+        assert !newKeys_m.contains(oldKey);
+        assert !newFinishLimits_m.containsKey(oldKey);
+
         Integer limit  = oldFinishLimits_m.get(oldKey);
         if (limit != null && limit <= newPackStart){
             fireRegionFinished(oldKey);
+            oldFinishLimits_m.remove(oldKey);
         }
     }
 
-
+    private void finishOldRegions(){
+        for(int oldKey : oldFinishLimits_m.keySet()){
+            fireRegionFinished(oldKey);
+        }
+        oldFinishLimits_m.clear();
+    }
 
 
 

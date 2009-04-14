@@ -1,7 +1,6 @@
 package analysis.data.pixels;
 
 import analysis.data.ad_hoc.BitPacker;
-import analysis.data.pixels.IRowSpan;
 
 /**
  * @author M-NPO
@@ -15,11 +14,11 @@ public class RowSpan implements IRowSpan {
     private int   bits_m;
 
     public RowSpan(int start, int span){
-        BitPacker.setBits(start, START_MASK,         0);
-        BitPacker.setBits(span , SPAN_MASK , SPAN_OFFS);
+        bits_m = BitPacker.setBits(0     ,start, START_MASK,         0);
+        bits_m = BitPacker.setBits(bits_m,span , SPAN_MASK , SPAN_OFFS);
     }
 
-    public int getStart(){ return  bits_m & SPAN_MASK;}
+    public int getStart(){ return  bits_m & START_MASK;}
     public int getEnd  (){ return getStart() + getSpan(); }
     public int getSpan (){ return (bits_m & SPAN_MASK) >>> SPAN_OFFS; }
 

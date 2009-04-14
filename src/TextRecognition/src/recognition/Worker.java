@@ -1,3 +1,5 @@
+package recognition;
+
 import com.trolltech.qt.core.*;
 
 public abstract class Worker extends QObject {

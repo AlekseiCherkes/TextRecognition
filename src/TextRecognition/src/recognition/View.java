@@ -1,5 +1,8 @@
+package recognition;
+
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
+import recognition.Worker;
 
 public class View extends QWidget {
     public Signal1<Boolean> valid = new Signal1<Boolean>();

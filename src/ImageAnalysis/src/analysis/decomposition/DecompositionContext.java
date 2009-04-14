@@ -39,17 +39,21 @@ public class DecompositionContext {
 
             @Override
             public void noConnectionFound(ForegroundData context) {
+                assert context.getKey() == 0 : "Foreground is already registered yet!";
                 int key = regions_m.registerNewRegion(context);
                 context.setKey(key);
             }
 
             @Override
             public void onFirstConnectionFound(ForegroundData context, int oldKey) {
+                assert context.getKey() == 0 : "Foreground is already registered yet!";
                 regions_m.appendOldRegion(context, oldKey);
+                context.setKey(oldKey);
             }
 
             @Override
             public void onNextConnectionFound(ForegroundData context, int oldKey) {
+                assert context.getKey() != 0 : "Foreground is unregistered yet!";
                 regions_m.megreOldRegions(context.getKey(), oldKey);
             }
         };
@@ -59,6 +63,8 @@ public class DecompositionContext {
 
 
     public void decompose(IGreyImage img, IRegionCollector<DecomposedRegion> handler){
+        assert img     != null: "Source image is null!";
+        assert handler != null: "Collector is null!";
         img_m = img;
         collector_m = handler;
         scanImage();
@@ -76,6 +82,8 @@ public class DecompositionContext {
             if (x_m <  w_m) processForeground(); // beware!, it increases x_m
             if (x_m >= w_m) switchLine();
         }
+
+        connector_m.finish();
     }
 
 

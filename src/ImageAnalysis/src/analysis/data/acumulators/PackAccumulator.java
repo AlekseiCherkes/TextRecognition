@@ -65,7 +65,7 @@ public class PackAccumulator implements IMergible<PackAccumulator>, Iterable<IPi
             data_m.add(item);
         }
 
-        private int     getStart(int bits){ return  bits & SPAN_MASK;}
+        private int     getStart(int bits){ return  bits & START_MASK;}
         private int     getSpan (int bits){ return (bits & SPAN_MASK) >>> SPAN_OFFS; }
         private boolean isYInc  (int bits){ return (bits & YINC_MASK) != 0;}
 

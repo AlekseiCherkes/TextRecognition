@@ -24,10 +24,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    */
    private double[][] A;
 
-   /** Row and column dimensions.
-   @serial row dimension.
-   @serial column dimension.
-   */
+   /** Row and column dimensions. */
    private int m, n;
 
 /* ------------------------
@@ -118,9 +115,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
             throw new IllegalArgumentException
                ("All rows must have the same length.");
          }
-         for (int j = 0; j < n; j++) {
-            C[i][j] = A[i][j];
-         }
+          System.arraycopy(A[i], 0, C[i], 0, n);
       }
       return X;
    }
@@ -132,9 +127,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
       Matrix X = new Matrix(m,n);
       double[][] C = X.getArray();
       for (int i = 0; i < m; i++) {
-         for (int j = 0; j < n; j++) {
-            C[i][j] = A[i][j];
-         }
+          System.arraycopy(A[i], 0, C[i], 0, n);
       }
       return X;
    }
@@ -161,9 +154,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    public double[][] getArrayCopy () {
       double[][] C = new double[m][n];
       for (int i = 0; i < m; i++) {
-         for (int j = 0; j < n; j++) {
-            C[i][j] = A[i][j];
-         }
+          System.arraycopy(A[i], 0, C[i], 0, n);
       }
       return C;
    }

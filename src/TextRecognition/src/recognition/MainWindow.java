@@ -1,18 +1,18 @@
-import com.trolltech.qt.core.*;
-import com.trolltech.qt.gui.*;
-import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
+package recognition;
 
-import neuro.adapter.*;
-import neuro.net.*;
+import analysis.data.acumulators.StatisticsAccumulator;
+import analysis.decomposition.*;
+import com.trolltech.qt.core.*;
+import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
+import com.trolltech.qt.gui.*;
+import neuro.adapter.Recognizer;
+import neuro.net.RecognizeType;
+import neuro.net.StaticPerceptron;
+import processing.Binarization;
 
 import java.util.ArrayList;
 
-
-import processing.Binarization;
-import analysis.decomposition.DecompositionFasade;
-import analysis.decomposition.IRegionCollector;
-import analysis.decomposition.TrueDecomposition;
-import analysis.data.acumulators.StatisticsAccumulator;
+import recognition.*;
 
 public class MainWindow extends QMainWindow {
     private Ui_MainWindow ui = new Ui_MainWindow();
@@ -25,7 +25,7 @@ public class MainWindow extends QMainWindow {
     private Recognizer recognizer;
 
     private DecompositionFasade decomposer;
-    private IRegionCollector collector
+    private IRegionCollector<QImage> collector
             = new IRegionCollector<QImage>() {
 
         private int identity;
@@ -33,7 +33,7 @@ public class MainWindow extends QMainWindow {
         @Override
         public void onImageRegion(QImage region, StatisticsAccumulator statistics) {
             String str = Integer.toString(identity++);
-            region.save("analysis.data\\decomposed\\Out_image_" + str + ".png", "png");
+            region.save("data\\decomposed\\Out_image_" + str + ".bmp");
             statisticsList.add(statistics);
         }
     };
@@ -64,7 +64,7 @@ public class MainWindow extends QMainWindow {
         p.setPen(new QColor(0, 0, 0, 0));
         for(StatisticsAccumulator stat : statisticsList) {
             p.drawRect(stat.getXMin(), stat.getYMin(),
-                       stat.getXMax() - stat.getXMin(), stat.getYMax() - stat.getYMin());
+                       stat.getXMax() - stat.getXMin() + 1, stat.getYMax() - stat.getYMin() + 1);
         }
         p.end();
         return image;
@@ -72,7 +72,7 @@ public class MainWindow extends QMainWindow {
 
     public void on_dirView_activated(QModelIndex index) throws Exception {
         QFileInfo info = dirModel.fileInfo(index);
-        String s = new String();
+        String s;
         if (info.isDir()) {
             statusBar().showMessage("This is directory");
         } else {
@@ -109,7 +109,6 @@ public class MainWindow extends QMainWindow {
         String fileName = QFileDialog.getOpenFileName(this, "File to open", "*.net");
         if (fileName.length() == 0 || !fileName.toLowerCase().endsWith("net")) {
             statusBar().showMessage("Not openning file");
-            return;
         } else {
             try {
                 StaticPerceptron staticPerceptron = new StaticPerceptron();

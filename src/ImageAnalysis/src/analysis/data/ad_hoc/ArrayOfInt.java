@@ -132,6 +132,19 @@ public class ArrayOfInt {
         return true;
     }
 
+    public boolean contains(int e){
+        for (int i =0 ; i < size ; ++i){
+            if (elementData[i] == e) return true;
+        }
+        return false;
+    }
+
+    public int indexOf(int e){
+        for (int i =0 ; i < size ; ++i){
+            if (elementData[i] == e) return i;
+        }
+        return -1;
+    }
 
     /**
      * Removes all of the elements from this list.  The list will

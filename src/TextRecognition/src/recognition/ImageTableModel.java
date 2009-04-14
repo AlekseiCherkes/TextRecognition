@@ -1,3 +1,5 @@
+package recognition;
+
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
 import com.trolltech.qt.*;

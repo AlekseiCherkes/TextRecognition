@@ -1,2 +1,2 @@
-"D:\Study(8 sem)\хрХпнд\text-recognition\trunk\src\TextRecognition\juic" -a -d src jui/MainWindow.jui
-"D:\Study(8 sem)\хрХпнд\text-recognition\trunk\src\TextRecognition\juic" -a -d src jui/AboutTextRecognition.jui
+"D:\Study(8 sem)\О©╫О©╫О©╫О©╫О©╫О©╫\text-recognition\trunk\src\TextRecognition\juic" -a -d src jui/recognition.MainWindow.jui
+"D:\Study(8 sem)\О©╫О©╫О©╫О©╫О©╫О©╫\text-recognition\trunk\src\TextRecognition\juic" -a -d src jui/AboutTextRecognition.jui

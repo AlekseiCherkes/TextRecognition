@@ -1,4 +1,4 @@
-/**
+package recognition; /**
  * Created by IntelliJ IDEA.
  * User: Administrator
  * Date: 30.03.2009
@@ -7,7 +7,7 @@
  */
 
 import com.trolltech.qt.gui.*;
-import com.trolltech.qt.core.Qt;
+import recognition.MainWindow;
 
 public class Main {
     public static void main(String args[]) {
