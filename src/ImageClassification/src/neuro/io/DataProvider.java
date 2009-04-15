@@ -65,12 +65,14 @@ public class DataProvider {
 
 
     private Map<String, List<TeachingCase<Matrix, String>>> loadedData_m;
+    private IImageCodec codec_m;
     private FileFilter fileFilter_m;
     private File rootDir_m;
     
 
     public DataProvider(){
-        
+        loadedData_m = Collections.emptyMap();
+        codec_m = new BufferedImageCodec();
     }
 
 
@@ -78,6 +80,34 @@ public class DataProvider {
         return new TeachingData();
     }
 
+
+    public void loadData(int maxGroups){
+        loadedData_m = loadData(rootDir_m, maxGroups);
+    }
+
+
+    public FileFilter getFileFilter() {
+        return fileFilter_m;
+    }
+    public void setFileFilter(FileFilter fileFilter) {
+        fileFilter_m = fileFilter;
+    }
+
+
+    public File getRootDir() {
+        return rootDir_m;
+    }
+    public void setRootDir(File rootDir) {
+        rootDir_m = rootDir;
+    }
+
+
+    public IImageCodec getCodec() {
+        return codec_m;
+    }
+    public void setCodec(IImageCodec codec) {
+        codec_m = codec;
+    }
 
     private  Map<String, List<TeachingCase<Matrix, String>>> loadData(File rootDir, int maxGroups){
         Map<String, List<TeachingCase<Matrix, String>>> loadedMap
@@ -119,11 +149,12 @@ public class DataProvider {
 
 
     private boolean isFileAcceptible(File file){
-        return true;
+        return file.isFile() && ((fileFilter_m == null) || fileFilter_m.accept(file));
     }
 
     private Matrix loadMatrix(File source) throws IOException {
-        return null;
+        Object img = codec_m.loadImage(source);
+        return codec_m.convert(img);
     }
 
 
