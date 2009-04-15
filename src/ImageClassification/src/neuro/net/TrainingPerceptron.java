@@ -452,54 +452,16 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
     }
 
-     /**Convert image to input data for net.
-     * @param image_path        Absolute path of image.
-     * @return                  Input matrix for net.
-     */
-    public static Matrix        readImage( String image_path ) throws Exception{
-        File image_file = new File( image_path );
-        BufferedImage bi_image = Binarization.work( ImageIO.read( image_file ) );
-        int h = bi_image.getHeight();
-        int w = bi_image.getWidth();
-        Matrix x = new Matrix ( h * w, 1 );
-        for( int j = 0; j < h; ++j ){
-            for( int i = 0; i < w; ++i ){
-                int rgb = bi_image.getRGB( i, j ) & 0xffffff;
-                if ( rgb == 0){
-                    x.set( i + j * h, 0, 1 );
-                }
-                else{
-                    x.set( i + j * h, 0, 0 );
-                }
-            }
-        }
-        return x;
+
+    public static Matrix readImage( String image_path ){
+        //TODO: remove it
+        return null;
     }
 
-     /**Convert image to input data for net.
-     * @param image        Qt image object.
-     * @return             Input matrix for net.
-     */
-    public static Matrix        readImage( QImage image ) throws Exception{
 
-        int h = image.height();
-        int w = image.width();
-        Matrix x = new Matrix ( h * w, 1 );
-        for( int j = 0; j < h; ++j ){
-            for( int i = 0; i < w; ++i ){
-                int rgb = image.pixel( i, j ) & 0xffffff;
-//                double val = min_input + rgb * ( max_input - min_input ) / 0xffffff;
-//                x.set( i + j * h, 0, val );
-                int threshold = 0xffffff / 2;
-                if ( rgb >= threshold){
-                    x.set( i + j * h, 0, 0 );
-                }
-                else{
-                    x.set( i + j * h, 0, 1 );
-                }
-            }
-        }
-        return x;
+    public static Matrix readImage( QImage image ){
+        //TODO: remove it
+        return null;
     }
     
     /**
