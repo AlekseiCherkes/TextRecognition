@@ -1,7 +1,7 @@
 import neuro.adapter.Recognizer;
 import neuro.layer.ActiveLayer;
 import neuro.activation_func.Sigmoid;
-import neuro.net.RecognizeType;
+import neuro.net.RecognizedType;
 import neuro.net.StaticPerceptron;
 
 
@@ -100,7 +100,7 @@ public class TestingClass {
         try{
             log = new PrintWriter( output_path );
             for ( String test: tests ){
-                RecognizeType type = recognizer.recognize( test );
+                RecognizedType type = recognizer.recognize( test );
                 if ( type == null){
                     type.setType( "not recognize" );
                 }

@@ -1,7 +1,7 @@
 package neuro.net;
 
 import jblas.matrices.Matrix;
-import neuro.net.RecognizeType;
+import neuro.net.RecognizedType;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,6 @@ public interface IStaticNet {
 
     Matrix              recognize( Matrix x ) throws Exception;
     ArrayList< Matrix > traceRecognize( Matrix x );
-    RecognizeType       recognizeClass( Matrix x ) throws Exception;
+    RecognizedType recognizeClass( Matrix x ) throws Exception;
     void                init( String storage )  throws Exception;
 }

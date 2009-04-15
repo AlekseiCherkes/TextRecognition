@@ -206,7 +206,7 @@ public class StaticPerceptron implements IStaticNet{
      * @param x     Input image.
      * @return      Class of image. If net coudn't classificate image return 'null'.
      */
-    public RecognizeType        recognizeClass( Matrix x ) throws Exception{
+    public RecognizedType recognizeClass( Matrix x ) throws Exception{
         Matrix y = this.recognize( x );
         // Get number of max output. It identificate analysis.image's class.
         int output_num = 0;
@@ -222,7 +222,7 @@ public class StaticPerceptron implements IStaticNet{
         }
         else{
             double prob_sum = y.norm1();
-            return  new RecognizeType( output_types.get( output_num ), max / prob_sum );
+            return  new RecognizedType( output_types.get( output_num ), max / prob_sum );
         }
     }
 

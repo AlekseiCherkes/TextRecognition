@@ -6,13 +6,11 @@ import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
 import com.trolltech.qt.gui.*;
 import neuro.adapter.Recognizer;
-import neuro.net.RecognizeType;
+import neuro.net.RecognizedType;
 import neuro.net.StaticPerceptron;
 import processing.Binarization;
 
 import java.util.ArrayList;
-
-import recognition.*;
 
 public class MainWindow extends QMainWindow {
     private Ui_MainWindow ui = new Ui_MainWindow();
@@ -87,7 +85,7 @@ public class MainWindow extends QMainWindow {
                     statusBar().showMessage("Network wasn't opened");
                 } else {
                     try {
-                        RecognizeType type = recognizer.recognize(info.absoluteFilePath());
+                        RecognizedType type = recognizer.recognize(info.absoluteFilePath());
                         String t = type.getType(); // Не рефакторить!!!                        
                         s = t;
                         s += "\t" + Double.toString(((int) Math.round(type.getAccuracy() * 100.)) / 100.);

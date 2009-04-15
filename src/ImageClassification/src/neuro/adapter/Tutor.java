@@ -1,7 +1,7 @@
 package neuro.adapter;
 
 import neuro.net.ITrainingNet;
-import neuro.net.RecognizeType;
+import neuro.net.RecognizedType;
 import jblas.matrices.Matrix;
 
 import java.io.*;
@@ -52,7 +52,7 @@ public class Tutor {
      * @param x     Input image.
      * @return      Class of image. If net coudn't classificate image return 'null'.
      */
-	public RecognizeType recognize( Matrix x )
+	public RecognizedType recognize( Matrix x )
         throws Exception{
         return net.recognizeClass( x );
     }
@@ -62,7 +62,7 @@ public class Tutor {
      * @return              Class of image. If net coudn't classificate image return 'null'.
      * @throws Exception    If problems with reading image from file occured.
      */
-	public RecognizeType recognize( String path ) throws Exception{
+	public RecognizedType recognize( String path ) throws Exception{
         // Read input from file.
         Matrix input_x = null;
         Scanner scanner = null;

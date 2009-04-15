@@ -87,13 +87,7 @@ public class PackAccumulator implements IMergible<PackAccumulator>, Iterable<IPi
         @Override
         public boolean hasNext() {
             while(true){
-                if (currentBundle_m == null){
-                    if (!bundlesIter_m.hasNext()) return false;
-                    currentBundle_m = bundlesIter_m.next();
-                    y_m = currentBundle_m.yMin_m;
-                    packIndex_m = 0;
-                }
-
+                if (currentBundle_m == null && !tryToSwitshTheBundle()) return false;
                 if (packIndex_m < currentBundle_m.size()) return true;
                 currentBundle_m = null;
             }
@@ -117,6 +111,15 @@ public class PackAccumulator implements IMergible<PackAccumulator>, Iterable<IPi
         @Override
         public void remove() {
             throw new UnsupportedOperationException();
+        }
+
+        
+        private boolean tryToSwitshTheBundle(){
+            if (!bundlesIter_m.hasNext()) return false;
+            currentBundle_m = bundlesIter_m.next();
+            y_m = currentBundle_m.yMin_m;
+            packIndex_m = 0;
+            return true;
         }
     }
 

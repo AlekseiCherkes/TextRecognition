@@ -1,19 +1,15 @@
 package neuro.net;
 
+import com.trolltech.qt.gui.QImage;
 import jblas.matrices.Matrix;
-import neuro.exception.StopTeachingProgressException;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
+import processing.Binarization;
 
 import javax.imageio.ImageIO;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.TreeSet;
 import java.awt.image.BufferedImage;
-
-import com.trolltech.qt.gui.QImage;
-import processing.Binarization;
+import java.io.*;
+import java.util.*;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -220,7 +216,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
 
         // Get names of images for each type.
-        TreeSet< String > types = data.getTypes();
+        Set< String > types = data.getTypes();
         for ( String type_name : types ){
             String full_type_name = path + "\\" + type_name;
             String[] all_images = new File( full_type_name ).list();
@@ -271,7 +267,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
 
         // Associate each type with one output of net.
         output_types = new ArrayList< String >();
-        TreeSet< String > types = teaching_data.getTypes();
+        Set< String > types = teaching_data.getTypes();
         for ( String type : types ){
             output_types.add( type );
         }
@@ -320,7 +316,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                                 }
                             }
                             if ( reaction == null ){
-                                throw new Exception( "Net can't recognize images such type." );
+                                throw new Exception( "Net can't recognize images of such type." );
                             }
                             if ( teachTransaction( x_input, detailed_writer, reaction ) ){
                                     positive_result++;
@@ -599,4 +595,13 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         return idle_accuracy;
     }
 
+
+
+   
+    public static class StopTeachingProgressException extends Exception{
+        public StopTeachingProgressException(){};
+        public StopTeachingProgressException( String message ){
+            super( message );
+        };
+    }
 }

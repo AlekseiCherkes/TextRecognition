@@ -1,7 +1,7 @@
 package neuro.adapter;
 
 import neuro.net.IStaticNet;
-import neuro.net.RecognizeType;
+import neuro.net.RecognizedType;
 import neuro.net.TrainingPerceptron;
 import jblas.matrices.Matrix;
 
@@ -37,7 +37,7 @@ public class Recognizer{
      * @param x     Input image.
      * @return      Class of image. If net coudn't classificate image return 'null'.
      */
-	public RecognizeType recognize( Matrix x )
+	public RecognizedType recognize( Matrix x )
         throws Exception{
         return net.recognizeClass( x );
     }
@@ -46,7 +46,7 @@ public class Recognizer{
      * @param path      File which consists image.
      * @return          Class of image. If net coudn't classificate image return 'null'.
      */
-	public RecognizeType recognize( String path ) throws Exception{
+	public RecognizedType recognize( String path ) throws Exception{
         Matrix input_x = TrainingPerceptron.readImage( path );
         return net.recognizeClass( input_x );
     }
