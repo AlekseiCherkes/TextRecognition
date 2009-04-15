@@ -132,7 +132,7 @@ public class DataProvider {
         
         for (String fileName : sourceDir.list()){
             File child = new File(sourceDir, fileName);
-            if (!isFileAcceptible(child)) continue;
+            if (!isFileAcceptable(child)) continue;
 
             try {
                 Matrix m = loadMatrix(child);
@@ -148,7 +148,7 @@ public class DataProvider {
     }
 
 
-    private boolean isFileAcceptible(File file){
+    private boolean isFileAcceptable(File file){
         return file.isFile() && ((fileFilter_m == null) || fileFilter_m.accept(file));
     }
 
