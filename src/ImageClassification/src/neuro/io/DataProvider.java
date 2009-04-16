@@ -116,6 +116,7 @@ public class DataProvider {
         for(String childName: rootDir.list()){
              File child = new File(rootDir, childName);
              if (child.isDirectory()) continue;
+            //TODO Ignore directories begin with '.' .
 
              assert !loadedMap.containsKey(childName);
              List<TeachingCase<Matrix, String>> valList = loadGroup(child, childName);
@@ -137,9 +138,7 @@ public class DataProvider {
             try {
                 Matrix m = loadMatrix(child);
 
-                TeachingCase<Matrix, String> tcase= new TeachingCase<Matrix, String>();
-                tcase.setExpectedOutput(keyVal);
-                tcase.setInput(m);
+                TeachingCase<Matrix, String> tcase= new TeachingCase<Matrix, String>( m, keyVal );
                 loadedList.add(tcase);
             } catch (IOException e){}
         }
@@ -153,6 +152,7 @@ public class DataProvider {
     }
 
     private Matrix loadMatrix(File source) throws IOException {
+        //TODO May be change 'img' type to BufferedImageCodec ?
         Object img = codec_m.loadImage(source);
         return codec_m.convert(img);
     }

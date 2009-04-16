@@ -4,6 +4,7 @@ import com.trolltech.qt.gui.QImage;
 import jblas.matrices.Matrix;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
+import neuro.io.BufferedImageCodec;
 import processing.Binarization;
 
 import javax.imageio.ImageIO;
@@ -216,6 +217,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
 
         // Get names of images for each type.
+        BufferedImageCodec image_codec = new BufferedImageCodec();
         Set< String > types = data.getTypes();
         for ( String type_name : types ){
             String full_type_name = path + "\\" + type_name;
@@ -229,7 +231,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                 if ( image_name.charAt( 0 ) != '.' && image.isFile() ){
                     data.addImage( type_name, image_name );
                     // Read input from file.
-                    Matrix input = readImage( full_image_name );
+                    Matrix input = image_codec.convert( image_codec.loadImage( image ) );
                     if ( input.getRowDimension() != image_size ){
                         throw new Exception( "Invalid count of pixels in analysis.image." );
                     }
@@ -453,16 +455,16 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
     }
 
 
-    public static Matrix readImage( String image_path ){
-        //TODO: remove it
-        return null;
-    }
-
-
-    public static Matrix readImage( QImage image ){
-        //TODO: remove it
-        return null;
-    }
+//    public static Matrix readImage( String image_path ){
+//        //TODO: remove it
+//        return null;
+//    }
+//
+//
+//    public static Matrix readImage( QImage image ){
+//        //TODO: remove it
+//        return null;
+//    }
     
     /**
      * @param start_time    Start time in msec.

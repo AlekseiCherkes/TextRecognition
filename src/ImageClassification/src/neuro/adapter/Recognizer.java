@@ -3,9 +3,11 @@ package neuro.adapter;
 import neuro.net.IStaticNet;
 import neuro.net.RecognizedType;
 import neuro.net.TrainingPerceptron;
+import neuro.io.BufferedImageCodec;
 import jblas.matrices.Matrix;
 
 import java.util.ArrayList;
+import java.io.File;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -47,7 +49,9 @@ public class Recognizer{
      * @return          Class of image. If net coudn't classificate image return 'null'.
      */
 	public RecognizedType recognize( String path ) throws Exception{
-        Matrix input_x = TrainingPerceptron.readImage( path );
+        File image = new File ( path );
+        BufferedImageCodec image_codec = new BufferedImageCodec();
+        Matrix input_x = image_codec.convert( image_codec.loadImage( image ) );
         return net.recognizeClass( input_x );
     }
 

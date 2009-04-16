@@ -10,8 +10,6 @@
       <maximumStackSize value="32" />
       <properties />
       <executeOn event="beforeRun" target="jars" />
-      <executeOn event="beforeRun" target="jars" runConfigurationType="Application" runConfigurationName="Build_GUI" />
-      <executeOn event="beforeRun" target="jars" runConfigurationType="Application" runConfigurationName="GUI" />
     </buildFile>
   </component>
   <component name="BuildJarProjectSettings">
