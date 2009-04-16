@@ -115,14 +115,13 @@ public class DataProvider {
 
         for(String childName: rootDir.list()){
              File child = new File(rootDir, childName);
-             if (child.isDirectory()) continue;
-            //TODO Ignore directories begin with '.' .
+             if (!isDirectoryAcceptable(child)) continue;
 
              assert !loadedMap.containsKey(childName);
              List<TeachingCase<Matrix, String>> valList = loadGroup(child, childName);
              if (valList.isEmpty()) continue;
              loadedMap.put(childName, valList);
-            // TODO Throw exception when loadedMap.size() > maxGroups.
+            
              if (loadedMap.size() == maxGroups) break;
         }
         return loadedMap;
@@ -147,12 +146,17 @@ public class DataProvider {
     }
 
 
+    private boolean isDirectoryAcceptable(File file){
+        return file.isDirectory() && ((fileFilter_m == null) || fileFilter_m.accept(file));
+    }
+
+
     private boolean isFileAcceptable(File file){
         return file.isFile() && ((fileFilter_m == null) || fileFilter_m.accept(file));
     }
 
     private Matrix loadMatrix(File source) throws IOException {
-        //TODO May be change 'img' type to BufferedImageCodec ?
+        //TODO No, for there is QImage also.
         Object img = codec_m.loadImage(source);
         return codec_m.convert(img);
     }

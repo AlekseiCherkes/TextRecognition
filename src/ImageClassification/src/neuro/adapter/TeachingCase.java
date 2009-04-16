@@ -15,7 +15,6 @@ public class TeachingCase<TIn, TOut> {
     }
 
     public void setInput(TIn input) {
-        //TODO Safe copy.
         input_m = input;
     }
 
@@ -24,7 +23,6 @@ public class TeachingCase<TIn, TOut> {
     }
 
     public void setExpectedOutput(TOut expectedOutput) {
-        //TODO Safe copy.
         expectedOutput_m = expectedOutput;
     }
 }
