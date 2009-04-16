@@ -1,14 +1,9 @@
 package neuro.net;
 
-import com.trolltech.qt.gui.QImage;
 import jblas.matrices.Matrix;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
 import neuro.io.BufferedImageCodec;
-import processing.Binarization;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 
@@ -161,35 +156,30 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param layers            Layers of net.
      * @param height            Height of input image.
      * @param width             Width of input image.
-     * @param teaching_speed    Coefficient for speed of teaching.
      * @throws Exception        When real size of image mismatch with wanted.
      */
-    public                      TrainingPerceptron( ArrayList<ActiveLayer> layers, int height, int width,
-                                                    double teaching_speed ) throws Exception{
+    public                      TrainingPerceptron( ArrayList<ActiveLayer> layers, int height, int width )
+                                    throws Exception{
         super( layers, height, width );
-        this.teaching_path = null;
-        this.control_path = null;
-        this.brief_log = null;
-        this.detailed_log = null;
-        this.output_accuracy = 0.;
-        this.idle_accuracy = 0.;
-        this.print_accuracy = 0;
-        this.teaching_speed = teaching_speed;
+    }
+
+    /**Construct empty training perceptron.*/
+    public                      TrainingPerceptron(){
+        super();
     }
 
     /**Make independent copy of itself.
      * @return          Copy of itself.
      */
-    public TrainingPerceptron   copy()
-        throws Exception{
-        TrainingPerceptron copy_net = new TrainingPerceptron( layers, input_height, input_width, teaching_speed );
+    public TrainingPerceptron   copy(){
+        TrainingPerceptron copy_net = ( TrainingPerceptron )super.copy();
         copy_net.setTeachingPath( teaching_path );
         copy_net.setControlPath( control_path );
         copy_net.setBriefLog( brief_log );
         copy_net.setDetailedLog( detailed_log );
         copy_net.setOutputAccuracy( output_accuracy );
         copy_net.setIdleAccuracy( idle_accuracy );
-        copy_net.setPrintAccuracy( print_accuracy );
+        copy_net.setTeachingSpeed( teaching_speed );
         return copy_net;
     }
 
@@ -557,6 +547,16 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
     /**@return      Idle accuracy.*/
     public double               getIdleAccuracy(){
         return idle_accuracy;
+    }
+
+    /** @param speed     Teaching speed. */
+    public void                 setTeachingSpeed( double speed ){
+        teaching_speed = speed;
+    }
+
+    /**@return      Teaching speed.*/
+    public double               getTeachingSpeed(){
+        return teaching_speed;
     }
 
 

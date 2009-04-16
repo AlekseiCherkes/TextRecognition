@@ -101,9 +101,19 @@ public class StaticPerceptron implements IStaticNet{
     /**Make independent copy of itself.
      * @return          Copy of itself.
      */
-    public StaticPerceptron     copy() throws Exception{
-        StaticPerceptron net = new StaticPerceptron( layers, input_height, input_width );
+    public StaticPerceptron     copy(){
+        StaticPerceptron net = new StaticPerceptron();
+
+        net.layers = new ArrayList<ActiveLayer>();
+        for ( ActiveLayer layer : this.layers ){
+            net.layers.add( layer.copy() );
+        }
+        net.type = this.type;
+        net.input_width = this.input_width;
+        net.input_height = this.input_height;
+        net.output_size = this.output_size;
         net.print_accuracy = this.print_accuracy;
+        net.output_types = new ArrayList< String >();
         for ( int i = 0; i < this.output_types.size(); i++ ){
             net.output_types.add( this.output_types.get( i )  );    
         }
@@ -175,12 +185,13 @@ public class StaticPerceptron implements IStaticNet{
        }
 
     /**Recognize input image.
-     * @param x     Input image.
-     * @return      Output result.
+     * @param x             Input image.
+     * @return              Output result.
+     * @throws Exception    When net can't recognize image because of it's size.
      */
     public Matrix               recognize( Matrix x ) throws Exception{
         if ( x.getRowDimension() != layers.get( 0 ).prevSize() ){
-            throw new Exception( "Dimentions of net's input and recognizable object are different." );
+            throw new Exception( "Net can't recognize image because of it's size." );
         }
         for ( ActiveLayer layer : layers ){
             x = layer.activateLayer( x );
@@ -203,10 +214,11 @@ public class StaticPerceptron implements IStaticNet{
     }
 
     /**Recognize class for input image.
-     * @param x     Input image.
-     * @return      Class of image. If net coudn't classificate image return 'null'.
+     * @param x             Matrix of input image.
+     * @return              Class of image. If net coudn't classificate image return 'null'.
+     * @throws Exception    When net can't recognize image because of it's size.
      */
-    public RecognizedType recognizeClass( Matrix x ) throws Exception{
+    public RecognizedType       recognizeClass( Matrix x ) throws Exception{
         Matrix y = this.recognize( x );
         // Get number of max output. It identificate analysis.image's class.
         int output_num = 0;

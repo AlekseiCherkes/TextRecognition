@@ -1,14 +1,13 @@
 package neuro.net;
 
 import jblas.matrices.Matrix;
-import neuro.net.RecognizedType;
 
 import java.util.ArrayList;
 
 /** @author    Vadim Shpakovsky. */
 
 public interface IStaticNet {
-    IStaticNet          copy() throws Exception;
+    IStaticNet          copy();
     void                print( int precision );
     String              getType();
     int                 getInputSize();

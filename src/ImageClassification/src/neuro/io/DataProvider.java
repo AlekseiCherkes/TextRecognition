@@ -122,6 +122,7 @@ public class DataProvider {
              List<TeachingCase<Matrix, String>> valList = loadGroup(child, childName);
              if (valList.isEmpty()) continue;
              loadedMap.put(childName, valList);
+            // TODO Throw exception when loadedMap.size() > maxGroups.
              if (loadedMap.size() == maxGroups) break;
         }
         return loadedMap;
@@ -134,7 +135,6 @@ public class DataProvider {
         for (String fileName : sourceDir.list()){
             File child = new File(sourceDir, fileName);
             if (!isFileAcceptable(child)) continue;
-
             try {
                 Matrix m = loadMatrix(child);
 
