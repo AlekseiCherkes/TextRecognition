@@ -1,4 +1,4 @@
-package algorithm;
+package neuro.algorithm;
 
 import neuro.net.Perceptron;
 import neuro.layer.ActiveLayer;
