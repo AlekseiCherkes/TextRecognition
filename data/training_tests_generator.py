@@ -1,4 +1,6 @@
 ﻿#-*- encoding:utf-8 -*-
+import sys
+sys.path.append("C:\Program Files\Python\Lib\site-packages\PIL")
 import Image
 import ImageDraw
 import ImageFont
@@ -12,10 +14,10 @@ teaching_dir = "for_teaching/teaching_set"
 control_dir = "for_teaching/control_set"
 font_size = 20
 size = (20, 20)
-teach_N = 5
+teach_N = 1
 control_N = 0
 #chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # chars = string.ascii_uppercase
-chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+chars = "ABCDEFGHIJKLM"
 
 angle   = (-15., 15) # (min, max)
 scale_x = (0.9, 1.1)

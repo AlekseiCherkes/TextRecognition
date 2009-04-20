@@ -6,8 +6,8 @@ import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
 import com.trolltech.qt.gui.*;
 import neuro.adapter.Recognizer;
+import neuro.adapter.ReadonlyNetAdapter;
 import neuro.net.RecognizedType;
-import neuro.net.StaticPerceptron;
 import processing.Binarization;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class MainWindow extends QMainWindow {
 
     private ArrayList<StatisticsAccumulator> statisticsList;
 
-    private Recognizer recognizer;
+    private ReadonlyNetAdapter netAdapter;
 
     private DecompositionFasade decomposer;
     private IRegionCollector<QImage> collector
@@ -43,9 +43,8 @@ public class MainWindow extends QMainWindow {
         readSettings();
 
         try {
-            StaticPerceptron staticPerceptron = new StaticPerceptron();
-            staticPerceptron.init("data/nets/20x20.net");
-            recognizer = new Recognizer(staticPerceptron);
+            netAdapter = new ReadonlyNetAdapter();
+            netAdapter.init("data/nets/20x20.net");
             statusBar().showMessage("Network opened");
         }
         catch (Exception e) {
@@ -80,12 +79,12 @@ public class MainWindow extends QMainWindow {
                 decomposer.decompose(image, collector);
                 view.setImages(image, drawStatistics(Binarization.work(image)));
 
-                if (recognizer == null) {
+                if (netAdapter == null) {
                     s = "Recognizer hasn't been loaded.";
                     statusBar().showMessage("Network wasn't opened");
                 } else {
                     try {
-                        RecognizedType type = recognizer.recognize(info.absoluteFilePath());
+                        RecognizedType type = netAdapter.recognize(info.absoluteFilePath());
                         String t = type.getType(); // Не рефакторить!!!                        
                         s = t;
                         s += "\t" + Double.toString(((int) Math.round(type.getAccuracy() * 100.)) / 100.);
@@ -109,9 +108,8 @@ public class MainWindow extends QMainWindow {
             statusBar().showMessage("Not openning file");
         } else {
             try {
-                StaticPerceptron staticPerceptron = new StaticPerceptron();
-                staticPerceptron.init(fileName);
-                recognizer = new Recognizer(staticPerceptron);
+                netAdapter = new ReadonlyNetAdapter();
+                netAdapter.init(fileName);
                 statusBar().showMessage("Network opened");
             }
             catch (Exception e) {
