@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 /** @author    Vadim Shpakovsky. */
 
-public interface IStaticNet {
-    IStaticNet          copy();
+public interface INet extends Cloneable {
+    INet                clone() throws CloneNotSupportedException;
     void                print( int precision );
     String              getType();
     int                 getInputSize();
@@ -17,7 +17,7 @@ public interface IStaticNet {
     ArrayList< String > getRecognizingTypes();
 
     Matrix              recognize( Matrix x ) throws Exception;
-    ArrayList< Matrix > traceRecognize( Matrix x );
-    RecognizedType recognizeClass( Matrix x ) throws Exception;
-    void                init( String storage )  throws Exception;
+    RecognizedType      recognizeClass( Matrix x ) throws Exception;
+    void                randomInit( double max_val );
+    void                save( String storage ) throws Exception;
 }

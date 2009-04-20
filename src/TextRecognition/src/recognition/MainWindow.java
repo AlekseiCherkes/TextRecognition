@@ -7,7 +7,7 @@ import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
 import com.trolltech.qt.gui.*;
 import neuro.adapter.Recognizer;
 import neuro.net.RecognizedType;
-import neuro.net.StaticPerceptron;
+import neuro.net.NetAdapter;
 import processing.Binarization;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class MainWindow extends QMainWindow {
         readSettings();
 
         try {
-            StaticPerceptron staticPerceptron = new StaticPerceptron();
+            NetAdapter staticPerceptron = new NetAdapter();
             staticPerceptron.init("data/nets/20x20.net");
             recognizer = new Recognizer(staticPerceptron);
             statusBar().showMessage("Network opened");
@@ -109,7 +109,7 @@ public class MainWindow extends QMainWindow {
             statusBar().showMessage("Not openning file");
         } else {
             try {
-                StaticPerceptron staticPerceptron = new StaticPerceptron();
+                NetAdapter staticPerceptron = new NetAdapter();
                 staticPerceptron.init(fileName);
                 recognizer = new Recognizer(staticPerceptron);
                 statusBar().showMessage("Network opened");
