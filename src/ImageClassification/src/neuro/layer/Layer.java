@@ -9,7 +9,7 @@ import java.io.Serializable;
 // @author Vadim Shpakovsky.
 
 // Describe layer of neurons in neuron  network.
-abstract public class Layer implements Serializable, Cloneable {
+abstract public class Layer implements Serializable {
     // Matrix of sinapse's weights.
     protected Matrix w;
 

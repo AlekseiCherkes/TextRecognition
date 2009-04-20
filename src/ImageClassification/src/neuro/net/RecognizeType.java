@@ -3,12 +3,12 @@ package neuro.net;
 /** @author    Vadim Shpakovsky. */
 
 // Store information about recognize type.
-public class RecognizedType {
+public class RecognizeType {
     private String type;
     // Probability of right recognizing.
     private double accuracy;
 
-    public RecognizedType( String type, double accuracy ){
+    public RecognizeType( String type, double accuracy ){
         this.type = type;
         this.accuracy = accuracy;
     }

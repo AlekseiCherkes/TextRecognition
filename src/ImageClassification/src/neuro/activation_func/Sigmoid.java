@@ -1,5 +1,7 @@
 package neuro.activation_func;
 
+import neuro.activation_func.ContinuousActiveFunc;
+
 import java.lang.Math;
 
 /**

@@ -1,9 +1,8 @@
 import neuro.adapter.Recognizer;
-import neuro.adapter.PerceptronTutor;
 import neuro.layer.ActiveLayer;
 import neuro.activation_func.Sigmoid;
-import neuro.net.RecognizedType;
-import neuro.net.Perceptron;
+import neuro.net.RecognizeType;
+import neuro.net.StaticPerceptron;
 
 
 import java.util.ArrayList;
@@ -21,8 +20,8 @@ public class TestingClass {
             int input = m * n;
             int output = 26;
             int inner_layer = ( input + output ) / 2;
-            double teaching_speed = 0.9;
-            double output_accuracy = 0.51;
+            double teaching_speed = 0.7;
+            double output_accuracy = 0.1;
             double idle_accuracy = 1e-6;
             double shift = 0.;
 
@@ -43,33 +42,29 @@ public class TestingClass {
 
 
             try{
-                Perceptron net_for_teaching = new Perceptron();
-                net_for_teaching.setStructure( layers_list, n, m );
-                // !!! This is important!
-                double ceiling = 4. / ( m * n );
-                net_for_teaching.randomInit( ceiling );
-                PerceptronTutor tutor = new PerceptronTutor( net_for_teaching );
-
-
-                tutor.setTeachingPath( "data//for_teaching//teaching_set" );
-                tutor.setControlPath( "data//for_teaching//control_set" );
-                tutor.setBriefLog( "data//brief_log.txt" );
-                //tutor.setDetailedLog( "data//detailed_log.txt");
-                tutor.setOutputAccuracy( output_accuracy );
-                tutor.setIdleAccuracy( idle_accuracy );
-                tutor.setPrintAccuracy( 5 );
-                tutor.setTeachingSpeed( teaching_speed );
-
-                tutor.train();
-                tutor.save( "data\\nets\\20x20.net" );
+//                TrainingPerceptron training_net = new TrainingPerceptron( layers_list, m, n, teaching_speed );
+//                training_net.setTeachingPath( "data//for_teaching//teaching_set" );
+//                training_net.setControlPath( "data//for_teaching//control_set" );
+//                training_net.setBriefLog( "data//brief_log.txt" );
+////                training_net.setDetailedLog( "analysis.data//detailed_log.txt");
+//                training_net.setOutputAccuracy( output_accuracy );
+//                training_net.setIdleAccuracy( idle_accuracy );
+//                training_net.setPrintAccuracy( 8 );
 //
+//                double ceiling = 4. / ( m * n );
+//                training_net.randomInit( ceiling );
+////                training_net.init( "analysis.data\\nets\\32x32_test" );
 //
-//                NetAdapter static_net = new NetAdapter();
-//                static_net.setStructure( layers_list, m, n );
-//                Recognizer recognizer = new Recognizer( static_net );
-//                recognizer.initNet( "data\\nets\\20x20.net" );
+//                Tutor teacher = new Tutor( training_net );
+//                //teacher.initNet( "analysis.data\\nets\\32x32_test" );
+//                teacher.train();
+//                teacher.save( "data\\nets\\20x20_temp.net");
 //
-//                runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
+                StaticPerceptron static_net = new StaticPerceptron( layers_list, m, n );
+                Recognizer recognizer = new Recognizer( static_net );
+                recognizer.initNet( "data\\nets\\20x20_temp.net" );
+
+                runTests( recognizer, "data\\for_recognition", "data\\test_result.txt" );
             }
             catch( Exception e ){
                 StackTraceElement[] frames = e.getStackTrace();
@@ -88,40 +83,39 @@ public class TestingClass {
      */
      public static void runTests( Recognizer recognizer, String tests_path, String output_path )
             throws Exception{
-//        String[] all_files = new File( tests_path ).list();
-//        if ( all_files == null ){
-//             throw new Exception( "Wrong testing directory or I/O error occurs." );
-//        }
-//        ArrayList< String > tests = new ArrayList< String >();
-//        for ( String file: all_files ){
-//            String test_name = tests_path + "\\" + file;
-//            File test_file = new File( test_name );
-//            if ( file.charAt( 0 ) != '.' && test_file.isFile() ){
-//                tests.add( test_name );
-//            }
-//        }
-//
-//        PrintWriter log = null;
-//        try{
-//            log = new PrintWriter( output_path );
-//            for ( String test: tests ){
-//                RecognizedType type = recognizer.recognize( test );
-//                if ( type == null){
-//                    log.printf("Test \"%s\": %s\n", test, "didn't recognize."  );
-//                    continue;
-//                }
-//                log.printf("Test \"%s\": %s  %f\n", test, type.getType(), type.getAccuracy()  );
-//            }
-//        }
-//        finally{
-//            if ( log != null ){
-//                try{
-//                    log.close();
-//                }
-//                catch( Exception e ){
-//                    throw new Exception( "Problem with file close." );
-//                }
-//            }
-//        }
+        String[] all_files = new File( tests_path ).list();
+        if ( all_files == null ){
+             throw new Exception( "Wrong testing directory or I/O error occurs." );
+        }
+        ArrayList< String > tests = new ArrayList< String >();
+        for ( String file: all_files ){
+            String test_name = tests_path + "\\" + file;
+            File test_file = new File( test_name );
+            if ( file.charAt( 0 ) != '.' && test_file.isFile() ){
+                tests.add( test_name );
+            }
+        }
+        
+        PrintWriter log = null;
+        try{
+            log = new PrintWriter( output_path );
+            for ( String test: tests ){
+                RecognizeType type = recognizer.recognize( test );
+                if ( type == null){
+                    type.setType( "not recognize" );
+                }
+                log.printf("Test \"%s\": %s  %f\n", test, type.getType(), type.getAccuracy()  );
+            }
+        }
+        finally{
+            if ( log != null ){
+                try{
+                    log.close();
+                }
+                catch( Exception e ){
+                    throw new Exception( "Problem with file close." );
+                }
+            }
+        }
      }
 }

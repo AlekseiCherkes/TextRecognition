@@ -1,13 +1,14 @@
 package neuro.net;
 
 import jblas.matrices.Matrix;
+import neuro.net.RecognizeType;
 
 import java.util.ArrayList;
 
 /** @author    Vadim Shpakovsky. */
 
-public interface INet extends Cloneable {
-    INet                clone() throws CloneNotSupportedException;
+public interface IStaticNet {
+    IStaticNet          copy() throws Exception;
     void                print( int precision );
     String              getType();
     int                 getInputSize();
@@ -17,7 +18,7 @@ public interface INet extends Cloneable {
     ArrayList< String > getRecognizingTypes();
 
     Matrix              recognize( Matrix x ) throws Exception;
-    RecognizedType      recognizeClass( Matrix x ) throws Exception;
-    void                randomInit( double max_val );
-    void                save( String storage ) throws Exception;
+    ArrayList< Matrix > traceRecognize( Matrix x );
+    RecognizeType       recognizeClass( Matrix x ) throws Exception;
+    void                init( String storage )  throws Exception;
 }
