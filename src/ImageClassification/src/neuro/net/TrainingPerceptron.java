@@ -1,19 +1,11 @@
 package neuro.net;
 
 import jblas.matrices.Matrix;
-import neuro.exception.StopTeachingProgressException;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
-
-import javax.imageio.ImageIO;
+import neuro.io.BufferedImageCodec;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.TreeSet;
-import java.awt.image.BufferedImage;
-
-import com.trolltech.qt.gui.QImage;
-import processing.Binarization;
+import java.util.*;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -164,35 +156,30 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
      * @param layers            Layers of net.
      * @param height            Height of input image.
      * @param width             Width of input image.
-     * @param teaching_speed    Coefficient for speed of teaching.
      * @throws Exception        When real size of image mismatch with wanted.
      */
-    public                      TrainingPerceptron( ArrayList<ActiveLayer> layers, int height, int width,
-                                                    double teaching_speed ) throws Exception{
+    public                      TrainingPerceptron( ArrayList<ActiveLayer> layers, int height, int width )
+                                    throws Exception{
         super( layers, height, width );
-        this.teaching_path = null;
-        this.control_path = null;
-        this.brief_log = null;
-        this.detailed_log = null;
-        this.output_accuracy = 0.;
-        this.idle_accuracy = 0.;
-        this.print_accuracy = 0;
-        this.teaching_speed = teaching_speed;
+    }
+
+    /**Construct empty training perceptron.*/
+    public                      TrainingPerceptron(){
+        super();
     }
 
     /**Make independent copy of itself.
      * @return          Copy of itself.
      */
-    public TrainingPerceptron   copy()
-        throws Exception{
-        TrainingPerceptron copy_net = new TrainingPerceptron( layers, input_height, input_width, teaching_speed );
+    public TrainingPerceptron   copy(){
+        TrainingPerceptron copy_net = ( TrainingPerceptron )super.copy();
         copy_net.setTeachingPath( teaching_path );
         copy_net.setControlPath( control_path );
         copy_net.setBriefLog( brief_log );
         copy_net.setDetailedLog( detailed_log );
         copy_net.setOutputAccuracy( output_accuracy );
         copy_net.setIdleAccuracy( idle_accuracy );
-        copy_net.setPrintAccuracy( print_accuracy );
+        copy_net.setTeachingSpeed( teaching_speed );
         return copy_net;
     }
 
@@ -220,7 +207,8 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
 
         // Get names of images for each type.
-        TreeSet< String > types = data.getTypes();
+        BufferedImageCodec image_codec = new BufferedImageCodec();
+        Set< String > types = data.getTypes();
         for ( String type_name : types ){
             String full_type_name = path + "\\" + type_name;
             String[] all_images = new File( full_type_name ).list();
@@ -233,7 +221,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                 if ( image_name.charAt( 0 ) != '.' && image.isFile() ){
                     data.addImage( type_name, image_name );
                     // Read input from file.
-                    Matrix input = readImage( full_image_name );
+                    Matrix input = image_codec.convert( image_codec.loadImage( image ) );
                     if ( input.getRowDimension() != image_size ){
                         throw new Exception( "Invalid count of pixels in analysis.image." );
                     }
@@ -271,7 +259,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
 
         // Associate each type with one output of net.
         output_types = new ArrayList< String >();
-        TreeSet< String > types = teaching_data.getTypes();
+        Set< String > types = teaching_data.getTypes();
         for ( String type : types ){
             output_types.add( type );
         }
@@ -320,7 +308,7 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
                                 }
                             }
                             if ( reaction == null ){
-                                throw new Exception( "Net can't recognize images such type." );
+                                throw new Exception( "Net can't recognize images of such type." );
                             }
                             if ( teachTransaction( x_input, detailed_writer, reaction ) ){
                                     positive_result++;
@@ -456,55 +444,17 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         }
     }
 
-     /**Convert image to input data for net.
-     * @param image_path        Absolute path of image.
-     * @return                  Input matrix for net.
-     */
-    public static Matrix        readImage( String image_path ) throws Exception{
-        File image_file = new File( image_path );
-        BufferedImage bi_image = Binarization.work( ImageIO.read( image_file ) );
-        int h = bi_image.getHeight();
-        int w = bi_image.getWidth();
-        Matrix x = new Matrix ( h * w, 1 );
-        for( int j = 0; j < h; ++j ){
-            for( int i = 0; i < w; ++i ){
-                int rgb = bi_image.getRGB( i, j ) & 0xffffff;
-                if ( rgb == 0){
-                    x.set( i + j * h, 0, 1 );
-                }
-                else{
-                    x.set( i + j * h, 0, 0 );
-                }
-            }
-        }
-        return x;
-    }
 
-     /**Convert image to input data for net.
-     * @param image        Qt image object.
-     * @return             Input matrix for net.
-     */
-    public static Matrix        readImage( QImage image ) throws Exception{
-
-        int h = image.height();
-        int w = image.width();
-        Matrix x = new Matrix ( h * w, 1 );
-        for( int j = 0; j < h; ++j ){
-            for( int i = 0; i < w; ++i ){
-                int rgb = image.pixel( i, j ) & 0xffffff;
-//                double val = min_input + rgb * ( max_input - min_input ) / 0xffffff;
-//                x.set( i + j * h, 0, val );
-                int threshold = 0xffffff / 2;
-                if ( rgb >= threshold){
-                    x.set( i + j * h, 0, 0 );
-                }
-                else{
-                    x.set( i + j * h, 0, 1 );
-                }
-            }
-        }
-        return x;
-    }
+//    public static Matrix readImage( String image_path ){
+//        //TODO: remove it
+//        return null;
+//    }
+//
+//
+//    public static Matrix readImage( QImage image ){
+//        //TODO: remove it
+//        return null;
+//    }
     
     /**
      * @param start_time    Start time in msec.
@@ -599,4 +549,23 @@ public class TrainingPerceptron extends StaticPerceptron implements ITrainingNet
         return idle_accuracy;
     }
 
+    /** @param speed     Teaching speed. */
+    public void                 setTeachingSpeed( double speed ){
+        teaching_speed = speed;
+    }
+
+    /**@return      Teaching speed.*/
+    public double               getTeachingSpeed(){
+        return teaching_speed;
+    }
+
+
+
+   
+    public static class StopTeachingProgressException extends Exception{
+        public StopTeachingProgressException(){};
+        public StopTeachingProgressException( String message ){
+            super( message );
+        };
+    }
 }

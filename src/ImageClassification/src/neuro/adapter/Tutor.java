@@ -1,7 +1,7 @@
 package neuro.adapter;
 
 import neuro.net.ITrainingNet;
-import neuro.net.RecognizeType;
+import neuro.net.RecognizedType;
 import jblas.matrices.Matrix;
 
 import java.io.*;
@@ -16,16 +16,11 @@ public class Tutor {
     private ITrainingNet net;
 
     /**Construct recognizer with net.
-    *@param net         Training neuron net.
-    *@throws Exception   When are problems with net copy.
+    *@param pattern_net  Training neuron net.
     */
-    public Tutor( ITrainingNet net )
-        throws Exception{
+    public Tutor( ITrainingNet pattern_net ){
         if ( net != null ){
-            this.net = net.copy();
-        }
-        else{
-            net = null;
+            net = pattern_net.copy();
         }
     }
 
@@ -49,10 +44,11 @@ public class Tutor {
     }
 
     /**Recognize class for input image.
-     * @param x     Input image.
-     * @return      Class of image. If net coudn't classificate image return 'null'.
+     * @param x             Input image.
+     * @return              Class of image. If net coudn't classificate image return 'null'.
+     * @throws Exception    If problems with reading image from file occured.
      */
-	public RecognizeType recognize( Matrix x )
+	public RecognizedType recognize( Matrix x )
         throws Exception{
         return net.recognizeClass( x );
     }
@@ -62,7 +58,7 @@ public class Tutor {
      * @return              Class of image. If net coudn't classificate image return 'null'.
      * @throws Exception    If problems with reading image from file occured.
      */
-	public RecognizeType recognize( String path ) throws Exception{
+	public RecognizedType recognize( String path ) throws Exception{
         // Read input from file.
         Matrix input_x = null;
         Scanner scanner = null;
@@ -79,12 +75,7 @@ public class Tutor {
         }
         finally{
             if(  scanner != null ){
-                try{
-                    scanner.close();
-                }
-                catch( Exception e ){
-                    throw e;
-                }
+                scanner.close();
             }
         }
 
@@ -115,17 +106,17 @@ public class Tutor {
 
     /**
      * Learn the net.
-     * @param  learning_path      Absolute path where are all learning tests.
-     *      On this path must be subdirectory for each class of recognition objects.
-     *      This subdirectory contain all objects belong certain class.
-     *      The name of subdirectory identify the name of class.
-     * @param brief_log_path        Log file for brief teaching history.
-     * @param detailed_log_path     Log file for brief teaching history. 
-     * @param inaccuracy        Size of max accepable difference between input and output
-     *                              when output is considered right.
-     * @param idle_accuracy    Size of min accepable difference between old output and output of corrected net
-     *                              when is considered that teach iteration was "useful" ( not idle ).
-     *      when output is considered right.
+//     * @param  learning_path      Absolute path where are all learning tests.
+//     *      On this path must be subdirectory for each class of recognition objects.
+//     *      This subdirectory contain all objects belong certain class.
+//     *      The name of subdirectory identify the name of class.
+//     * @param brief_log_path        Log file for brief teaching history.
+//     * @param detailed_log_path     Log file for brief teaching history.
+//     * @param inaccuracy        Size of max accepable difference between input and output
+//     *                              when output is considered right.
+//     * @param idle_accuracy    Size of min accepable difference between old output and output of corrected net
+//     *                              when is considered that teach iteration was "useful" ( not idle ).
+//     *      when output is considered right.
      */
     public void train()
             throws Exception{
