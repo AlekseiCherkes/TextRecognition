@@ -12,7 +12,8 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import algorithm.ErrorBackPropagation;
+import neuro.algorithm.ErrorBackPropagation;
+import neuro.exception.StopTeachingProgressException;
 
 /**
  * @author Vadim Shpakovsky.
@@ -157,6 +158,8 @@ public class PerceptronTutor {
             }
             long start_time = System.currentTimeMillis();
             long iteration = 1;
+            // Indicate how many times algorithm was started.
+            long passed_tests_count = 0;
             DataProvider.TeachingData data_iterator = data_provider.provideTeachingData();
             //Iterator<TeachingCase<Matrix, String>> data_iterator = teaching_data.iterator();
 
@@ -175,23 +178,27 @@ public class PerceptronTutor {
                 do{
                     while( data_iterator.hasNext() ){
                         TeachingCase<Matrix, String> sample = data_iterator.next();
+                        //TODO
+//                        if ( detailed_writer != null ){
+//                                detailed_writer.printf( "------type '%s', test '%s':------\n\n", type, image );
+//                            }
+//
                         Matrix x = sample.getInput();
-                        Matrix y = net.recognize( x );
                         Matrix target_output = net.getOutputByType( sample.getExpectedOutput() );
-                        if ( target_output == null ){
-                            throw new Exception( "Net can't recognize images of \"" + sample.getExpectedOutput() + "\" type." );
-                        }
-
-                        Matrix E = target_output.minus( y );
-
                         if ( detailed_writer != null ){
+                            Matrix y = net.recognize( x );
+                            if ( target_output == null ){
+                                throw new Exception( "Net can't recognize images of \"" + sample.getExpectedOutput() + "\" type." );
+                            }
+    //
+                            Matrix E = target_output.minus( y );
 //                            for ( int i = 0; i < net.getLayersCount(); i++ ){
 //                                ActiveLayer layer = net.getLayer( i );
 //                                detailed_writer.printf( "Layer_%d:\n", i );
 //                                layer.getW().print( detailed_writer, 2, print_accuracy );
 //                            }
-                            detailed_writer.print("Input:\n");
-                            x.transpose().print( detailed_writer, 2, print_accuracy );
+//                            detailed_writer.print("Input:\n");
+//                            x.transpose().print( detailed_writer, 2, print_accuracy );
                             detailed_writer.print("Output:\n");
                             y.transpose().print( detailed_writer, 2, print_accuracy );
                             detailed_writer.print("Target:\n");
@@ -200,29 +207,26 @@ public class PerceptronTutor {
                             E.transpose().print( detailed_writer, 2, print_accuracy );
                         }
 
-                        if ( E.maxNomr() <= output_accuracy ){
-                            positive_results++;
-                            if ( detailed_writer != null ){
-                                detailed_writer.print("OK\n\n");
+                        try{
+                            if ( ErrorBackPropagation.teach( net, x, target_output, teaching_speed,
+                                    output_accuracy, idle_accuracy ) ){
+                                positive_results++;
+                                if ( detailed_writer != null ){
+                                    detailed_writer.print("OK\n\n");
+                                }
+                                // Go to next image from current type.
+                                continue;
                             }
-                            // Check next image from current type.
-                            continue;
+                            else{
+                                if ( detailed_writer != null ){
+                                    Matrix new_y = net.recognize( x );
+                                    detailed_writer.print("New output:\n");
+                                    new_y.transpose().print( detailed_writer, 2, print_accuracy );
+                                }
+                            }
                         }
-
-                        ErrorBackPropagation.teach( net, x, target_output, teaching_speed );
-
-                        // Check if correction gives improvement.
-                        Matrix new_y = net.recognize( x );
-                        Matrix dy = new_y.minus( y );
-                        double max = dy.maxNomr();
-                        if ( max < idle_accuracy ){
+                        catch( StopTeachingProgressException e ){
                             // The training progress ends.
-                            if ( detailed_writer != null ){
-                                detailed_writer.print("Old output:\n");
-                                y.transpose().print( detailed_writer, 2, print_accuracy );
-                                detailed_writer.print("New output:\n");
-                                new_y.transpose().print( detailed_writer, 2, print_accuracy );
-                            }
                             if ( brief_writer != null ){
                                 brief_writer.printf( "The teaching progress ended. Training was stopped. Net aren't trained.\n" );
                                 brief_writer.printf( "Type: '%s'.\n", sample.getExpectedOutput() );
@@ -235,16 +239,20 @@ public class PerceptronTutor {
                             }
                             return;
                         }
-                        else{
-                            if ( detailed_writer != null ){
-                                detailed_writer.print("New output:\n");
-                                new_y.transpose().print( detailed_writer, 2, print_accuracy );
-                            }
-                            // Proceed to next group.
-                            break;
-                        }
+
+                        //TODO temp
+//                        if ( passed_tests_count == 0 )
+//                        {
+//                            if ( brief_writer != null ){
+//                                brief_writer.printf( "Number of iterations: %d.\n", passed_tests_count );
+//                                brief_writer.printf( "Time: %s\n", this.getDeltaTime( start_time ) );
+//                            }
+//                            return;
+//                        }
+                        passed_tests_count++;
                     }
                 }while( data_iterator.proceedToNextGroup() );
+                data_iterator.restart();
                 
                 // Use control checking for escape too detailed teaching.
                 DataProvider control_data_provider = new DataProvider();
@@ -302,15 +310,16 @@ public class PerceptronTutor {
                         }
                     }
                 }
-                
+
                 if ( brief_writer != null ){
                     brief_writer.printf( "Count of teaching tests: %d.\n", data_provider.getDataCount() );
                     brief_writer.printf( "Count of teaching iterations: %d.\n", iteration );
+                    brief_writer.printf( "Count of times algorithm was called: %d.\n", passed_tests_count );
                     brief_writer.printf( "Image size: %dx%d.\n", net.getInputHeight(), net.getInputWidth() );
                     brief_writer.printf( "Precision: %.2e.\n", output_accuracy );
                     brief_writer.printf( "Net was teaching: %s\n", this.getDeltaTime( start_time ) );
                 }
-                // End teaching.                          
+                // End teaching.
                 break;
             }
         }

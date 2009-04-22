@@ -21,8 +21,8 @@ public class TestingClass {
             int input = m * n;
             int output = 26;
             int inner_layer = ( input + output ) / 2;
-            double teaching_speed = 0.9;
-            double output_accuracy = 0.51;
+            double teaching_speed = 0.7;
+            double output_accuracy = 0.1;
             double idle_accuracy = 1e-6;
             double shift = 0.;
 
@@ -57,7 +57,7 @@ public class TestingClass {
                 //tutor.setDetailedLog( "data//detailed_log.txt");
                 tutor.setOutputAccuracy( output_accuracy );
                 tutor.setIdleAccuracy( idle_accuracy );
-                tutor.setPrintAccuracy( 5 );
+                tutor.setPrintAccuracy( 8 );
                 tutor.setTeachingSpeed( teaching_speed );
 
                 tutor.train();

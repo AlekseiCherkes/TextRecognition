@@ -17,7 +17,7 @@ size = (20, 20)
 teach_N = 1
 control_N = 0
 #chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # chars = string.ascii_uppercase
-chars = "ABCDEFGHIJKLM"
+chars = string.ascii_uppercase
 
 angle   = (-15., 15) # (min, max)
 scale_x = (0.9, 1.1)
