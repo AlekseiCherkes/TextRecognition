@@ -244,7 +244,7 @@ public class Perceptron implements INet{
     /**Set types, that net can recognize.
      * @param types      List of types.
      */
-    public void                 setRecognizingTypes( ArrayList< String > types ){
+    public void  setRecognizingTypes( ArrayList< String > types ){
         output_types = new ArrayList< String >();
         for ( String type : types ){
             output_types.add( type );
@@ -255,7 +255,7 @@ public class Perceptron implements INet{
      * @param type  String discribing type.
      * @return      Output for wanted type. If net dosn't recognize such type return 'null'.
      */
-    public Matrix               getOutputByType( String type ){
+    public Matrix getOutputByType( String type ){
         Matrix output = new Matrix( output_size, 1);
         for ( int i = 0; i < output_types.size(); i++ ){
             if ( type.equals( output_types.get( i ) ) ){

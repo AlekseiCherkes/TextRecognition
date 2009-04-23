@@ -16,58 +16,58 @@ import jblas.matrices.Matrix;
 
 public class TestingClass {
         public static void main(String[] args){
-//            int m = 20;
-//            int n = 20;
-//            int input = m * n;
-//            int output = 26;
-//            int inner_layer = ( input + output ) / 2;
-//            double teaching_speed = 0.7;
-//            double output_accuracy = 0.1;
-//            double idle_accuracy = 1e-6;
-//            double shift = 0.;
-//
-//            // Create two layer perceptron:
-//            // input        (m x n)
-//            // first layer  (input x inner_layer)
-//            // second layer (inner_layer x output)
-//            // out          output
-//            ArrayList<ActiveLayer> layers_list = new ArrayList<ActiveLayer>();
-//            Sigmoid s = new Sigmoid( shift );
-//
-//            Matrix w = new Matrix( input, inner_layer );
-//            ActiveLayer layer = new ActiveLayer( w, s);
-//            layers_list.add( layer.copy() );
-//            w = new Matrix( inner_layer, output  );
-//            layer = new ActiveLayer( w, s);
-//            layers_list.add( layer.copy() );
+            int m = 20;
+            int n = 20;
+            int input = m * n;
+            int output = 26;
+            int inner_layer = ( input + output ) / 2;
+            double teaching_speed = 0.7;
+            double output_accuracy = 0.1;
+            double idle_accuracy = 1e-6;
+            double shift = 0.;
+
+            // Create two layer perceptron:
+            // input        (m x n)
+            // first layer  (input x inner_layer)
+            // second layer (inner_layer x output)
+            // out          output
+            ArrayList<ActiveLayer> layers_list = new ArrayList<ActiveLayer>();
+            Sigmoid s = new Sigmoid( shift );
+
+            Matrix w = new Matrix( input, inner_layer );
+            ActiveLayer layer = new ActiveLayer( w, s);
+            layers_list.add( layer.copy() );
+            w = new Matrix( inner_layer, output  );
+            layer = new ActiveLayer( w, s);
+            layers_list.add( layer.copy() );
 
 
             try{
-//                Perceptron net_for_teaching = new Perceptron();
-//                net_for_teaching.setStructure( layers_list, n, m );
-//                // !!! This is important!
-//                double ceiling = 4. / ( m * n );
-//                net_for_teaching.randomInit( ceiling );
-//                PerceptronTutor tutor = new PerceptronTutor( net_for_teaching );
-//
-//
-//                tutor.setTeachingPath( "data//for_teaching//teaching_set" );
-//                tutor.setControlPath( "data//for_teaching//control_set" );
-//                tutor.setBriefLog( "data//brief_log.txt" );
-//                //tutor.setDetailedLog( "data//detailed_log.txt");
-//                tutor.setOutputAccuracy( output_accuracy );
-//                tutor.setIdleAccuracy( idle_accuracy );
-//                tutor.setPrintAccuracy( 8 );
-//                tutor.setTeachingSpeed( teaching_speed );
-//
-//                tutor.train();
-//                tutor.save( "data\\nets\\20x20.net" );
+                Perceptron net_for_teaching = new Perceptron();
+                net_for_teaching.setStructure( layers_list, n, m );
+                // !!! This is important!
+                double ceiling = 4. / ( m * n );
+                net_for_teaching.randomInit( ceiling );
+                PerceptronTutor tutor = new PerceptronTutor( net_for_teaching );
 
 
-                ReadonlyNetAdapter net_adapter = new ReadonlyNetAdapter();
-                net_adapter.init( "data\\nets\\20x20.net" );
+                tutor.setTeachingPath( "data//for_teaching//teaching_set" );
+                tutor.setControlPath( "data//for_teaching//control_set" );
+                tutor.setBriefLog( "data//brief_log.txt" );
+                tutor.setDetailedLog( "data//detailed_log.txt");
+                tutor.setOutputAccuracy( output_accuracy );
+                tutor.setIdleAccuracy( idle_accuracy );
+                tutor.setPrintAccuracy( 6 );
+                tutor.setTeachingSpeed( teaching_speed );
 
-                runTests( net_adapter, "data\\for_recognition", "data\\test_result.txt" );
+                tutor.train();
+                tutor.save( "data\\nets\\20x20.net" );
+
+
+//                ReadonlyNetAdapter net_adapter = new ReadonlyNetAdapter();
+//                net_adapter.init( "data\\nets\\20x20.net" );
+//
+//                runTests( net_adapter, "data\\for_recognition", "data\\test_result.txt" );
             }
             catch( Exception e ){
                 StackTraceElement[] frames = e.getStackTrace();

@@ -67,9 +67,7 @@ public class DataProvider {
     private File rootDir_m;
     private int files_count;
 
-    //TODO Remove it.
-    private ArrayList<String> types_m;
-    
+
 
     public DataProvider(){
         loadedData_m = Collections.emptyMap();
@@ -111,12 +109,8 @@ public class DataProvider {
         codec_m = codec;
     }
 
-    public ArrayList<String> getTypes(){
-        ArrayList<String> types = new ArrayList<String>();
-        for ( String type : types_m ){
-            types.add( type );
-        }
-        return types;
+    public Set<String> getTypes(){
+        return loadedData_m.keySet();
     }
 
     public int getDataCount(){
@@ -154,6 +148,7 @@ public class DataProvider {
                 Matrix m = loadMatrix(child);
 
                 TeachingCase<Matrix, String> tcase= new TeachingCase<Matrix, String>( m, keyVal );
+                tcase.setCaseName(child.getName());
                 loadedList.add(tcase);
                 files_count++;
             } catch (IOException e){}
