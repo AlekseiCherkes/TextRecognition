@@ -1,4 +1,6 @@
 ﻿#-*- encoding:utf-8 -*-
+import sys
+sys.path.append("C:\Program Files\Python\Lib\site-packages\PIL")
 import Image
 import ImageDraw
 import ImageFont
@@ -11,8 +13,8 @@ from random import uniform, choice, randint
 dir = "for_recognition"
 font_size = 20
 size = (20, 20)
-N = 5
-chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" # chars = string.ascii_uppercase
+N = 50
+chars = chars = string.ascii_uppercase # chars = string.ascii_uppercase
 
 angle   = (-15., 15) # (min, max)
 scale_x = (0.9, 1.1)

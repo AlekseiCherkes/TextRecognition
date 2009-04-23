@@ -61,18 +61,20 @@ public class DataProvider {
         }
     }
 
-
-
-
     private Map<String, List<TeachingCase<Matrix, String>>> loadedData_m;
     private IImageCodec codec_m;
     private FileFilter fileFilter_m;
     private File rootDir_m;
+    private int files_count;
+
+    //TODO Remove it.
+    private ArrayList<String> types_m;
     
 
     public DataProvider(){
         loadedData_m = Collections.emptyMap();
         codec_m = new BufferedImageCodec();
+        types_m = new ArrayList<String>();
     }
 
 
@@ -109,6 +111,18 @@ public class DataProvider {
         codec_m = codec;
     }
 
+    public ArrayList<String> getTypes(){
+        ArrayList<String> types = new ArrayList<String>();
+        for ( String type : types_m ){
+            types.add( type );
+        }
+        return types;
+    }
+
+    public int getDataCount(){
+        return files_count;
+    }
+
     private  Map<String, List<TeachingCase<Matrix, String>>> loadData(File rootDir, int maxGroups){
         Map<String, List<TeachingCase<Matrix, String>>> loadedMap
                 = new HashMap<String, List<TeachingCase<Matrix, String>>>(28);
@@ -121,6 +135,8 @@ public class DataProvider {
              List<TeachingCase<Matrix, String>> valList = loadGroup(child, childName);
              if (valList.isEmpty()) continue;
              loadedMap.put(childName, valList);
+            //TODO remove it.
+            types_m.add( childName );
             
              if (loadedMap.size() == maxGroups) break;
         }
@@ -139,6 +155,7 @@ public class DataProvider {
 
                 TeachingCase<Matrix, String> tcase= new TeachingCase<Matrix, String>( m, keyVal );
                 loadedList.add(tcase);
+                files_count++;
             } catch (IOException e){}
         }
 
@@ -160,6 +177,8 @@ public class DataProvider {
         Object img = codec_m.loadImage(source);
         return codec_m.convert(img);
     }
+
+
 
 
 }

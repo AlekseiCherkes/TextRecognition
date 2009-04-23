@@ -38,6 +38,6 @@ public class BufferedImageCodec implements IImageCodec<BufferedImage> {
     @Override
     public BufferedImage loadImage(File source) throws IOException {
         BufferedImage bi_image = Binarization.work( ImageIO.read( source ) );
-        return null;
+        return bi_image;
     }
 }
