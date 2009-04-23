@@ -5,7 +5,6 @@ import analysis.decomposition.*;
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
 import com.trolltech.qt.gui.*;
-import neuro.adapter.Recognizer;
 import neuro.adapter.ReadonlyNetAdapter;
 import neuro.net.RecognizedType;
 import processing.Binarization;
