@@ -1,11 +1,13 @@
-package recognition; /********************************************************************************
+/********************************************************************************
 ** Form generated from reading ui file 'MainWindow.jui'
 **
-** Created: �� 1. ��� 12:04:12 2009
+** Created: �� 3. ��� 20:57:21 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
+
+package recognition;
 
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
@@ -35,15 +37,12 @@ public class Ui_MainWindow
     public QGridLayout gridLayout1;
     public QTreeView tableView;
     public QToolBar toolBar_2;
-    public QDockWidget labelDock;
-    public QWidget dockWidgetContents;
-    public QLabel recognitionLabel;
 
     public Ui_MainWindow() { super(); }
 
     public void setupUi(QMainWindow MainWindow)
     {
-        MainWindow.setObjectName("recognition.MainWindow");
+        MainWindow.setObjectName("MainWindow");
         MainWindow.resize(new QSize(714, 614).expandedTo(MainWindow.minimumSizeHint()));
         actionZoom_In = new QAction(MainWindow);
         actionZoom_In.setObjectName("actionZoom_In");
@@ -126,32 +125,6 @@ public class Ui_MainWindow
         toolBar_2.setObjectName("toolBar_2");
         toolBar_2.setOrientation(com.trolltech.qt.core.Qt.Orientation.Horizontal);
         MainWindow.addToolBar(com.trolltech.qt.core.Qt.ToolBarArea.TopToolBarArea, toolBar_2);
-        labelDock = new QDockWidget(MainWindow);
-        labelDock.setObjectName("labelDock");
-        labelDock.setMinimumSize(new QSize(72, 73));
-        QFont font = new QFont();
-        font.setBold(false);
-        font.setItalic(false);
-        font.setUnderline(false);
-        font.setWeight(50);
-        font.setStrikeOut(false);
-        font.setKerning(true);
-        labelDock.setFont(font);
-        labelDock.setLayoutDirection(com.trolltech.qt.core.Qt.LayoutDirection.LeftToRight);
-        labelDock.setAutoFillBackground(false);
-        labelDock.setFloating(false);
-        labelDock.setFeatures(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.createQFlags(com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetFloatable,com.trolltech.qt.gui.QDockWidget.DockWidgetFeature.DockWidgetMovable));
-        dockWidgetContents = new QWidget();
-        dockWidgetContents.setObjectName("dockWidgetContents");
-        recognitionLabel = new QLabel(dockWidgetContents);
-        recognitionLabel.setObjectName("recognitionLabel");
-        recognitionLabel.setGeometry(new QRect(10, 0, 211, 31));
-        QFont font1 = new QFont();
-        font1.setPointSize(16);
-        recognitionLabel.setFont(font1);
-        recognitionLabel.setScaledContents(false);
-        labelDock.setWidget(dockWidgetContents);
-        MainWindow.addDockWidget(com.trolltech.qt.core.Qt.DockWidgetArea.resolve(2), labelDock);
 
         menubar.addAction(menuFile.menuAction());
         menubar.addAction(menuHelp.menuAction());
@@ -171,24 +144,22 @@ public class Ui_MainWindow
 
     void retranslateUi(QMainWindow MainWindow)
     {
-        MainWindow.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Qt Jambi Text Recognition"));
-        actionZoom_In.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Zoom In"));
-        actionZoom_Out.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Zoom Out"));
-        actionExit.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "E&xit"));
-        actionAbout_Text_Recognition.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "About &Text Recognition"));
-        actionAbout_Qt_Jambi.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "About Qt &Jambi"));
-        actionSave.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "&Save"));
-        actionSave.setShortcut(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Ctrl+S"));
-        actionClose.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Cl&ose"));
-        actionAbout_Qt.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "About &Qt"));
-        actionOpen_Network.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Open Network"));
-        menuHelp.setTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "&Help"));
-        menuFile.setTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "&File"));
-        treeDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Directories"));
-        tableDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Images "));
-        toolBar_2.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "File toolbar"));
-        labelDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "Recognition"));
-        recognitionLabel.setText(com.trolltech.qt.core.QCoreApplication.translate("recognition.MainWindow", "No analysis.image"));
+        MainWindow.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Qt Jambi Text Recognition"));
+        actionZoom_In.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Zoom In"));
+        actionZoom_Out.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Zoom Out"));
+        actionExit.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "E&xit"));
+        actionAbout_Text_Recognition.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "About &Text Recognition"));
+        actionAbout_Qt_Jambi.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "About Qt &Jambi"));
+        actionSave.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "&Save"));
+        actionSave.setShortcut(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Ctrl+S"));
+        actionClose.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Cl&ose"));
+        actionAbout_Qt.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "About &Qt"));
+        actionOpen_Network.setText(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Open Network"));
+        menuHelp.setTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "&Help"));
+        menuFile.setTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "&File"));
+        treeDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Directories"));
+        tableDock.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "Images "));
+        toolBar_2.setWindowTitle(com.trolltech.qt.core.QCoreApplication.translate("MainWindow", "File toolbar"));
     } // retranslateUi
 
 }

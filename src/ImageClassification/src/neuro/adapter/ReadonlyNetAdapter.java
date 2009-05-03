@@ -5,6 +5,7 @@ import neuro.net.Perceptron;
 import neuro.net.RecognizedType;
 import neuro.layer.ActiveLayer;
 import neuro.io.BufferedImageCodec;
+import neuro.io.QImageCodec;
 
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import jblas.matrices.Matrix;
+import com.trolltech.qt.gui.QImage;
 
 /**
  * @author Vadim Shpakovsky.
@@ -50,5 +52,10 @@ public class ReadonlyNetAdapter{
         File image = new File( path );
         BufferedImageCodec codec = new BufferedImageCodec();
         return net.recognizeClass( codec.convert( codec.loadImage( image ) ) );
+    }
+
+    public RecognizedType recognize(QImage image) throws Exception{
+        QImageCodec codec = new QImageCodec();
+        return net.recognizeClass(codec.convert( image ) );
     }
 }

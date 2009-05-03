@@ -17,6 +17,8 @@ public class MainWindow extends QMainWindow {
     private ImageTableModel imageModel;
     private View view;
 
+    public static final QSize IMAGE_SIZE = new QSize(20, 20);
+
     private ArrayList<StatisticsAccumulator> statisticsList;
 
     private ReadonlyNetAdapter netAdapter;
@@ -29,9 +31,22 @@ public class MainWindow extends QMainWindow {
 
         @Override
         public void onImageRegion(QImage region, StatisticsAccumulator statistics) {
-            String str = Integer.toString(identity++);
-            region.save("data\\decomposed\\Out_image_" + str + ".bmp");
             statisticsList.add(statistics);
+
+            String symbol = null;
+            Double probability = null;
+            if (netAdapter != null) {
+                try {
+                    RecognizedType type = netAdapter.recognize(region);
+                    symbol = type.getType();
+                    probability = type.getAccuracy();
+                }
+                catch (Exception e) {
+                    // null values for symbol and probability mark on error
+                }
+            }
+
+            imageModel.addRow(region, probability, symbol);
         }
     };
 
@@ -52,6 +67,9 @@ public class MainWindow extends QMainWindow {
 
           decomposer = new TrueDecomposition();
         //  decomposer = new DecompositionFasade();
+
+        /////
+        //ui.tableView.setModel(imageModel);
     }
 
     private QImage drawStatistics(QImage image) {
@@ -72,29 +90,14 @@ public class MainWindow extends QMainWindow {
         if (info.isDir()) {
             statusBar().showMessage("This is directory");
         } else {
+            imageModel.clearRows();
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
-                statisticsList = new ArrayList<StatisticsAccumulator>();
+                statisticsList = new ArrayList<StatisticsAccumulator>();                
                 decomposer.decompose(image, collector);
                 view.setImages(image, drawStatistics(Binarization.work(image)));
-
-                if (netAdapter == null) {
-                    s = "Recognizer hasn't been loaded.";
-                    statusBar().showMessage("Network wasn't opened");
-                } else {
-                    try {
-                        RecognizedType type = netAdapter.recognize(info.absoluteFilePath());
-                        String t = type.getType(); // Не рефакторить!!!                        
-                        s = t;
-                        s += "\t" + Double.toString(((int) Math.round(type.getAccuracy() * 100.)) / 100.);
-                    }
-                    catch (Exception e) {
-                        s = "Can't recognize analysis.image." + "\n" + e.getMessage();
-                    }
-                }
-                ui.recognitionLabel.setText(s);
+                imageModel.resetRows();
                 statusBar().showMessage("Image opened");
-
             } else {
                 statusBar().showMessage("Can't load analysis.image");
             }

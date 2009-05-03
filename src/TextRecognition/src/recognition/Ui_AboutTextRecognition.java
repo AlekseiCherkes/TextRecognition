@@ -1,11 +1,13 @@
-package recognition; /********************************************************************************
+/********************************************************************************
 ** Form generated from reading ui file 'AboutTextRecognition.jui'
 **
-** Created:  1.  12:04:12 2009
+** Created: �� 3. ��� 20:57:21 2009
 **      by: Qt User Interface Compiler version 4.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
+
+package recognition;
 
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.*;
