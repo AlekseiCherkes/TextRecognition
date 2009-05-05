@@ -16,16 +16,8 @@ public class StatisticsAccumulator implements IMergible<StatisticsAccumulator>{
     public double a11_m;
     public double a20_m;
 
-    public int xMin_m;
-    public int xMax_m;
-    public int yMin_m;
-    public int yMax_m;
-
-
-    public StatisticsAccumulator(){
-        xMin_m = yMin_m = Integer.MAX_VALUE;
-        xMax_m = yMax_m = Integer.MIN_VALUE;
-    }
+    
+    public StatisticsAccumulator(){}
 
 
     //public int getKey ()        { return key_m; }
@@ -39,12 +31,6 @@ public class StatisticsAccumulator implements IMergible<StatisticsAccumulator>{
         a02_m += hue * x * x;
         a11_m += hue * x * y;
         a20_m += hue * y * y;
-
-        xMin_m = Math.min(xMin_m, x);
-        xMax_m = Math.max(xMax_m, x);
-        yMin_m = Math.min(yMin_m, y);
-        yMax_m = Math.max(yMax_m, y);
-
     }
 
 
@@ -57,28 +43,6 @@ public class StatisticsAccumulator implements IMergible<StatisticsAccumulator>{
         a02_m += stat.a02_m;
         a11_m += stat.a11_m;
         a20_m += stat.a20_m;
-
-        xMin_m = Math.min(xMin_m, stat.xMin_m);
-        xMax_m = Math.max(xMax_m, stat.xMax_m);
-        yMin_m = Math.min(yMin_m, stat.yMin_m);
-        yMax_m = Math.max(yMax_m, stat.yMax_m);
-    }
-
-
-    public int getYMax() {
-        return yMax_m;
-    }
-
-    public int getYMin() {
-        return yMin_m;
-    }
-
-    public int getXMax() {
-        return xMax_m;
-    }
-
-    public int getXMin() {
-        return xMin_m;
     }
 
     public double getN(){
@@ -103,6 +67,11 @@ public class StatisticsAccumulator implements IMergible<StatisticsAccumulator>{
 
     public double getKxy(double mx, double my){
         return a11_m / sum_m - mx*my;
+    }
+
+
+    public double getAngle(){
+        return Math.PI/3;
     }
 
     

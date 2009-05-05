@@ -11,34 +11,19 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
     private ArrayList<Point> leftVertices_m;
     private ArrayList<Point> rightVertices_m;
 
-    int maxLeft_m;
-    int maxRight_m;
 
     public EdgeAccumulator() {
-        leftVertices_m = new ArrayList<Point>();
+        leftVertices_m  = new ArrayList<Point>();
         rightVertices_m = new ArrayList<Point>();
-        maxLeft_m = Integer.MAX_VALUE;
-        maxRight_m = Integer.MIN_VALUE;
+
     }
 
-    public int getMaxLeft() {
-        assert maxLeft_m != Integer.MAX_VALUE;
-        return maxLeft_m;
-    }
-
-    public int getMaxRight() {
-        assert maxRight_m != Integer.MIN_VALUE;
-        return maxRight_m;
-    }
 
     /**
      * Takes pixel of left edge and pixel of right edge
      * and updates internal edge data if necessary.
      * The y cord must be increased between calls.
      *
-     * @param xLeft
-     * @param xRight
-     * @param y
      */
     public void takeLine(int xLeft, int xRight, int y) {
         assert xRight >= xLeft;
@@ -50,14 +35,6 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
         leftVertices_m.add(pl);
         rightVertices_m.add(pr);
         updateConvex();
-
-        if (xLeft < maxLeft_m) {
-            maxLeft_m = xLeft;
-        }
-
-        if (xRight > maxRight_m) {
-            maxRight_m = xRight;
-        }
     }
 
     private void updateConvex() {
@@ -69,12 +46,9 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
             Point p1 = leftVertices_m.get(size - 3);
 
             int t = calculateTurnDirection(p1, p2, p3);
-            if (t <= 0) {
-                leftVertices_m.remove(size - 2);
-                continue;
-            } else {
-                break;
-            }
+            if (t > 0) break;
+
+            leftVertices_m.remove(size - 2);
         }
 
         // Правая область
@@ -85,22 +59,15 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
             Point p1 = rightVertices_m.get(size - 3);
 
             int t = calculateTurnDirection(p1, p2, p3);
-            if (t >= 0) {
-                rightVertices_m.remove(size - 2);
-                continue;
-            } else {
-                break;
-            }
+            if (t < 0) break;
+
+            rightVertices_m.remove(size - 2);
         }
     }
 
     /**
      * Get sign of sinus of angel between (p3 - p2) and (p2 - p1) vectors.
-     *
-     * @param p1
-     * @param p2
-     * @param p3
-     * @return if > 0 -- left direction, if < 0 -- right, if == 0 forward or backward
+     * if > 0 -- left direction, if < 0 -- right, if == 0 forward or backward
      */
     private int calculateTurnDirection(Point p1, Point p2, Point p3) {
         // Направление поворота определяется знаком векторного произведения.
@@ -131,8 +98,6 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
         if (left2.size() == 0 && right2.size() == 0) {
             this.leftVertices_m = rightNeibour.leftVertices_m;
             this.rightVertices_m = rightNeibour.rightVertices_m;
-            this.maxLeft_m = rightNeibour.maxLeft_m;
-            this.maxRight_m = rightNeibour.maxRight_m;
         }
 
         EdgeAccumulator ea = new EdgeAccumulator();
@@ -173,8 +138,6 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
 
         this.leftVertices_m = ea.leftVertices_m;
         this.rightVertices_m = ea.rightVertices_m;
-        this.maxLeft_m = ea.maxLeft_m;
-        this.maxRight_m = ea.maxRight_m;
     }
 
 
@@ -199,4 +162,5 @@ public class EdgeAccumulator implements IMergible<EdgeAccumulator>{
 
         return ret;
     }
+
 }

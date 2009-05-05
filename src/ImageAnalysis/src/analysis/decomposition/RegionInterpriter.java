@@ -3,6 +3,7 @@ package analysis.decomposition;
 import analysis.data.acumulators.DecomposedRegion;
 import analysis.data.acumulators.StatisticsAccumulator;
 import analysis.data.pixels.IPixelPack;
+import analysis.data.ad_hoc.RectBoundsOfInt;
 import com.trolltech.qt.gui.QImage;
 
 /**
@@ -28,36 +29,20 @@ public class RegionInterpriter {
         source_m= source;
     }
 
-    public QImage InterpriteImageData(DecomposedRegion data, StatisticsAccumulator statistics){
-        int x_min = statistics.getXMin();
-        int y_min = statistics.getYMin();
-        int width = statistics.getXMax() - x_min + 1;
-        int heigt = statistics.getYMax() - y_min + 1;
+    public QImage InterpriteImageData(DecomposedRegion region, StatisticsAccumulator statistics){
+        RectBoundsOfInt box = region.getBox();
+
+        int x0 = box.getWest ();
+        int y0 = box.getNorth();
+
 
         QImage source = getSource();
         QImage.Format format = source.format();
-        //QImage result = new QImage(width, heigt, format);
-        //result.fill(0xaaaaaaaa);
-
-        QImage result = source.copy();
+        QImage result = new QImage(box.getWidth(), box.getHeight(), format);
+        result.fill(0xffffffff);
 
 
-        int sx;
-        int sy;
-        int se;
 
-        for (IPixelPack pack : data.getPackAcc()){
-            sx = pack.getStart();
-            se = pack.getEnd  ();
-            sy = pack.getY    ();
-
-            for (; sx < se ; ++sx){
-                result.setPixel(sx, sy, 0xff0000ff);
-            }
-
-        }
-        return result;
-/*
         int dx;
         int dy;
         int sx;
@@ -65,23 +50,20 @@ public class RegionInterpriter {
         int se;
         int rgb;
 
-        for (IPixelPack pack : data.getPackAcc()){
+        for (IPixelPack pack : region.getPackAcc()){
             sx = pack.getStart();
             se = pack.getEnd  ();
             sy = pack.getY    ();
-            dx = sx - x_min;
-            dy = sy - y_min;
+            dx = sx - x0;
+            dy = sy - y0;
 
             for (; sx < se ; ++sx, ++dx){
                 rgb = source.pixel(sx, sy);
-                System.err.println(
-                        "Pixel (" + sx + "; " + sy + ")->(" + dx + "; " + dy + ")" 
-                );
                 result.setPixel(dx, dy, rgb);
             }
 
         }
-        return result;*/
+        return result;
     }
 }
 

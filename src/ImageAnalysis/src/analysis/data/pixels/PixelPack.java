@@ -1,13 +1,10 @@
 package analysis.data.pixels;
 
-import analysis.data.pixels.IPixelPack;
 
 /**
- * Created by IntelliJ IDEA.
 * User: Nick
 * Date: 23.03.2009
 * Time: 19:15:55
-* To change this template use File | Settings | File Templates.
 */
 public class PixelPack implements IPixelPack {
     protected int xStart_m;

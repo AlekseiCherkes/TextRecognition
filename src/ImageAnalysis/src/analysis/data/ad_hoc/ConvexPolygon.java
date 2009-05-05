@@ -3,7 +3,7 @@
  * The content of this file is copyrighted by Kyriba Corporation and can not be *
  * reproduced, distributed, altered or used in any form, in whole or in part.   *
  ********************************************************************************/
-package analysis.data;
+package analysis.data.ad_hoc;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

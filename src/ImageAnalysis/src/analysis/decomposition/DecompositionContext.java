@@ -34,6 +34,7 @@ public class DecompositionContext {
             @Override
             public void onRegionFinished(int regionKey) {
                 DecomposedRegion region = regions_m.removeRegion(regionKey);
+                region.seal();
                 collector_m.onImageRegion(region, region.getStatAcc());
             }
 
