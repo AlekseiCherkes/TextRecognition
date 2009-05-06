@@ -1,9 +1,11 @@
 package analysis.decomposition;
 
 import analysis.data.acumulators.DecomposedRegion;
-import analysis.data.acumulators.StatisticsAccumulator;
-import analysis.data.pixels.IPixelPack;
 import analysis.data.ad_hoc.RectBoundsOfInt;
+import analysis.data.pixels.IPixelPack;
+import analysis.normalization.RegionNormalizer;
+import com.trolltech.qt.core.QSize;
+import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QImage;
 
 /**
@@ -17,9 +19,12 @@ public class RegionInterpriter {
 
 
     private QImage source_m;
+    private RegionNormalizer normalizer_m;
 
 
-    public RegionInterpriter(){}
+    public RegionInterpriter(){
+        normalizer_m  = new RegionNormalizer();
+    }
 
 
     public QImage getSource() {
@@ -29,7 +34,9 @@ public class RegionInterpriter {
         source_m= source;
     }
 
-    public QImage InterpriteImageData(DecomposedRegion region, StatisticsAccumulator statistics){
+    public <T> QImage InterpriteImageData(DecomposedRegion region, T context){
+//        return normalizer_m.normalize(getSource(), region);
+
         RectBoundsOfInt box = region.getBox();
 
         int x0 = box.getWest ();
@@ -41,6 +48,7 @@ public class RegionInterpriter {
         QImage result = new QImage(box.getWidth(), box.getHeight(), format);
         result.fill(0xffffffff);
 
+        QSize size = new QSize(20, 20);
 
 
         int dx;
@@ -60,10 +68,14 @@ public class RegionInterpriter {
             for (; sx < se ; ++sx, ++dx){
                 rgb = source.pixel(sx, sy);
                 result.setPixel(dx, dy, rgb);
+                if (dx < 0 || dy < 0 || dx >= box.getWidth() || dy >= box.getHeight()){
+                    System.err.println("Wrong coords: x="+ dx + ", y=" + dy);
+                }
             }
 
         }
-        return result;
+        
+        return result.scaled(size, Qt.AspectRatioMode.IgnoreAspectRatio);
     }
 }
 

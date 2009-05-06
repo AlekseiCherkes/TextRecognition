@@ -2,10 +2,10 @@ package analysis.normalization;
 
 import analysis.data.acumulators.DecomposedRegion;
 import analysis.data.acumulators.StatisticsAccumulator;
-import analysis.data.ad_hoc.RectBoundsOfInt;
 import com.trolltech.qt.gui.QMatrix;
 
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 
 /**
  * User: Nick
@@ -14,15 +14,8 @@ import java.awt.geom.AffineTransform;
  */
 public class TransformationProvider {
 
-    private class AxisesInfo {
-        public double mainAxis_dy;
-        public double mainAxis_dx;
-        public double mainAxis_len;
-        public double secondaryAxis_len;
-    }
 
-
-    public AffineTransform provideTransform(DecomposedRegion region){
+    public AxisesInfo provideAxisesInfo(DecomposedRegion region){
         StatisticsAccumulator stat = region.getStatAcc();
         double Mx  = stat.getMx();
         double My  = stat.getMy();
@@ -30,21 +23,34 @@ public class TransformationProvider {
         double Dy  = stat.getDy(My);
         double Kxy = stat.getKxy(Mx, My);
 
-        AxisesInfo axises =  determineMainAxises(Dx, Dy, Kxy);
+        return  determineMainAxises(Dx, Dy, Kxy);
+    }
 
-        RectBoundsOfInt box = region.getBox();
-        double anchorX = 0.5 * box.getWidth ();
-        double anchorY = 0.5 * box.getHeight();
 
+    public AffineTransform provideAwtTransform(AxisesInfo axises, Point2D anchor){
         AffineTransform transform = new AffineTransform();
         transform.setToRotation(
                 axises.mainAxis_dx,
                 axises.mainAxis_dy,
-                anchorX,
-                anchorY
+                anchor.getX(),
+                anchor.getY()
         );
 
         return transform;
+    }
+
+
+    public QMatrix provideQtTransform(AxisesInfo axises, Point2D anchor){
+        AffineTransform transform = new AffineTransform();
+        transform.setToRotation(
+                axises.mainAxis_dx,
+                axises.mainAxis_dy,
+                anchor.getX(),
+                anchor.getY()
+        );
+
+        QMatrix qtransform = toQtTransform(transform);
+        return qtransform;
     }
 
 
@@ -75,7 +81,7 @@ public class TransformationProvider {
                 axises.mainAxis_dx       = 2 * Kxy;
 
             } else {
-                axises.mainAxis_dy       = Dy - Dx - discriminant;  //TODO: may be " ... = Dy - Dx + discriminant;"
+                axises.mainAxis_dy       = Dy - Dx + discriminant;  //TODO: may be " ... = Dy - Dx + discriminant;"
                 axises.mainAxis_dx       = 2 * Kxy;
             }
 

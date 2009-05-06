@@ -1,16 +1,14 @@
+import jblas.matrices.Matrix;
+import neuro.activation_func.Sigmoid;
 import neuro.adapter.PerceptronTutor;
 import neuro.adapter.ReadonlyNetAdapter;
 import neuro.layer.ActiveLayer;
-import neuro.activation_func.Sigmoid;
-import neuro.net.RecognizedType;
 import neuro.net.Perceptron;
+import neuro.net.RecognizedType;
 
-
-import java.util.ArrayList;
-import java.io.PrintWriter;
 import java.io.File;
-
-import jblas.matrices.Matrix;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -54,7 +52,7 @@ public class TestingClass {
                 tutor.setTeachingPath( "data//for_teaching//teaching_set" );
                 tutor.setControlPath( "data//for_teaching//control_set" );
                 tutor.setBriefLog( "data//brief_log.txt" );
-                tutor.setDetailedLog( "data//detailed_log.txt");
+                //tutor.setDetailedLog( "data//detailed_log.txt");
                 tutor.setOutputAccuracy( output_accuracy );
                 tutor.setIdleAccuracy( idle_accuracy );
                 tutor.setPrintAccuracy( 6 );

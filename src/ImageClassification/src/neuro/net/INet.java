@@ -2,7 +2,7 @@ package neuro.net;
 
 import jblas.matrices.Matrix;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /** @author    Vadim Shpakovsky. */
 
@@ -14,7 +14,7 @@ public interface INet extends Cloneable {
     int                 getInputWidth();
     int                 getInputHeight();
     int                 getOutputSize();
-    ArrayList< String > getRecognizingTypes();
+    List< String >      getRecognizingTypes();
 
     Matrix              recognize( Matrix x ) throws Exception;
     RecognizedType      recognizeClass( Matrix x ) throws Exception;

@@ -1,14 +1,14 @@
 package neuro.net;
 
 import jblas.matrices.Matrix;
-
-import java.util.ArrayList;
-import java.io.ObjectOutputStream;
-import java.io.FileOutputStream;
-
+import neuro.activation_func.Sigmoid;
 import neuro.layer.ActiveLayer;
 import neuro.layer.Layer;
-import neuro.activation_func.Sigmoid;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Vadim Shpakovsky.
@@ -24,7 +24,7 @@ public class Perceptron implements INet{
      // Contains all classes that this network can recognize.
     // Position's number in this collection indicate number of output for it class in network.
     //private TreeMap< Integer, String > output_types;
-    private ArrayList< String > output_types;
+    private List< String > output_types;
 
     /**Construct empty static perceptron.*/
     public                      Perceptron(){
@@ -244,7 +244,7 @@ public class Perceptron implements INet{
     /**Set types, that net can recognize.
      * @param types      List of types.
      */
-    public void  setRecognizingTypes( ArrayList< String > types ){
+    public void  setRecognizingTypes( List< String > types ){
         output_types = new ArrayList< String >();
         for ( String type : types ){
             output_types.add( type );

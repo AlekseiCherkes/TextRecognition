@@ -1,9 +1,7 @@
 package analysis.decomposition;
 
+import analysis.data.ad_hoc.RectBoundsOfInt;
 import com.trolltech.qt.gui.QImage;
-import analysis.decomposition.IRegionCollector;
-import analysis.decomposition.DecompositionContext;
-import analysis.data.acumulators.StatisticsAccumulator;
 
 /**
  * @author M-NPO
@@ -26,12 +24,15 @@ public class DecompositionFasade {
 
         for (int i=0 ; i<N ; ++i){
             QImage cloned = source.clone();
-            StatisticsAccumulator stat = new StatisticsAccumulator();
-            stat.xMin_m = i * (2 * dw + w) + dw;
-            stat.xMax_m = (i + 1) * (2 * dw + w) - dw;
-            stat.yMin_m = h1;
-            stat.yMax_m = h2;
-            handler.onImageRegion(cloned, stat);
+            RectBoundsOfInt box = new RectBoundsOfInt();
+
+
+            box.setWest(i * (2 * dw + w) + dw);
+            box.setNorth(h1);
+            box.setSouth(h2);
+            box.setEast((i + 1) * (2 * dw + w) - dw);
+
+            handler.onImageRegion(null, cloned);
         }
         
     }

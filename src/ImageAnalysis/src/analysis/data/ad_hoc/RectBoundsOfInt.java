@@ -3,6 +3,8 @@ package analysis.data.ad_hoc;
 import analysis.data.acumulators.IMergible;
 import analysis.data.pixels.IPixelPack;
 
+import java.awt.geom.Point2D;
+
 /** It is one more product of the Java uglyness,
  *  inspired by it and cursed with it.
  *  For it is ugly to implement such manually.
@@ -75,6 +77,13 @@ public class RectBoundsOfInt implements IMergible<RectBoundsOfInt> {
     }
 
 
+    public Point2D getCenter(){
+        return new Point2D.Float(
+                0.5f * (west  + east ),
+                0.5f * (north + south)
+                );
+    }
+    
 
     public boolean contains(int x, int y){
         return y >= north
@@ -133,6 +142,13 @@ public class RectBoundsOfInt implements IMergible<RectBoundsOfInt> {
         east  = (int) Math.max(east , Math.ceil (other.getEast ()));
     }
 
+
+     public void expandAroundNewCenter(float centerX, float centerY){
+        north = Math.min(north, (int) Math.floor(centerY - (south-centerY)));
+        west  = Math.min(west , (int) Math.floor(centerX - (east -centerX)));
+        south = Math.max(south, (int) Math.ceil (centerY + (centerY-north)));
+        east  = Math.max(east , (int) Math.ceil (centerX + (centerX- west)));
+    }
 
     @Override
     public RectBoundsOfInt clone(){

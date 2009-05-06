@@ -2,6 +2,8 @@ package analysis.data.ad_hoc;
 
 import analysis.data.pixels.IPixelPack;
 
+import java.awt.geom.Point2D;
+
 
 public class RectBoundsOfFloat implements Cloneable{
     private float north;
@@ -98,7 +100,12 @@ public class RectBoundsOfFloat implements Cloneable{
             && rect.east  <= east;
     }
 
-
+    public Point2D getCenter(){
+        return new Point2D.Float(
+                0.5f * (west  + east ),
+                0.5f * (north + south)
+                );
+    }
 
     public void merge(float x, float y){
         north = Math.min(north, y  );
@@ -123,6 +130,14 @@ public class RectBoundsOfFloat implements Cloneable{
         west  = Math.min(west , other.west );
         south = Math.max(south, other.south);
         east  = Math.max(east , other.east );
+    }
+
+
+    public void expandAroundNewCenter(float centerX, float centerY){
+        north = Math.min(north, centerY - (south-centerY));
+        west  = Math.min(west , centerX - (east -centerX));
+        south = Math.max(south, centerY + (centerY-north));
+        east  = Math.max(east , centerX + (centerX- west)); 
     }
 
     @Override

@@ -1,6 +1,7 @@
 package recognition;
 
-import analysis.data.acumulators.StatisticsAccumulator;
+import analysis.data.acumulators.DecomposedRegion;
+import analysis.data.ad_hoc.RectBoundsOfInt;
 import analysis.decomposition.*;
 import com.trolltech.qt.core.*;
 import com.trolltech.qt.gui.QAbstractItemView.ScrollHint;
@@ -10,6 +11,7 @@ import neuro.net.RecognizedType;
 import processing.Binarization;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainWindow extends QMainWindow {
     private Ui_MainWindow ui = new Ui_MainWindow();
@@ -19,7 +21,7 @@ public class MainWindow extends QMainWindow {
 
     public static final QSize IMAGE_SIZE = new QSize(20, 20);
 
-    private ArrayList<StatisticsAccumulator> statisticsList;
+    private List<RectBoundsOfInt> boxes;
 
     private ReadonlyNetAdapter netAdapter;
 
@@ -30,14 +32,17 @@ public class MainWindow extends QMainWindow {
         private int identity;
 
         @Override
-        public void onImageRegion(QImage region, StatisticsAccumulator statistics) {
-            statisticsList.add(statistics);
+        public void onImageRegion(DecomposedRegion region, QImage img) {
+            boxes.add(region.getBox());
+
+            img.save("data/decomposed/" + identity +".png");
+            identity++;
 
             String symbol = null;
             Double probability = null;
             if (netAdapter != null) {
                 try {
-                    RecognizedType type = netAdapter.recognize(region);
+                    RecognizedType type = netAdapter.recognize(img);
                     symbol = type.getType();
                     probability = type.getAccuracy();
                 }
@@ -46,7 +51,7 @@ public class MainWindow extends QMainWindow {
                 }
             }
 
-            imageModel.addRow(region, probability, symbol);
+            imageModel.addRow(img, probability, symbol);
         }
     };
 
@@ -76,9 +81,8 @@ public class MainWindow extends QMainWindow {
         QPainter p = new QPainter(image);
         p.setBrush(new QColor(255, 0, 0, 127));
         p.setPen(new QColor(0, 0, 0, 0));
-        for(StatisticsAccumulator stat : statisticsList) {
-            p.drawRect(stat.getXMin(), stat.getYMin(),
-                       stat.getXMax() - stat.getXMin() + 1, stat.getYMax() - stat.getYMin() + 1);
+        for(RectBoundsOfInt box : boxes) {
+            p.drawRect(box.getWest(), box.getNorth(), box.getWidth(), box.getHeight());
         }
         p.end();
         return image;
@@ -93,7 +97,7 @@ public class MainWindow extends QMainWindow {
             imageModel.clearRows();
             QImage image = new QImage();
             if (image.load(info.absoluteFilePath())) {
-                statisticsList = new ArrayList<StatisticsAccumulator>();                
+                boxes = new ArrayList<RectBoundsOfInt>();                
                 decomposer.decompose(image, collector);
                 view.setImages(image, drawStatistics(Binarization.work(image)));
                 imageModel.resetRows();

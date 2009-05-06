@@ -82,6 +82,8 @@ public class DecomposedRegion implements IMergible<DecomposedRegion>{
 
 
     private void upadteEdge(){
+        if (currentLayer_m.getSpan() == 0) return;
+        
         edgeAcc_m.takeLine(
             currentLayer_m.getStart(),
             currentLayer_m.getEnd()-1,

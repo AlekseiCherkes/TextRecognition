@@ -2,7 +2,7 @@ package neuro.net;
 
 import jblas.matrices.Matrix;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Vadim Shpakovsky.
@@ -43,7 +43,7 @@ public class ReadonlyAdapter implements INet{
         return source_m.getOutputSize();
     }
 
-    public ArrayList<String> getRecognizingTypes() {
+    public List<String> getRecognizingTypes() {
         return source_m.getRecognizingTypes();
     }
 

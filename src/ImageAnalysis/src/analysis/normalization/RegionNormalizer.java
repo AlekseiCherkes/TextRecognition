@@ -1,17 +1,14 @@
 package analysis.normalization;
 
-import analysis.data.acumulators.DecomposedRegion;
-import analysis.data.acumulators.EdgeAccumulator;
+import analysis.data.acumulators.*;
 import analysis.data.ad_hoc.RectBoundsOfFloat;
 import analysis.data.ad_hoc.RectBoundsOfInt;
 import analysis.data.pixels.IPixelPack;
 import com.trolltech.qt.core.Qt;
-import com.trolltech.qt.gui.QImage;
-import com.trolltech.qt.gui.QMatrix;
+import com.trolltech.qt.gui.*;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
+import java.awt.geom.*;
 
 /**
  * User: Nick
@@ -40,40 +37,78 @@ public class RegionNormalizer {
     }
 
 
-    private AffineTransform getTransformForRegion(DecomposedRegion region){
-        return transformationProvider_m.provideTransform(region);
+    private Point2D determineCenter(DecomposedRegion region){
+        StatisticsAccumulator stat = region.getStatAcc();
+        return new Point2D.Double(stat.getMx(), stat.getMy());
     }
 
 
 
-
     public QImage normalize(QImage srcImg, DecomposedRegion region){
-        AffineTransform awtTransform = getTransformForRegion(region);
+        AxisesInfo axises = transformationProvider_m.provideAxisesInfo(region);
+        Point2D    center = determineCenter(region);
 
-        EdgeAccumulator edge = region.getEdgeAcc();
-        Shape           hull = edge  .buildConvexPolygon();
-        PathIterator    iter = hull  .getPathIterator(awtTransform);
+        AffineTransform draftTransform = transformationProvider_m.provideAwtTransform(axises, center);
+        RectBoundsOfFloat pathBounds   = estimateTransformedBounds(region, draftTransform);
+        RectBoundsOfInt   dstBounds    = pathBounds.toIntBounds();
+        dstBounds.expandAroundNewCenter((float)center.getX(), (float)center.getY());
 
-        RectBoundsOfFloat pathBounds = estimatePathBounds(iter);
-        RectBoundsOfInt   dstBounds  = pathBounds.toIntBounds();
-        RectBoundsOfInt   regBounds  = region.getBox();
+        RectBoundsOfInt   regBounds = region.getBox();
+        RectBoundsOfInt   srcBounds = regBounds.clone();
 
-
-        RectBoundsOfInt   srcBounds  = regBounds.clone();
         srcBounds.merge(dstBounds);
 
         QImage tmpImg = copyRegion(srcImg, srcBounds, region.getPackAcc());
+        //return tmpImg;
 
+        Point2D newCenter = new Point2D.Double(
+                center.getX() - srcBounds.getWest(),
+                center.getY() - srcBounds.getNorth()
+        );
+        QMatrix qtTransform = transformationProvider_m.provideQtTransform(axises, newCenter);
 
-        QMatrix qtTransform = TransformationProvider.toQtTransform(awtTransform);
+        
         tmpImg = tmpImg.transformed(qtTransform, Qt.TransformationMode.SmoothTransformation);
+        copyDebug(tmpImg, region.getPackAcc(), srcBounds.getWest(), srcBounds.getNorth());
 
-        return tmpImg.copy(
-                dstBounds.getWest  (),
-                dstBounds.getNorth (),
-                dstBounds.getWidth (),
+        QPainter painter = new QPainter(tmpImg);
+        painter.setPen(QColor.darkGreen);
+        painter.drawRect(
+                dstBounds.getWest() - srcBounds.getWest(),
+                dstBounds.getNorth() - srcBounds.getNorth(),
+                dstBounds.getWidth(),
                 dstBounds.getHeight()
         );
+
+        painter.setPen(QColor.cyan);
+        painter.drawRect(
+                regBounds.getWest() - srcBounds.getWest(),
+                regBounds.getNorth() - srcBounds.getNorth(),
+                regBounds.getWidth(),
+                regBounds.getHeight()
+        );
+
+        painter.setPen(QColor.black);
+        painter.drawRect(
+                0,
+                0,
+                srcBounds.getWidth(),
+                srcBounds.getHeight()
+        );
+
+        painter.setPen(QColor.darkBlue);
+        painter.drawRect((int)newCenter.getX(), (int)newCenter.getY(),2,2);
+        
+        painter.end();
+
+        return tmpImg;
+
+//        return tmpImg.copy(
+//                dstBounds.getWest  (),
+//                dstBounds.getNorth (),
+//                dstBounds.getWidth (),
+//                dstBounds.getHeight()
+//        );
     }
 
 
@@ -114,6 +149,37 @@ public class RegionNormalizer {
                 dstImg.setPixel(dx, dy, rgb);
             }
         }
+    }
+
+
+     private void copyDebug(QImage dstImg, Iterable<IPixelPack> packs, int x0, int y0){
+        int dx;
+        int dy;
+        int sx;
+        int sy;
+        int se;
+        int rgb = 0xdfff0000;
+
+        for (IPixelPack pack : packs){
+            sx = pack.getStart();
+            se = pack.getEnd  ();
+            sy = pack.getY    ();
+            dx = sx - x0;
+            dy = sy - y0;
+
+            for (; sx < se ; ++sx, ++dx){
+                dstImg.setPixel(dx, dy, rgb);
+            }
+        }
+    }
+
+
+    private RectBoundsOfFloat estimateTransformedBounds(DecomposedRegion region, AffineTransform transform){
+        EdgeAccumulator edge = region.getEdgeAcc();
+        Shape           hull = edge  .buildConvexPolygon();
+        PathIterator    iter = hull  .getPathIterator(transform);
+
+        return estimatePathBounds(iter);
     }
 
 

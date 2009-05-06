@@ -1,13 +1,10 @@
 package neuro.io;
 
 import jblas.matrices.Matrix;
-
-import java.util.*;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-
 import neuro.adapter.TeachingCase;
+
+import java.io.*;
+import java.util.*;
 
 public class DataProvider {
 
@@ -72,7 +69,6 @@ public class DataProvider {
     public DataProvider(){
         loadedData_m = Collections.emptyMap();
         codec_m = new BufferedImageCodec();
-        types_m = new ArrayList<String>();
     }
 
 
@@ -109,8 +105,10 @@ public class DataProvider {
         codec_m = codec;
     }
 
-    public Set<String> getTypes(){
-        return loadedData_m.keySet();
+    public List<String> getTypes(){
+        //TODO : it is VERY ugly!
+        return new ArrayList<String>(loadedData_m.keySet());
+
     }
 
     public int getDataCount(){
@@ -129,8 +127,6 @@ public class DataProvider {
              List<TeachingCase<Matrix, String>> valList = loadGroup(child, childName);
              if (valList.isEmpty()) continue;
              loadedMap.put(childName, valList);
-            //TODO remove it.
-            types_m.add( childName );
             
              if (loadedMap.size() == maxGroups) break;
         }

@@ -1,7 +1,6 @@
 package analysis.decomposition;
 
 import analysis.data.acumulators.DecomposedRegion;
-import analysis.data.acumulators.StatisticsAccumulator;
 import analysis.image.IGreyImage;
 import analysis.image.QImageAdapter;
 import com.trolltech.qt.gui.QImage;
@@ -29,9 +28,9 @@ public class TrueDecomposition extends DecompositionFasade {
         decomposer.decompose(greyImage,
                 new IRegionCollector<DecomposedRegion>(){
                     @Override
-                    public void onImageRegion(DecomposedRegion region, StatisticsAccumulator statistics) {
-                        QImage img = interpriter_m.InterpriteImageData(region, statistics);
-                        handler.onImageRegion(img, statistics);
+                    public void onImageRegion(DecomposedRegion region, DecomposedRegion context) {
+                        QImage img = interpriter_m.InterpriteImageData(region, context);
+                        handler.onImageRegion(region, img);
                     }
                 }
         );
