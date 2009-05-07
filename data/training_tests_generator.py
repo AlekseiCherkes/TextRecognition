@@ -31,6 +31,8 @@ fgcolor = "rgb(0, 0, 0)"
 font = ImageFont.truetype("arial.ttf", font_size )
 
 
+
+
 def symbol_generate( c ):
     ''' Generate modification of symbol 'c'.
         Return type: Image  '''
